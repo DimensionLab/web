@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import styled from 'styled-components'
 import Layout from './Layout'
 
 export default function Home() {
