@@ -16,7 +16,7 @@ const Footer = () => {
   return (
     <FooterWrapper>
       <div>DimensionLab</div>
-      <div>© 2021 All rights reserved</div>
+      <div>All rights reserved</div>
     </FooterWrapper>
   );
 };
