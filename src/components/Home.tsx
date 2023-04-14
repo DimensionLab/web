@@ -1,5 +1,8 @@
 import Head from 'next/head'
 import Layout from './Layout'
+import Footer from './homepage/Footer'
+import Header from './homepage/Header'
+import Main from './homepage/Main'
 
 export default function Home() {
   return (
@@ -12,11 +15,9 @@ export default function Home() {
       </Head>
 
       <Layout>
-        <h1>Header</h1>
-        <h1>Section 1</h1>
-        <h1>Section2</h1>
-        <h1>Section 3</h1>
-        <h1>Footer</h1>
+        <Header />
+        <Main />
+        <Footer />
       </Layout>
     </>
   )
