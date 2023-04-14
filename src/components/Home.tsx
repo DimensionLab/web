@@ -11,7 +11,13 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Layout children={undefined}></Layout>
+      <Layout>
+        <h1>Header</h1>
+        <h1>Section 1</h1>
+        <h1>Section2</h1>
+        <h1>Section 3</h1>
+        <h1>Footer</h1>
+      </Layout>
     </>
   )
 }
