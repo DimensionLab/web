@@ -5,14 +5,14 @@ const HeaderWrapper = styled.header`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem 0;
-  background-color: #131314;
+  padding: 0.5rem 0;
+  background-color: #0D101B;
   width: 100%;
   color: #fff;
   gap: 1rem;
 
   .title {
-    font-size: 1.5rem;
+    font-size: 0.8rem;
     align-self: flex-start;
     margin-left: 1rem;
   }
