@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Intro from "./mainContent/Intro";
 
 const MainWrapper = styled.main`
   display: grid;
@@ -6,14 +7,15 @@ const MainWrapper = styled.main`
   align-items: center;
   justify-items: center;
   min-height: 90vh;
+  width: 100%;
+  height: 100%;
 `;
 
 const Main = () => {
   return (
     <MainWrapper>
-      {Array.from({ length: 4 }, (_, i) => (
-        <div key={i}>Section {i + 1}</div>
-      ))}
+      <Intro />
+      <div>placeholder</div>
     </MainWrapper>
   );
 };
