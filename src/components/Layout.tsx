@@ -7,19 +7,22 @@ const GlobalStyle = createGlobalStyle`
     background-color: black;
     color: #fff;
     font-family: Arial, sans-serif;
-
+    width: 100%;
     display: grid;
     grid-auto-flow: row;
+  }
+  * {
+    box-sizing: border-box;
   }
 `;
 
 const LayoutWrapper = styled.div`
-  max-width: 100%;
+  // max-width: 100%;
   margin: 0 auto;
   display: grid;
   grid-auto-flow: row;
   min-height: 100vh;
-
+  width: 100%;
   align-items: center;
   justify-items: center;
 `;

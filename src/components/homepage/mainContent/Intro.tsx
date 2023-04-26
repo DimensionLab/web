@@ -9,7 +9,7 @@ const IntroWrapper = styled.section`
   color: #fff;
   gap: 1rem;
   width: 100%;
-  margin-left: 4rem;
+  padding-left: 3rem;
 
   .logo {
     img{
