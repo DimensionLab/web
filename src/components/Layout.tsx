@@ -10,6 +10,7 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
     display: grid;
     grid-auto-flow: row;
+    background-color: #0D101B;
   }
   * {
     box-sizing: border-box;
@@ -17,7 +18,6 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const LayoutWrapper = styled.div`
-  // max-width: 100%;
   margin: 0 auto;
   display: grid;
   grid-auto-flow: row;
@@ -25,6 +25,7 @@ const LayoutWrapper = styled.div`
   width: 100%;
   align-items: center;
   justify-items: center;
+  gap: 5rem;
 `;
 
 interface LayoutProps {

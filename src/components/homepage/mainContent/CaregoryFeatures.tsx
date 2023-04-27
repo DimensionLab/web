@@ -5,21 +5,30 @@ const CategoryFeaturesWrapper = styled.section`
   grid-template-columns: repeat(4, 1fr);
   padding-left: 3rem;
   padding-right: 3rem;
+  row-gap: 0.5rem;
+  column-gap: 0.5rem;
 
   .card {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    
+    background-color: #010012;
+    padding: 1rem;
+    height: 25vh;
+    border-radius: 4px;
+    justify-content: end;
 
     .heading {
       font-size: 1.5rem;
       font-weight: 700;
+      border-bottom: 2px solid #2460FF;
+      padding-bottom: 1rem;
     }
     .description{
+      padding-top: 1rem;
       font-size: 0.8rem;
-      color: #D0D2DF;
+      color: #7C7F8B;
     }
+  }
 `;
 
 interface CardProps {
