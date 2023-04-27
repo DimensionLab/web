@@ -8,6 +8,14 @@ const CategoryFeaturesWrapper = styled.section`
   row-gap: 0.5rem;
   column-gap: 0.5rem;
 
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  @media (min-width: 769px) and (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .card {
     display: flex;
     flex-direction: column;
@@ -16,18 +24,45 @@ const CategoryFeaturesWrapper = styled.section`
     height: 40vh;
     border-radius: 4px;
     justify-content: end;
+    align-items: space-between;
+    position: relative;
 
-    .heading {
-      font-size: 1.5rem;
-      font-weight: 700;
-      border-bottom: 2px solid #2460FF;
-      padding-bottom: 1rem;
+    .blank-half {
+      width: 100%;
+      height: 50%;
     }
-    .description{
-      padding-top: 1rem;
-      font-size: 0.8rem;
-      color: #7C7F8B;
+
+    .content-half {
+      width: 100%;
+      height: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+      
+
+      .heading {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+      .line{
+        position: absolute;
+        bottom: 5rem;
+        width: 90%;
+        height: 4px;
+        background-color: #2460FF;
+        border-radius: 4px;
+        color: #2460FF;
+      }
+      .description{
+        margin-top: 1rem;
+        font-size: 0.8rem;
+        color: #7C7F8B;
+        padding-bottom: 1rem;
+      }
     }
+
   }
 `;
 
@@ -38,21 +73,25 @@ interface CardProps {
 
 const CategoryFeatures = () => {
   const cardData: CardProps[] = [
-    { title: 'Card 1', content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
-    { title: 'Card 2', content: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
-    { title: 'Card 3', content: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.' },
-    { title: 'Card 4', content: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.' },
-    { title: 'Card 5', content: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
-    { title: 'Card 6', content: 'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.' },
-    { title: 'Card 7', content: 'Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.' },
-    { title: 'Card 8', content: 'Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus.' },
+    { title: 'SPEED & EFFICIENCY', content: 'Our software responds to your input in real-time, which means interactive visualization - nothing less.' },
+    { title: 'ELASTIC COMPUTE', content: 'Use as much computing power as you need - from a single GPU to supercomputer. All of the number-crunching happens in the cloud.' },
+    { title: 'PHYSICS & AI', content: 'We combine state of the art physics simulation with machine learning.' },
+    { title: 'EVOLVING SOFTWARE', content: 'Using our products by individuals and companies with diverse goals evolves our software automatically. We sewed this evolutionary approach into the fabric of our products.' },
+    { title: 'CLEAN DESIGN', content: 'We are completely rethinking how engineering and scientific software could look and feel.' },
+    { title: 'WEB BASED', content: 'No need to install anything or be limited to number of specific platforms. Everything happens through web interface.' },
+    { title: 'ANALYTICS', content: 'Metrics are key. We measure everything that can have value for you and show it to you in a meaningful way.' },
+    { title: 'UNLOCKING POSSIBILITIES', content: 'We want to empower as many people as possible by making tools they can use to develop technology of the future.' },
   ];
   return (
     <CategoryFeaturesWrapper>
       {cardData.map((card) => (
         <div key={card.title} className="card">
-          <div className="heading">{card.title}</div>
-          <div className="description">{card.content}</div>
+          <div className="blank-half"></div>
+          <div className="content-half">
+            <div className="heading">{card.title}</div>
+            <hr className="line"/>
+            <div className="description">{card.content}</div>
+          </div>
         </div>
       ))}
     </CategoryFeaturesWrapper>
