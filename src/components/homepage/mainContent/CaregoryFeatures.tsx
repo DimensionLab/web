@@ -13,7 +13,7 @@ const CategoryFeaturesWrapper = styled.section`
     flex-direction: column;
     background-color: #010012;
     padding: 1rem;
-    height: 25vh;
+    height: 40vh;
     border-radius: 4px;
     justify-content: end;
 
