@@ -8,61 +8,67 @@ const CategoryFeaturesWrapper = styled.section`
   row-gap: 0.5rem;
   column-gap: 0.5rem;
 
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(1, 1fr);
-  }
-
-  @media (min-width: 769px) and (max-width: 1024px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .card {
     display: flex;
     flex-direction: column;
     background-color: #010012;
     padding: 1rem;
-    height: 40vh;
     border-radius: 4px;
-    justify-content: end;
-    align-items: space-between;
-    position: relative;
+    justify-content: flex-end;
+    align-items: flex-start;
+    align-content: flex-end;
+    height: 15rem;
+    overflow: hidden;
+    
 
-    .blank-half {
-      width: 100%;
-      height: 50%;
-    }
-
-    .content-half {
-      width: 100%;
-      height: 50%;
+    .heading-line{
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      align-items: flex-start;
-      
+      width: 100%;
+      margin-bottom: 1rem;
 
       .heading {
         font-size: 1.3rem;
         font-weight: 700;
-        margin-bottom: 0.5rem;
       }
       .line{
-        position: absolute;
-        bottom: 5rem;
-        width: 90%;
+        display: block;
+        width: 100%;
         height: 4px;
         background-color: #2460FF;
         border-radius: 4px;
         color: #2460FF;
       }
-      .description{
-        margin-top: 1rem;
-        font-size: 0.8rem;
-        color: #7C7F8B;
+    }
+    .description{
+      font-size: 0.8rem;
+      color: #7C7F8B;
+      padding-bottom: 1rem;
+      height: 3rem;
+      display: inline-block;
+    }
+
+  }
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(1, 1fr);
+
+    .card {
+      .description {
+        height: 5rem;
+        padding-bottom: 2rem;
+      }
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+
+    .card {
+      .description {
+        font-size: 0.7rem;
         padding-bottom: 1rem;
       }
     }
-
   }
 `;
 
@@ -86,12 +92,11 @@ const CategoryFeatures = () => {
     <CategoryFeaturesWrapper>
       {cardData.map((card) => (
         <div key={card.title} className="card">
-          <div className="blank-half"></div>
-          <div className="content-half">
+          <div className="heading-line">
             <div className="heading">{card.title}</div>
             <hr className="line"/>
-            <div className="description">{card.content}</div>
           </div>
+          <div className="description">{card.content}</div>
         </div>
       ))}
     </CategoryFeaturesWrapper>
