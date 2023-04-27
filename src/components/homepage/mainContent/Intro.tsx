@@ -10,6 +10,7 @@ const IntroWrapper = styled.section`
   gap: 1rem;
   width: 100%;
   padding-left: 3rem;
+  padding-right: 3rem;
 
   .logo {
     img{
@@ -18,7 +19,7 @@ const IntroWrapper = styled.section`
     }
   }
   .heading {
-    font-size: 2rem;
+    font-size: 1.7rem;
     font-weight: 700;
     max-width: 30ch;
     margin-bottom: 0.3rem;
