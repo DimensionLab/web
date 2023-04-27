@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Intro from "./mainContent/Intro";
 import CaregoryFeatures from "./mainContent/CaregoryFeatures";
+import SimlIntro from "./mainContent/SimlIntro";
 
 const MainWrapper = styled.main`
   display: grid;
@@ -24,8 +25,8 @@ const Main = () => {
   return (
     <MainWrapper>
       <Intro />
-      {/* <div className="placeholder">placeholder</div> */}
       <CaregoryFeatures />
+      <SimlIntro />
     </MainWrapper>
   );
 };
