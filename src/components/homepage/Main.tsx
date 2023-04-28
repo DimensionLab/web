@@ -29,6 +29,7 @@ const Main = () => {
       <CaregoryFeatures />
       <SimlIntro />
       <ConnectWithUs />
+      <CaregoryFeatures />
     </MainWrapper>
   );
 };
