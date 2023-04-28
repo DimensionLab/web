@@ -39,6 +39,7 @@ const ConnectWithUsWrapper = styled.section`
     width: 100%;
     flex-direction: column;
     align-items: flex-start;
+    gap: 1.2rem;
 
     br {
       padding: 2rem;
@@ -70,9 +71,9 @@ const ConnectWithUs = () => {
         <div className="big-title">Do you use any physics-based simulation software?</div>
       </div>
       <div className="description-box">
-        We want to learn from you. <br />
-        We would love to hear from experts like you about your experience with using modeling and simulation software. <br />
-        This will help us make informed decision when designing and developing ground-breaking products.
+        <div>We want to learn from you.</div>
+        <div>We would love to hear from experts like you about your experience with using modeling and simulation software.</div>
+        <div>This will help us make informed decision when designing and developing ground-breaking products.</div>
       </div>
       <img src="/assets/ask-questions-picture.svg" alt="pictogram - let us ask you 9 quick questions" className="ask-questions" />
     </ConnectWithUsWrapper>
