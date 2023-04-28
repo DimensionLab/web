@@ -20,8 +20,8 @@ const CategoryFeaturesWrapper = styled.section`
     // align-content: flex-end;
     height: 15rem;
     overflow: hidden;
-    
 
+    
     .heading-line{
       display: flex;
       flex-direction: column;
@@ -48,7 +48,16 @@ const CategoryFeaturesWrapper = styled.section`
       height: 3rem;
       display: inline-block;
     }
+  }
 
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 1rem;
+  }
+
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 1rem;
   }
 `;
 

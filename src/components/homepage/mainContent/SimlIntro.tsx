@@ -20,14 +20,12 @@ const SimlIntroWrapper = styled.section`
     font-size: 2rem;
     font-weight: 700;
     color: #fff;
-    // padding-bottom: 1rem;
   }
 
   .heading{
     font-size: 1.4rem;
     font-weight: 700;
     color: #fff;
-    // max-width: 40%;
     text-align: start;
   }
 `;
