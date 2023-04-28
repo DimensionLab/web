@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Intro from "./mainContent/Intro";
 import CaregoryFeatures from "./mainContent/CaregoryFeatures";
 import SimlIntro from "./mainContent/SimlIntro";
+import ConnectWithUs from "./mainContent/ConnectWithUs";
 
 const MainWrapper = styled.main`
   display: grid;
@@ -27,6 +28,7 @@ const Main = () => {
       <Intro />
       <CaregoryFeatures />
       <SimlIntro />
+      <ConnectWithUs />
     </MainWrapper>
   );
 };
