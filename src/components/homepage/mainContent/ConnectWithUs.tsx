@@ -32,13 +32,24 @@ const ConnectWithUsWrapper = styled.section`
   }
 
   .description-box{
-    text-align: center;
+    text-align: start;
+    font-size: 0.8rem;
+    color: #EBEDFA;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+
+    br {
+      margin: 0.5rem 0;
+    }
   }
 
   .ask-questions{
-    display: block;
-    margin: auto;
+    display: flex;
     width: 10rem;
+    justify-self: end;
+    align-self: center;
   }
 `;
 
