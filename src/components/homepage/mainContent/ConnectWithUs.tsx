@@ -9,6 +9,9 @@ const ConnectWithUsWrapper = styled.section`
   align-content: center;
   justify-content: center;
   min-height: 30vh;
+  background-color: #010012;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 
   .headings{
     text-align: center;
