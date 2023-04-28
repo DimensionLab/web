@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const CategoryFeaturesWrapper = styled.section`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   padding-left: 3rem;
   padding-right: 3rem;
   row-gap: 0.5rem;
@@ -13,10 +13,11 @@ const CategoryFeaturesWrapper = styled.section`
     flex-direction: column;
     background-color: #010012;
     padding: 1rem;
+    padding-bottom: 3.5rem;
     border-radius: 4px;
     justify-content: flex-end;
     align-items: flex-start;
-    align-content: flex-end;
+    // align-content: flex-end;
     height: 15rem;
     overflow: hidden;
     
@@ -48,27 +49,6 @@ const CategoryFeaturesWrapper = styled.section`
       display: inline-block;
     }
 
-  }
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(1, 1fr);
-
-    .card {
-      .description {
-        height: 5rem;
-        padding-bottom: 2rem;
-      }
-    }
-  }
-
-  @media (min-width: 769px) and (max-width: 1024px) {
-    grid-template-columns: repeat(2, 1fr);
-
-    .card {
-      .description {
-        font-size: 0.7rem;
-        padding-bottom: 1rem;
-      }
-    }
   }
 `;
 

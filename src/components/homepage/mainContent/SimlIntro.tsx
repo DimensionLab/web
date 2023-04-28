@@ -13,7 +13,7 @@ const SimlIntroWrapper = styled.section`
   .logos{
     display: flex;
     width: 100%;
-    column-gap: 35rem;
+    column-gap: 5rem;
   }
 
   .brandName{
@@ -29,30 +29,6 @@ const SimlIntroWrapper = styled.section`
     color: #fff;
     max-width: 40%;
     text-wrap: wrap;
-  }
-
-  @media (max-width: 768px) {
-    .logos{
-      display: flex;
-      width: 100%;
-      column-gap: 4rem;
-
-      img{
-        width: 3rem;
-      }
-    }
-
-    .brandName{
-      font-size: 1.5rem;
-      text-align: center;
-    }
-
-    .heading{
-      font-size: 1.2rem;
-      max-width: 100%;
-      text-wrap: wrap;
-      text-align: left;
-    }
   }
 `;
 

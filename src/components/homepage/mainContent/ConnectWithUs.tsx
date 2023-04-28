@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const ConnectWithUsWrapper = styled.section`
   display: grid;
   width: 100%;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   padding-left: 3rem;
   padding-right: 3rem;
   align-content: center;
@@ -12,6 +12,7 @@ const ConnectWithUsWrapper = styled.section`
   background-color: #010012;
   padding-top: 3rem;
   padding-bottom: 3rem;
+  gap: 2rem;
 
   .headings{
     text-align: center;
@@ -26,23 +27,12 @@ const ConnectWithUsWrapper = styled.section`
       color: #fff;
       font-size: 1rem;
       text-align: start;
-
-      @media (max-width: 768px) {
-        text-align: start;
-        font-size: 0.7rem;
-      }
     }
 
     .big-title{
       color: #fff;
       font-size: 1.5rem;
       text-align: start;
-
-      @media (max-width: 768px) {
-        text-align: start;
-        font-size: 1.1rem;
-        max-width: 80%;
-      }
     }
   }
 
@@ -53,29 +43,14 @@ const ConnectWithUsWrapper = styled.section`
     color: #EBEDFA;
     width: 100%;
     flex-direction: column;
-    align-items: flex-start;
     gap: 1.2rem;
-    justify-content: center;
-
-    @media (max-width: 768px) {
-      text-align: justify;
-    }
   }
 
   .ask-questions{
     display: flex;
     width: 10rem;
-    justify-self: end;
+    justify-self: center;
     align-self: center;
-
-    @media (max-width: 768px) {
-      justify-self: center;
-    }
-  }
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    gap: 2rem;
   }
 `;
 
