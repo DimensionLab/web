@@ -8,27 +8,27 @@ const SimlIntroWrapper = styled.section`
   grid-auto-flow: row;
   align-items: center;
   justify-items: start;
-  gap: 2rem;
+  gap: 3rem;
 
   .logos{
     display: flex;
     width: 100%;
-    column-gap: 5rem;
+    column-gap: 10rem;
   }
 
   .brandName{
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: 700;
     color: #fff;
-    padding-bottom: 1rem;
+    // padding-bottom: 1rem;
   }
 
   .heading{
-    font-size: 1.7rem;
+    font-size: 1.4rem;
     font-weight: 700;
     color: #fff;
-    max-width: 40%;
-    text-wrap: wrap;
+    // max-width: 40%;
+    text-align: start;
   }
 `;
 
