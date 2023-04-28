@@ -20,17 +20,29 @@ const ConnectWithUsWrapper = styled.section`
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    justify-content: center;
 
     .small-title{
       color: #fff;
       font-size: 1rem;
       text-align: start;
+
+      @media (max-width: 768px) {
+        text-align: start;
+        font-size: 0.7rem;
+      }
     }
 
     .big-title{
       color: #fff;
       font-size: 1.5rem;
       text-align: start;
+
+      @media (max-width: 768px) {
+        text-align: start;
+        font-size: 1.1rem;
+        max-width: 80%;
+      }
     }
   }
 
@@ -43,9 +55,10 @@ const ConnectWithUsWrapper = styled.section`
     flex-direction: column;
     align-items: flex-start;
     gap: 1.2rem;
+    justify-content: center;
 
-    br {
-      padding: 2rem;
+    @media (max-width: 768px) {
+      text-align: justify;
     }
   }
 
