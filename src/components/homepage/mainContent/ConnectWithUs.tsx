@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const ConnectWithUsWrapper = styled.section`
   display: grid;
   width: 100%;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   padding-left: 3rem;
   padding-right: 3rem;
   align-content: center;
@@ -32,16 +32,16 @@ const ConnectWithUsWrapper = styled.section`
   }
 
   .description-box{
+    display: flex;
     text-align: start;
     font-size: 0.8rem;
     color: #EBEDFA;
     width: 100%;
-    display: flex;
     flex-direction: column;
-    align-content: center;
+    align-items: flex-start;
 
     br {
-      margin: 0.5rem 0;
+      padding: 2rem;
     }
   }
 
@@ -50,6 +50,15 @@ const ConnectWithUsWrapper = styled.section`
     width: 10rem;
     justify-self: end;
     align-self: center;
+
+    @media (max-width: 768px) {
+      justify-self: center;
+    }
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
 `;
 
