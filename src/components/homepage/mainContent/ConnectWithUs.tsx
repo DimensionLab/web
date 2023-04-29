@@ -44,6 +44,10 @@ const ConnectWithUsWrapper = styled.section`
     width: 100%;
     flex-direction: column;
     gap: 1.2rem;
+
+    @media (min-width: 900px) {
+      justify-content: center;
+    }
   }
 
   .ask-questions{
@@ -51,6 +55,10 @@ const ConnectWithUsWrapper = styled.section`
     width: 10rem;
     justify-self: center;
     align-self: center;
+  }
+
+  @media (min-width: 900px) {
+    grid-template-columns: repeat(3, 1fr);
   }
 `;
 
