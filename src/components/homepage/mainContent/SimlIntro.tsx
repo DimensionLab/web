@@ -13,7 +13,11 @@ const SimlIntroWrapper = styled.section`
   .logos{
     display: flex;
     width: 100%;
-    column-gap: 10rem;
+    column-gap: 5rem;
+
+    @media (min-width: 900px) {
+      column-gap: 30rem;
+    }
   }
 
   .brandName{
