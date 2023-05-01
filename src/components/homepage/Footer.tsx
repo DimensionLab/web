@@ -15,7 +15,23 @@ const FooterWrapper = styled.footer`
 const Footer = () => {
   return (
     <FooterWrapper>
-      <div>DimensionLab</div>
+      <div className='logo'>
+        <img src="" alt="" />
+      </div>
+      <div className="products">
+        <div className='title'>PRODUCTS</div>
+        <a href="https://siml.ai" className='simlai-redirect'>SIML.ai</a>
+      </div>
+      <div className="useful-links">
+        <div className='title'>USEFUL LINKS</div>
+        <a href="">Contact</a>
+        <a href="">Terms & Conditions</a>
+        <a href="">Privacy Policy</a>
+      </div>
+      <div className="contact-us">
+        <div className='title'>CONTACT US</div>
+        
+      </div>
     </FooterWrapper>
   );
 };
