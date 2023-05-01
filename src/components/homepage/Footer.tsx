@@ -1,15 +1,26 @@
 import styled from 'styled-components';
 
 const FooterWrapper = styled.footer`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  justify-items: center;
   align-items: center;
-  justify-content: center;
-  padding: 2rem 0;
+  padding: 2rem 2rem;
   background-color: #010012;
   width: 100%;
   color: #fff;
   gap: 2.5rem;
+  padding-horizontal: 3rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+  }
+
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: end;
+  }
 
   .logo {
     display: flex;
@@ -88,6 +99,10 @@ const FooterWrapper = styled.footer`
       gap: 0.5rem;
       align-items: center;
       transition: all 0.3s ease-in-out;
+      
+      .tel-number {
+        text-decoration: none;
+      }
 
       &:hover {
         transform: scale(1.1);
