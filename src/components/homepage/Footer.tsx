@@ -77,16 +77,31 @@ const FooterWrapper = styled.footer`
       display: flex;
       gap: 0.5rem;
       align-items: center;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        transform: scale(1.1);
+      }
     }
     .tel-contact {
       display: flex;
       gap: 0.5rem;
       align-items: center;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        transform: scale(1.1);
+      }
     }
     .email-contact {
       display: flex;
       gap: 0.5rem;
       align-items: center;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        transform: scale(1.1);
+      }
     }
   }
 `;
