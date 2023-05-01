@@ -39,7 +39,29 @@ const FooterWrapper = styled.footer`
       }
     }
   }
-  .useful-links {}
+  .useful-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+
+    .title {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    a {
+      font-size: 1rem;
+      color: white;
+      text-decoration: none;
+      border-bottom: 2px solid #2460FF;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        transform: rotate(360deg);
+      }
+    }
+  }
   .contact-us {}
 `;
 
