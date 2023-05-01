@@ -9,7 +9,7 @@ const FooterWrapper = styled.footer`
   background-color: #010012;
   width: 100%;
   color: #fff;
-  gap: 2rem;
+  gap: 2.5rem;
 
   .logo {
     display: flex;
@@ -24,7 +24,7 @@ const FooterWrapper = styled.footer`
     gap: 0.5rem;
 
     .title {
-      font-size: 1.2rem;
+      font-size: 1.4rem;
       font-weight: 700;
     }
     .simlai-redirect {
@@ -46,7 +46,7 @@ const FooterWrapper = styled.footer`
     gap: 0.5rem;
 
     .title {
-      font-size: 1.2rem;
+      font-size: 1.4rem;
       font-weight: 700;
     }
 
@@ -62,7 +62,24 @@ const FooterWrapper = styled.footer`
       }
     }
   }
-  .contact-us {}
+  .contact-us {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+
+    .title {
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .location {
+      max-width: 10rem;
+      text-align: center;
+    }
+    .tel-contact {}
+    .email-contact {}
+  }
 `;
 
 const Footer = () => {
@@ -84,15 +101,15 @@ const Footer = () => {
       <div className="contact-us">
         <div className='title'>CONTACT US</div>
           <div className="location">
-            <img src="" alt="" className="icon" />
+            <span className="material-symbols-outlined">location_on</span>
             <div className="address">Lomnická 2, 040 01 Košice, Slovakia</div>
           </div>
           <div className="tel-contact">
-            <img src="" alt="" className="icon" />
+          <span className="material-symbols-outlined">call</span>
             <div className="tel-number">+421 911 334 797</div>
           </div>
           <div className="email-contact">
-            <img src="" alt="" className="icon" />
+          <span className="material-symbols-outlined">mail</span>
             <div className="email">hello@dimensiolab.org</div>
           </div>
       </div>
