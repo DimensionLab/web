@@ -74,11 +74,20 @@ const FooterWrapper = styled.footer`
     }
 
     .location {
-      max-width: 10rem;
-      text-align: center;
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
     }
-    .tel-contact {}
-    .email-contact {}
+    .tel-contact {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .email-contact {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
   }
 `;
 
