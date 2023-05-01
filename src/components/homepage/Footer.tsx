@@ -2,21 +2,52 @@ import styled from 'styled-components';
 
 const FooterWrapper = styled.footer`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 2rem 0;
   background-color: #010012;
   width: 100%;
   color: #fff;
-  gap: 1rem;
+  gap: 2rem;
+
+  .logo {
+    display: flex;
+    img {
+      width: 2.5rem;
+    }
+  }
+  .products {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+
+    .title {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+    .simlai-redirect {
+      font-size: 1rem;
+      color: white;
+      text-decoration: none;
+      border-bottom: 2px solid #2460FF;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        transform: rotate(360deg);
+      }
+    }
+  }
+  .useful-links {}
+  .contact-us {}
 `;
 
 const Footer = () => {
   return (
     <FooterWrapper>
       <div className='logo'>
-        <img src="" alt="" />
+        <img src="assets/logo_D.svg" alt="" />
       </div>
       <div className="products">
         <div className='title'>PRODUCTS</div>
