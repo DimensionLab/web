@@ -66,7 +66,7 @@ const ConnectWithUs = () => {
   return (
     <ConnectWithUsWrapper>
       <div className="headings">
-        <div className="small-title">LET'S CONNECT!</div>
+        <div className="small-title">LET&apos;S CONNECT!</div>
         <div className="big-title">Do you use any physics-based simulation software?</div>
       </div>
       <div className="description-box">
