@@ -30,7 +30,18 @@ const Footer = () => {
       </div>
       <div className="contact-us">
         <div className='title'>CONTACT US</div>
-        
+          <div className="location">
+            <img src="" alt="" className="icon" />
+            <div className="address">Lomnická 2, 040 01 Košice, Slovakia</div>
+          </div>
+          <div className="tel-contact">
+            <img src="" alt="" className="icon" />
+            <div className="tel-number">+421 911 334 797</div>
+          </div>
+          <div className="email-contact">
+            <img src="" alt="" className="icon" />
+            <div className="email">hello@dimensiolab.org</div>
+          </div>
       </div>
     </FooterWrapper>
   );
