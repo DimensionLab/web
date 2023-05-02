@@ -5,12 +5,14 @@ const FooterWrapper = styled.footer`
   grid-template-columns: repeat(1, 1fr);
   justify-items: center;
   align-items: center;
-  padding: 3rem 3rem;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
   background-color: #010012;
   width: 100%;
   color: #fff;
   gap: 2.5rem;
-  padding-horizontal: 3rem;
 
   @media (min-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
@@ -21,6 +23,8 @@ const FooterWrapper = styled.footer`
     grid-template-columns: repeat(4, 1fr);
     justify-items: end;
     align-items: start;
+    padding-top: 10rem;
+    padding-bottom: 10rem;
   }
 
   .logo {
@@ -31,8 +35,20 @@ const FooterWrapper = styled.footer`
       align-self: start;
     }
 
+    @media (min-width: 1200px) {
+      padding-left: 10rem;
+    }
+
     img {
-      width: 2.5rem;
+      width: 4rem;
+
+      @media (min-width: 768px) {
+        width: 4rem;
+      }
+
+      @media (min-width: 1200px) {
+        width: 7rem;
+      }
     }
   }
   .products {
