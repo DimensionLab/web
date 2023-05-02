@@ -5,7 +5,7 @@ const FooterWrapper = styled.footer`
   grid-template-columns: repeat(1, 1fr);
   justify-items: center;
   align-items: center;
-  padding: 2rem 2rem;
+  padding: 3rem 3rem;
   background-color: #010012;
   width: 100%;
   color: #fff;
@@ -20,10 +20,17 @@ const FooterWrapper = styled.footer`
   @media (min-width: 1200px) {
     grid-template-columns: repeat(4, 1fr);
     justify-items: end;
+    align-items: start;
   }
 
   .logo {
     display: flex;
+
+    @media (min-width: 768px) {
+      width: 100%;
+      align-self: start;
+    }
+
     img {
       width: 2.5rem;
     }
@@ -34,9 +41,18 @@ const FooterWrapper = styled.footer`
     align-items: center;
     gap: 0.5rem;
 
+    @media (min-width: 768px) {
+      width: 100%;
+      align-self: start;
+    }
+
     .title {
       font-size: 1.4rem;
       font-weight: 700;
+
+      @media (min-width: 768px) {
+        align-self: start;
+      }
     }
     .simlai-redirect {
       font-size: 1rem;
@@ -44,6 +60,10 @@ const FooterWrapper = styled.footer`
       text-decoration: none;
       border-bottom: 2px solid #2460FF;
       transition: all 0.3s ease-in-out;
+
+      @media (min-width: 768px) {
+        align-self: start;
+      }
 
       &:hover {
         transform: rotate(360deg);
@@ -56,9 +76,18 @@ const FooterWrapper = styled.footer`
     align-items: center;
     gap: 0.5rem;
 
+    @media (min-width: 768px) {
+      width: 100%;
+      align-self: start;
+    }
+
     .title {
       font-size: 1.4rem;
       font-weight: 700;
+
+      @media (min-width: 768px) {
+        align-self: start;
+      }
     }
 
     a {
@@ -67,6 +96,10 @@ const FooterWrapper = styled.footer`
       text-decoration: none;
       border-bottom: 2px solid #2460FF;
       transition: all 0.3s ease-in-out;
+
+      @media (min-width: 768px) {
+        align-self: start;
+      }
 
       &:hover {
         transform: rotate(360deg);
@@ -78,6 +111,11 @@ const FooterWrapper = styled.footer`
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
+
+    @media (min-width: 768px) {
+      align-items: start;
+      width: 100%;
+    }
 
     .title {
       font-size: 1.4rem;
