@@ -9,36 +9,35 @@ const IntroWrapper = styled.section`
   color: #fff;
   gap: 1rem;
   width: 100%;
-  padding-left: 3rem;
-  padding-right: 3rem;
+  padding: 3rem 1rem 3rem 1rem;
 
-  .logo {
+  .company-name {
     img{
-      width: 3rem;
-      margin-bottom: 2rem;
+      width: 18rem;
     }
   }
   .heading {
-    font-size: 1.7rem;
-    font-weight: 700;
+    font-size: 2.5rem;
+    font-weight: 800;
     max-width: 30ch;
     margin-bottom: 0.3rem;
+    color: #EBEDFA;
   }
 
   .message {
-    color: #D0D2DF;
-    font-size: 0.8rem;
+    color: #B4B6C3;
+    font-size: 1.45rem;
   }
 `;
 
 const Intro = () => {
   return (
     <IntroWrapper>
-      <div className="logo">
-        <img src="/assets/logo_D.svg" alt="Dimension Lab logo" />
+      <div className="company-name">
+        <img src="/assets/branding/dl-title-intro.svg" alt="Dimension Lab company name" />
       </div>
-      <div className="heading">We build next-generation engineering & scientific software.</div>
-      <div className="message">Unlocking you to design the technology of the future. Better and faster.</div>
+      <div className="heading">We build <br/> next-generation engineering <br/> & scientific software.</div>
+      <div className="message">Unlocking you to design <br/> the technology of the future. <br/> Better and faster.</div>
     </IntroWrapper>
   );
 };
