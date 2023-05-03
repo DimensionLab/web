@@ -13,13 +13,7 @@ const MainWrapper = styled.main`
   min-height: 90vh;
   width: 100%;
   height: 100%;
-  gap: 10rem;
-
-  .placeholder {
-    background-color: black;
-    width: 100%;
-    height: 100%;
-  }
+  gap: 2rem;
 `;
 
 const Main = () => {

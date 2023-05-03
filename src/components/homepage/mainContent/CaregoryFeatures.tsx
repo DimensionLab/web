@@ -3,8 +3,7 @@ import styled from "styled-components";
 const CategoryFeaturesWrapper = styled.section`
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  padding-left: 3rem;
-  padding-right: 3rem;
+  padding: 3rem 1rem 3rem 1rem;
   row-gap: 0.5rem;
   column-gap: 0.5rem;
 
@@ -18,7 +17,7 @@ const CategoryFeaturesWrapper = styled.section`
     justify-content: flex-end;
     align-items: flex-start;
     // align-content: flex-end;
-    height: 15rem;
+    height: 20rem;
     overflow: hidden;
 
     
@@ -28,6 +27,13 @@ const CategoryFeaturesWrapper = styled.section`
       width: 100%;
       margin-bottom: 1rem;
 
+      .brain-image {
+        padding-bottom: 1rem;
+        img {
+
+        }
+      }
+
       .heading {
         font-size: 1.3rem;
         font-weight: 700;
@@ -36,14 +42,15 @@ const CategoryFeaturesWrapper = styled.section`
         display: block;
         width: 100%;
         height: 4px;
-        background-color: #2460FF;
-        border-radius: 4px;
-        color: #2460FF;
+        background: linear-gradient(90deg, #7CA8FF 0%, #D28DF7 100%);
+        border-radius: 1rem;
+        color: transparent;
+        border: 0px solid transparent;
       }
     }
     .description{
       font-size: 0.8rem;
-      color: #7C7F8B;
+      color: #FAFAFF;
       padding-bottom: 1rem;
       height: 3rem;
       display: inline-block;
@@ -82,6 +89,9 @@ const CategoryFeatures = () => {
       {cardData.map((card) => (
         <div key={card.title} className="card">
           <div className="heading-line">
+            <div className="brain-image">
+              <img src="assets/component-assets/brain-caregory-features-card.svg" alt="" />
+            </div>
             <div className="heading">{card.title}</div>
             <hr className="line"/>
           </div>

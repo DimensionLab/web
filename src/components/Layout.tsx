@@ -25,7 +25,7 @@ const LayoutWrapper = styled.div`
   width: 100%;
   align-items: center;
   justify-items: center;
-  gap: 3rem;
+  gap: 2rem;
 `;
 
 interface LayoutProps {
