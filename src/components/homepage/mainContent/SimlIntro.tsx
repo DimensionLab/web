@@ -9,35 +9,49 @@ const SimlIntroWrapper = styled.section`
   justify-items: start;
   gap: 3rem;
 
-  .logos{
+  .heading-container {
     display: flex;
-    width: 100%;
-    flex-direction: row;
-    justify-items: flex-start;
-    gap: 1.2rem;
+    flex-direction: column;
+    row-gap: 1rem;
 
-    .products-vertical-text {
-      margin: 0;
-      padding: 0;
-      writing-mode: vertical-lr;
-      transform: rotate(-180deg);
-      color: #61646F;
+    @media(min-width: 1024px) {
+      flex-direction: row;
     }
 
-    img {
-      margin: 0;
-      padding: 0;
+    .logos{
+      display: flex;
+      width: 100%;
+      flex-direction: row;
+      justify-items: flex-start;
+      gap: 1.2rem;
+  
+      .products-vertical-text {
+        display: flex;
+        align-self: end;
+        margin: 0;
+        padding: 0;
+        writing-mode: vertical-lr;
+        transform: rotate(-180deg);
+        color: #61646F;
+      }
+  
+      img {
+        display: flex;
+        align-self: end;
+        margin: 0;
+        padding: 0;
+      }
     }
-
-    @media (min-width: 900px) {
-      column-gap: 30rem;
     }
-  }
-
-  .brandName{
-    padding-left: 2.5rem;
-    img {
-      width: 12rem;
+  
+    .brandName{
+      display: flex;
+      padding-left: 2.5rem;
+      justify-self: center;
+      align-self: end;
+      img {
+        width: 13rem;
+      }
     }
   }
 
@@ -47,6 +61,11 @@ const SimlIntroWrapper = styled.section`
     font-weight: 700;
     color: #fff;
     text-align: start;
+
+    @media(min-width: 1024px) {
+      font-size: 3rem;
+      max-width: 70%;
+    }
   }
 
   a {
@@ -59,12 +78,14 @@ const SimlIntroWrapper = styled.section`
 const SimlIntro = () => {
   return (
     <SimlIntroWrapper>
-      <div className="logos">
-        <div className="products-vertical-text">PRODUCTS</div>
-        <img src="/assets/siml_outline_logo.svg" alt="siml logo" />
-      </div>
-      <div className="brandName">
-        <img src="assets/branding/simlai-title-siml-intro.svg" alt="siml ai name title" />
+      <div className="heading-container">
+        <div className="logos">
+          <div className="products-vertical-text">PRODUCTS</div>
+          <img src="/assets/siml_outline_logo.svg" alt="siml logo" />
+        </div>
+        <div className="brandName">
+          <img src="assets/branding/simlai-title-siml-intro.svg" alt="siml ai name title" />
+        </div>
       </div>
       <div className="heading">Software platform <br/> for high-performance AI-based numerical simulators.</div>
       <div className="view-more">
