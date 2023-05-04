@@ -15,21 +15,32 @@ const FooterWrapper = styled.footer`
     display: flex;
     flex-direction: column;
     padding-left: 2.5rem;
+    padding-right: 1rem;
     width: 100%;
     gap: 2rem;
 
-    .dl-title-image{
-      width: 100%;
-
-      img{
-        width: 13rem;
-      }
+    @media(min-width: 1048px) {
+      flex-direction: row;
     }
 
-    .socials{
-      display: flex;
-      flex-direction: row;
-      gap: 1.5rem;
+    .title-socials-container {
+      display:flex;
+      flex-direction: column;
+      row-gap: 1.5rem;
+
+      .dl-title-image{
+        width: 100%;
+  
+        img{
+          width: 13rem;
+        }
+      }
+  
+      .socials{
+        display: flex;
+        flex-direction: row;
+        gap: 1.5rem;
+      }
     }
 
     .products {
@@ -114,6 +125,11 @@ const FooterWrapper = styled.footer`
     display: flex;
     justify-self: flex-start;
     font-size: 0.8rem;
+
+    @media(min-width: 1024px) {
+      justify-self: flex-end;
+      padding-right: 1rem;
+    }
   }
 }
 `;
@@ -122,34 +138,36 @@ const Footer = () => {
   return (
     <FooterWrapper>
       <div className="content-container">
-        <div className="dl-title-image">
-          <img src="assets/branding/dl-title-intro.svg" alt=""/>
-        </div>
-        <div className="socials">
-          <div className="linkedin">
-            <a href="https://www.linkedin.com/company/dimensionlab">
-              <img src="assets/component-assets/footer/linkedin-logo.svg" alt="" />
-            </a>
+        <div className="title-socials-container">
+          <div className="dl-title-image">
+            <img src="assets/branding/dl-title-intro.svg" alt=""/>
           </div>
-          <div className="facebook">
-            <a href="https://www.facebook.com/dimensionlab/">
-              <img src="assets/component-assets/footer/facebook-logo.svg" alt="" />
-            </a>
-          </div>
-          <div className="twitter">
-            <a href="https://twitter.com/TheDimensionLab">
-              <img src="assets/component-assets/footer/twitter-logo.svg" alt="" />
-            </a>
-          </div>
-          <div className="instagram">
-            <a href="">
-              <img src="assets/component-assets/footer/instagram-logo.svg" alt="" />
-            </a>
-          </div>
-          <div className="medium">
-            <a href="">
-              <img src="assets/component-assets/footer/medium-logo.svg" alt="" />
-            </a>
+          <div className="socials">
+            <div className="linkedin">
+              <a href="https://www.linkedin.com/company/dimensionlab">
+                <img src="assets/component-assets/footer/linkedin-logo.svg" alt="" />
+              </a>
+            </div>
+            <div className="facebook">
+              <a href="https://www.facebook.com/dimensionlab/">
+                <img src="assets/component-assets/footer/facebook-logo.svg" alt="" />
+              </a>
+            </div>
+            <div className="twitter">
+              <a href="https://twitter.com/TheDimensionLab">
+                <img src="assets/component-assets/footer/twitter-logo.svg" alt="" />
+              </a>
+            </div>
+            <div className="instagram">
+              <a href="">
+                <img src="assets/component-assets/footer/instagram-logo.svg" alt="" />
+              </a>
+            </div>
+            <div className="medium">
+              <a href="">
+                <img src="assets/component-assets/footer/medium-logo.svg" alt="" />
+              </a>
+            </div>
           </div>
         </div>
         <div className="products">
