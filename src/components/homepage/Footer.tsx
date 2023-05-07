@@ -23,10 +23,19 @@ const FooterWrapper = styled.footer`
       flex-direction: row;
     }
 
+    @media(min-width: 1440px) {
+      justify-content: space-between;
+    }
+
     .title-socials-container {
       display:flex;
       flex-direction: column;
       row-gap: 1.5rem;
+      position: relative;
+
+      @media(min-width: 1440px) {
+        justify-content: space-between;
+      }
 
       .dl-title-image{
         width: 100%;
@@ -40,6 +49,12 @@ const FooterWrapper = styled.footer`
         display: flex;
         flex-direction: row;
         gap: 1.5rem;
+
+        @media(min-width: 1440px) {
+          align-content: flex-end;
+          position: absolute;
+          bottom: 0rem;
+        }
       }
     }
 
