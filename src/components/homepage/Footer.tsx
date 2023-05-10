@@ -23,7 +23,7 @@ const FooterWrapper = styled.footer`
       flex-direction: row;
     }
 
-    @media(min-width: 1440px) {
+    @media(min-width: 1200px) {
       justify-content: space-between;
     }
 
@@ -33,7 +33,7 @@ const FooterWrapper = styled.footer`
       row-gap: 1.5rem;
       position: relative;
 
-      @media(min-width: 1440px) {
+      @media(min-width: 1200px) {
         justify-content: space-between;
       }
 
@@ -94,7 +94,7 @@ const FooterWrapper = styled.footer`
         a{
           text-decoration: none;
           color: white;
-          font-size: 1.1rem;
+          font-size: 1rem;
         }
         .tos{}
         .privacy-policy{}
@@ -130,8 +130,15 @@ const FooterWrapper = styled.footer`
       }
       .email{
         display: flex;
-        flex-direction: row;
+        flex-direction-row;
         gap: 1rem;
+        a {
+          display: flex;
+          flex-direction: row;
+          gap: 1rem;
+          text-decoration: none;
+          color: #fff;
+        }
       }
     }
   }
@@ -141,10 +148,10 @@ const FooterWrapper = styled.footer`
     justify-self: flex-start;
     font-size: 0.8rem;
 
-    @media(min-width: 1024px) {
-      justify-self: flex-end;
-      padding-right: 1rem;
-    }
+    // @media(min-width: 1024px) {
+    //   justify-self: flex-end;
+    //   padding-right: 1rem;
+    // }
   }
 }
 `;
@@ -195,7 +202,7 @@ const Footer = () => {
           <div className="title">EXPLORE</div>
           <div className="links">
             <div className="tos">
-              <a href="">
+              <a href="https://www.dimensionlab.org/terms-and-conditions.html">
                 Terms & Conditions
               </a>
             </div>
@@ -218,7 +225,9 @@ const Footer = () => {
           </div>
           <div className="email">
             <img src="assets/component-assets/footer/email-icon.svg" alt="" />
-            <div>hello@dimensionlab.org</div>
+            <a href="mailto:hello@dimensionlab.org">
+              <div>hello@dimensionlab.org</div>
+            </a>
           </div>
         </div>
       </div>
