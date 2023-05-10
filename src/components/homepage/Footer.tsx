@@ -207,7 +207,7 @@ const Footer = () => {
               </a>
             </div>
             <div className="privacy-policy">
-              <a href="">
+              <a href="https://www.dimensionlab.org/privacy-policy.html">
                 Privacy Policy
               </a>
             </div>
