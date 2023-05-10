@@ -81,7 +81,7 @@ const SimlIntro = () => {
       <div className="heading-container">
         <div className="logos">
           <div className="products-vertical-text">PRODUCTS</div>
-          <img src="/assets/siml_outline_logo.svg" alt="siml logo" />
+          <img src="/assets/branding/siml-intro-logo2.svg" alt="siml logo" />
         </div>
         <div className="brandName">
           <img src="assets/branding/simlai-title-siml-intro.svg" alt="siml ai name title" />
