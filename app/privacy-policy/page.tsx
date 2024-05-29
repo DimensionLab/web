@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import Home from '@/components/Home'
 import Link from 'next/link'
 
@@ -8,7 +9,7 @@ export default function Index () {
     <div className="container">
       <div className="page-title text-center">
         <h1>Privacy Policy</h1>
-        <p className="mt-40"><a href="/"><span className="white-color">← Back</span></a></p>
+        <p className="mt-40"><Link href="/"><span className="white-color">← Back</span></Link></p>
       </div>
     </div>
   </section>
