@@ -41,7 +41,7 @@ export default function Team() {
     {
       name: "Marek Ružička, PhD.",
       bio: "Lead machine learning researcher, focusing on ML for physics and engineering.",
-      image: "/assets/team/marek-ruzicka.jpeg",
+      image: "/assets/team/marek-ruzicka.jpg",
     },
     {
       name: "Tomáš Hrib",

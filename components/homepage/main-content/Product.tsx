@@ -40,7 +40,7 @@ export default function Product() {
           <div className="mb-4 text-white text-2xl xl:text-3xl font-bold xl:leading-10">
             We built{" "}
             <Link
-              href={"https://platform.siml.ai"}
+              href="https://siml.ai"
               className="inline-flex flex-row items-baseline gap-x-2 inline hover:bg-gradient-to-r from-blue-500 via-blue-300 to-purple-600 bg-[length:100%_2px] hover:bg-[length:100%_10px] duration-300 bg-no-repeat bg-bottom"
               target="_blank"
             >
@@ -90,7 +90,7 @@ export default function Product() {
           </div>{" "}
           on the product&apos;s{" "}
           <Link
-            href={"https://platform.siml.ai"}
+            href="https://siml.ai"
             className="bg-gradient-to-r from-blue-500 via-blue-300 to-purple-600 bg-[length:100%_2px] hover:bg-[length:100%_10px] duration-300 bg-no-repeat bg-bottom"
             target="_blank"
           >
