@@ -1,46 +1,4 @@
 "use client";
-// const IntroWrapper = styled.section`
-//   display: grid;
-//   grid-auto-flow: row;
-//   align-items: center;
-//   justify-items: start;
-//   background-color: #0D101B;
-//   color: #fff;
-//   gap: 1rem;
-//   width: 100%;
-//   padding: 3rem 1rem 3rem 1rem;
-//   position: relative;
-
-//   .company-name {
-//     z-index: 2;
-//     img{
-//       width: 18rem;
-//     }
-//   }
-//   .heading {
-//     font-size: 2.5rem;
-//     font-weight: 800;
-//     // max-width: 30ch;
-//     margin-bottom: 0.3rem;
-//     color: #EBEDFA;
-//     z-index: 2;
-//   }
-
-//   .message {
-//     color: #B4B6C3;
-//     font-size: 1.45rem;
-//     z-index: 2;
-//   }
-
-//   .bg-dl-logo {
-//     position: absolute;
-//     right: 15rem;
-
-//     @media(max-width: 768px) {
-//       display: none;
-//     }
-//   }
-// `;
 
 const Intro = () => {
   return (

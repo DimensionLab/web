@@ -66,9 +66,9 @@ export default function Header() {
         </Link>
         <div className="flex">
           <ul className="max-xl:hidden flex flex-row gap-x-8 uppercase items-center text-muted font-bold text-sm">
-            { menuItems.map((item, index) => (
+            {menuItems.map((item, index) => (
               <li key={index}>
-                <Link  href={item.href.includes("https://") ? item.href : originUrl + item.href} replace target={item.href.includes("https://") ? "_blank" : ""}>
+                <Link href={item.href.includes("https://") ? item.href : originUrl + item.href} replace target={item.href.includes("https://") ? "_blank" : ""}>
                   <span className="text-gray-500 hover:text-white hover:underline duration-300">{item.label}</span>
                 </Link>
               </li>
@@ -79,7 +79,7 @@ export default function Header() {
           </button>
         </div>
       </nav>
-      <HamburgerMenu className={menuOpen ? 'flex' : 'hidden'} toggleMenu={toggleMenu}/>
+      <HamburgerMenu className={menuOpen ? 'flex' : 'hidden'} toggleMenu={toggleMenu} />
     </div>
   )
 }
