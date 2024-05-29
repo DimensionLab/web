@@ -3,6 +3,7 @@
 import { CookieIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 export default function CookieConsent({ demo = false, onAcceptCallback = () => { }, onDeclineCallback = () => { } }) {
     const [isOpen, setIsOpen] = useState(false);
@@ -10,7 +11,7 @@ export default function CookieConsent({ demo = false, onAcceptCallback = () => {
 
     const accept = () => {
         setIsOpen(false);
-        document.cookie = "cookieConsent=true; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+        document.cookie = "DimensionLabCookieConsent=true; expires=Fri, 31 Dec 9999 23:59:59 GMT";
         setTimeout(() => {
             setHide(true);
         }, 700);
@@ -28,7 +29,7 @@ export default function CookieConsent({ demo = false, onAcceptCallback = () => {
     useEffect(() => {
         try {
             setIsOpen(true);
-            if (document.cookie.includes("cookieConsent=true")) {
+            if (document.cookie.includes("DimensionLabCookieConsent=true")) {
                 if (!demo) {
                     setIsOpen(false);
                     setTimeout(() => {
@@ -43,7 +44,7 @@ export default function CookieConsent({ demo = false, onAcceptCallback = () => {
     }, []);
 
     return (
-        <div className={cn("fixed z-[200] bottom-0 left-0 right-0 sm:left-4 sm:bottom-4 w-full sm:max-w-md duration-700", !isOpen ? "transition-[opacity,transform] translate-y-8 opacity-0" : "transition-[opacity,transform] translate-y-0 opacity-100", hide && "hidden")}>
+        <div className={cn("fixed z-[200] text-white bottom-0 left-0 right-0 sm:left-4 sm:bottom-4 w-full sm:max-w-md duration-700", !isOpen ? "transition-[opacity,transform] translate-y-8 opacity-0" : "transition-[opacity,transform] translate-y-0 opacity-100", hide && "hidden")}>
             <div className="dark:bg-black bg-black rounded-md m-3 border border-border border-gray-100/20 dark:border-gray-100/20 shadow-lg dark:shadow-none">
                 <div className="grid gap-2">
                     <div className="border-b border-border dark:border-gray-100/20 border-gray-100/20 h-14 flex items-center justify-between p-4">
@@ -57,12 +58,12 @@ export default function CookieConsent({ demo = false, onAcceptCallback = () => {
                             <br />
                             <span className="text-xs">By clicking &quot;<span className="font-medium opacity-80">Accept</span>&quot;, you agree to our use of cookies.</span>
                             <br />
-                            <a href="https://www.dimensionlab.org/privacy-policy.html" className="text-xs underline">Learn more.</a>
+                            <Link href="/privacy-policy" className="text-xs underline">Learn more.</Link>
                         </p>
                     </div>
                     <div className="flex gap-2 p-4 py-5 border-t border-border border-gray-100/20 dark:border-gray-100/20 dark:bg-background/20">
-                        <button className="w-full bg-btnPurple px-4 py-2 rounded" type="button" onClick={accept}>Accept</button>
-                        <button className="w-full bg-lightBg px-4 py-2 rounded" type="button" onClick={decline}>Decline</button>
+                        <button className="w-full bg-gradient-to-r from-blue-900 via-blue-500 to-purple-500 px-4 py-2 rounded" type="button" onClick={accept}>Accept</button>
+                        <button className="w-full bg-gray-800 px-4 py-2 rounded" type="button" onClick={decline}>Decline</button>
                     </div>
                 </div>
             </div>
