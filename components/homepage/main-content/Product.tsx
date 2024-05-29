@@ -21,7 +21,7 @@ export default function Product() {
             <span className="font-bold">HARD</span>.
           </div>
           <div className="text-white text-xl sm:text-2xl xl:leading-8 pb-10">
-            Simulation is one the most important tools for prototyping across
+            Simulation is one of the most important tools for prototyping across
             automotive, aerospace, energy or biomedical industries.
           </div>
           <div className="text-white text-xl sm:text-2xl xl:leading-8 pb-10">
