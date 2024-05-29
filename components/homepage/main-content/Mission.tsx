@@ -45,7 +45,7 @@ export default function Mission() {
               "-webkit-radial-gradient(closest-side, rgba(0,0,0,1), rgba(0,0,0,0))",
           }}
         />
-        <figcaption className="-mt-4 text-white text-xs leading-8 pb-4 xl:pb-10 text-gray-700 float-right">Source: NVIDIA</figcaption>
+        <figcaption className="-mt-4 text-xs leading-8 pb-4 xl:pb-10 text-gray-700 float-right">Source: NVIDIA</figcaption>
       </div>
     </div>
   );
