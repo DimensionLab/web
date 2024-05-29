@@ -8,51 +8,32 @@ import useClientOrigin from "@/lib/useClientOrigin";
 
 const linksData = [
   {
-    name: "ABOUT",
-    href: "#about",
+    name: "Mission",
+    href: "#mission"
   },
   {
-    name: "MODEL ENGINEER",
-    href: "#model-engineer",
+    name: "Product",
+    href: "/#product"
   },
   {
-    name: "SIMULATION STUDIO",
-    href: "#simulation-studio",
-  },
-  {
-    name: "PRICING",
-    href: "/pricing",
-  },
-  {
-    name: "CASE STUDIES",
-    href: "/case-studies"
-  },
-  {
-    name: "LEARN",
-    href: "/university",
-  },
-  {
-    name: "BLOG",
-    href: "/blog",
+    name: "Team",
+    href: "#team"
   },
 ];
 
 export default function HamburgerMenu( { className, toggleMenu }: { className: string, toggleMenu: () => void } ){
   const originUrl = useClientOrigin();
   return (
-    <div className={cn(`absolute top-0 left-0 flex h-screen w-screen flex-col justify-between bg-darkBg ${className}`)}>
+    <div className={cn(`absolute top-0 left-0 flex h-screen w-screen flex-col justify-between bg-[#000] ${className}`)}>
       <section className="flex flex-col gap-y-12">
         <div className="w-full px-4">
           <nav className="flex py-4 justify-between w-full">
             <Link href={"#"} className="flex">
-              <Image src={"/assets/simlai/header-nav-logo.svg"} alt="Siml.ai" width={120} height={50} />
+              <Image src={"/assets/logo_D.svg"} alt="Siml.ai" width={50} height={50} />
             </Link>
             <div className="flex gap-x-4">
-              <Link href="https://platform.siml.ai" target="_blank">
-                <button className="bg-btnPurple px-4 py-2 rounded font-bold">LOGIN</button>
-              </Link>
               <button onClick={() => toggleMenu()}>
-                <Image src="/assets/simlai/hamburger-menu.svg" alt="Menu" width={30} height={30} />
+                <Image src="/assets/hamburger-menu.svg" alt="Menu" width={30} height={30} />
               </button>
             </div>
           </nav>

@@ -14,10 +14,6 @@ const menuItems = [
     href: "#mission"
   },
   {
-    label: "What we do",
-    href: "/#what-we-do"
-  },
-  {
     label: "Product",
     href: "/#product"
   },
@@ -62,28 +58,18 @@ export default function Header() {
     }
   }, [menuOpen])
 
-  const doHighlight = (label: string) => {
-    if (
-      pathname.includes(label.toLowerCase()) ||
-      (pathname.includes("university") && label === "LEARN")
-    ) {
-      return "text-white";
-    } else {
-      return "text-muted";
-    }
-  }
   return (
-    <div className={`w-full px-4 sticky top-0 left-0 py-2 z-30 xl:pr-0 duration-200 bg-[#0D101B] ${showBackground && "opacity-80"}`}>
-      <nav className="flex max-w-[1280px] mx-auto w-full py-4 justify-between xl:py-0 mx-auto">
-        <Link href={originUrl + "/#"} className="flex pt-2">
+    <div className={`w-full sticky top-0 left-0 py-2 z-30 duration-200 bg-[#0D101B] ${showBackground && "opacity-80"}`}>
+      <nav className="flex max-w-[1280px] mx-auto w-full justify-between px-6 xl:px-0 py-4 xl:py-0 mx-auto">
+        <Link href={originUrl + "/#"} className="flex pt-2 opacity-50 hover:opacity-100 duration-300">
           <Image src={"/assets/branding/header-logo-dl.svg"} alt="DimensionLab" width={23} height={23} />
         </Link>
-        <div className="flex gap-x-4">
-          <ul className="max-xl:hidden flex flex-row gap-x-6 items-center text-muted font-bold text-sm">
+        <div className="flex">
+          <ul className="max-xl:hidden flex flex-row gap-x-8 uppercase items-center text-muted font-bold text-sm">
             { menuItems.map((item, index) => (
               <li key={index}>
                 <Link  href={item.href.includes("https://") ? item.href : originUrl + item.href} replace target={item.href.includes("https://") ? "_blank" : ""}>
-                  <span className={cn(`${doHighlight(item.label)} hover:text-white duration-300`)}>{item.label}</span>
+                  <span className="text-gray-500 hover:text-white hover:underline duration-300">{item.label}</span>
                 </Link>
               </li>
             ))}

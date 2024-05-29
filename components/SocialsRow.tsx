@@ -3,15 +3,15 @@ import Image from "next/image"
 
 const socialsData = [
   {
-    icon: "/assets/li-logo.svg",
+    icon: "/assets/component-assets/footer/linkedin-logo.svg",
     href: "https://www.linkedin.com/company/dimensionlab",
   },
   {
-    icon: "/assets/facebook-logo.svg",
+    icon: "/assets/component-assets/footer/facebook-logo.svg",
     href: "https://www.facebook.com/dimensionlab/",
   },
   {
-    icon: "/assets/twitter-logo.svg",
+    icon: "/assets/component-assets/footer/twitter-logo.svg",
     href: "https://twitter.com/TheDimensionLab",
   },
 ]
@@ -19,7 +19,7 @@ const socialsData = [
 export default function SocialsRow() {
 
   return (
-    <ul className="flex w-full justify-between gap-x-2 xl:gap-x-4">
+    <ul className="flex w-full gap-x-2 xl:gap-x-4">
       {socialsData.map((social, index) => (
         <li key={index} className="flex gap-x-4">
           <Link href={social.href} target="_blank">
