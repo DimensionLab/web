@@ -23,7 +23,7 @@ export default function Mission() {
           <span className="font-bold">much wider user base</span>.
         </div>
         <div className="text-white text-xl sm:text-2xl leading-8 pb-4 xl:pb-10">
-          We want{" "}
+          We want to{" "}
           <span className="font-bold">
             completely redefine the virtual prototyping
           </span>{" "}
