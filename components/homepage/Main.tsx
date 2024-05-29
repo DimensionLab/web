@@ -1,8 +1,7 @@
-import Intro from "@/components/homepage/mainContent/Intro";
-import Mission from "./mainContent/Mission";
-import Team from "./mainContent/Team";
-import Product from "./mainContent/Product";
-
+import Intro from "@/components/homepage/main-content/Intro";
+import Mission from "./main-content/Mission";
+import Team from "./main-content/Team";
+import Product from "./main-content/Product";
 
 const Main = () => {
   return (
