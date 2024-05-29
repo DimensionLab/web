@@ -81,7 +81,7 @@ export default function Team() {
               <div className="flex flex-col w-full mb-2">
                 <div className="pb-2 h-[290px]">
                   <Image
-                    className="object-cover"
+                    className="object-cover grayscale"
                     src={card.image}
                     alt={card.name}
                     sizes="100vw"
