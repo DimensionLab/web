@@ -23,7 +23,7 @@ export const metadata: Metadata = {
         description: "Next-generation engineering & scientific software",
         images: [
             {
-                url: "https://www.dimensionlab.org/assets/branding/dl-title-intro.svg",
+                url: "https://www.dimensionlab.org/assets/dimensionlab-opengraph.png",
                 width: 1200,
                 height: 630,
                 alt: "DimensionLab - Next-generation engineering & scientific software",
