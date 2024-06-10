@@ -5,20 +5,43 @@ import SocialsRow from './SocialsRow';
 import Link from 'next/link';
 import useClientOrigin from '@/lib/useClientOrigin';
 
-const mainPoints = ["COMPANY", "LINKS"];
+const mainPoints = ["COMPANY", "PRODUCT", "LINKS"];
 
 const companyLinks = [
   {
     name: "Mission",
-    href: "#mission",
+    href: "/#mission",
   },
   {
     name: "Product",
-    href: "#product",
+    href: "/#product",
   },
   {
     name: "Team",
-    href: "#team"
+    href: "/#team"
+  },
+  {
+    name: "Case Studies",
+    href: "/case-studies"
+  },
+];
+
+const productLinks = [
+  {
+    name: "Features",
+    href: "/simlai/#features",
+  },
+  {
+    name: "Model Engineer",
+    href: "/simlai/#model-engineer",
+  },
+  {
+    name: "Simulation Studio",
+    href: "/simlai/#simulation-studio",
+  },
+  {
+    name: "Docs",
+    href: "https://docs.siml.ai",
   },
 ];
 
@@ -40,7 +63,7 @@ const otherLinks = [
 export default function Footer() {
   const origin = useClientOrigin();
   return (
-    <footer className="w-full">
+    <footer className="bg-lightBg w-full">
       <section className="flex flex-col py-12 gap-y-6 px-20 xl:px-0 items-center">
 
         <ul className='flex flex-col gap-y-6 lg:flex-row w-full lg:justify-between lg:max-w-4xl'>
@@ -67,7 +90,7 @@ export default function Footer() {
           {mainPoints.map((point, index) => (
             <li key={index} className="text-md text-muted">
               <span className="font-bold">{point}</span>
-              {point === "COMPANY" ? (
+              {point === "COMPANY" && (
                 <ul className="flex flex-col pt-2">
                   {companyLinks.map((link, index) => (
                     <li key={index} className="font-light text-md text-white">
@@ -77,7 +100,19 @@ export default function Footer() {
                     </li>
                   ))}
                 </ul>
-              ) : (
+              )}
+              {point === "PRODUCT" && (
+                <ul className="flex flex-col pt-2">
+                  {productLinks.map((link, index) => (
+                    <li key={index} className="font-light text-md text-white">
+                      <Link href={link.href.startsWith("https://") || link.href.startsWith("mailto:") ? link.href : origin + link.href} target={link.href.startsWith("https://") ? "_blank" : ""}>
+                        <span>{link.name}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {point == "LINKS" && (
                 <ul className="flex flex-col pt-2">
                   {otherLinks.map((link, index) => (
                     <li key={index} className="text-md text-white">
@@ -91,9 +126,9 @@ export default function Footer() {
             </li>
           ))}
         </ul>
-        <div className='w-full flex mx-auto py-16'>
+        <div className='w-full flex mx-auto pt-4'>
           <footer className="text-gray-500 text-xs text-center mx-auto w-[fit-content]">
-            ©2021-{new Date().getFullYear()} DimensionLab, creators of Siml.ai
+            ©2021-{new Date().getFullYear()} DimensionLab s.r.o. All rights reserved.
           </footer>
         </div>
       </section>

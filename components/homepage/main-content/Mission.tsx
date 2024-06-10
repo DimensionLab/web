@@ -2,7 +2,7 @@
 
 export default function Mission() {
   return (
-    <div id="mission" className="bg-[#0D101B] py-16 xl:py-32 px-20 xl:px-0 grid xl:gap-4 xl:grid-flow-col max-w-[1280px] mx-auto">
+    <div id="mission" className="py-16 xl:py-32 px-20 xl:px-0 grid xl:gap-4 xl:grid-flow-col max-w-[1280px] mx-auto">
       <div className="w-0 z-10 -ml-36 invisible xl:visible">
         <div className="text-2xl -rotate-90 tracking-widest inline-flex text-gray-500">
           <span className="mr-[5.8rem] uppercase">Mission</span>

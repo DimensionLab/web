@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import CookieConsent from "@/components/CookieConsent";
 import MainLayout from "@/components/MainLayout";
+import CoverLayout from "@/components/CoverLayout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -45,9 +46,9 @@ export default function RootLayout({
     return (
         <html lang="en" className="scroll-smooth">
             <body className={inter.className}>
-                <MainLayout>
+                <CoverLayout>
                     {children}
-                </MainLayout>
+                </CoverLayout>
                 <CookieConsent />
                 <Analytics />
                 <SpeedInsights />

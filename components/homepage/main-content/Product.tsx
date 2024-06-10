@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function Product() {
   return (
-    <div id="product" className="bg-[#0D101B] py-32 px-20 xl:px-0 max-w-[1280px] mx-auto">
+    <div id="product" className="py-32 px-20 xl:px-0 max-w-[1280px] mx-auto">
       <div className="grid xl:gap-4 xl:grid-flow-col">
         <div className="w-0 z-10 -ml-36 invisible xl:visible">
           <div className="text-2xl -rotate-90 tracking-widest inline-flex text-gray-500">
@@ -90,11 +90,10 @@ export default function Product() {
           </div>{" "}
           on the product&apos;s{" "}
           <Link
-            href="https://siml.ai"
+            href="/products/simlai"
             className="bg-gradient-to-r from-blue-500 via-blue-300 to-purple-600 bg-[length:100%_2px] hover:bg-[length:100%_10px] duration-300 bg-no-repeat bg-bottom"
-            target="_blank"
           >
-            website
+            page
           </Link>
           .
         </div>
