@@ -1,7 +1,12 @@
 import Link from "next/link"
 import Image from "next/image"
 
-const socialsData = [
+type SocialsData = {
+  icon: string;
+  href: string;
+};
+
+const socialsData: SocialsData[] = [
   {
     icon: "/assets/facebook-logo.svg",
     href: "https://www.facebook.com/dl.simlai",
@@ -28,11 +33,11 @@ const socialsData = [
   }
 ]
 
-export default function SimlSocialsRow() {
+export default function SimlSocialsRow({ customSocialsData = socialsData }: { customSocialsData?: SocialsData[] }) {
 
   return (
     <ul className="flex w-full gap-x-2 xl:gap-x-4">
-      {socialsData.map((social, index) => (
+      {customSocialsData.map((social, index) => (
         <li key={index} className="flex gap-x-4">
           <Link href={social.href} target="_blank">
             <Image src={social.icon} alt="Social" width={30} height={30} />

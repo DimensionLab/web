@@ -142,11 +142,45 @@ export default function HamburgerMenu({
         </ul>
         <div className="px-10">
           <h4 className="text-lg text-muted py-1">Follow DimensionLab</h4>
-          <SocialsRow />
+          <SocialsRow customSocialsData={[
+  {
+    icon: "/assets/component-assets/footer/linkedin-logo.svg",
+    href: "https://www.linkedin.com/company/dimensionlab",
+  },
+  {
+    icon: "/assets/component-assets/footer/facebook-logo.svg",
+    href: "https://www.facebook.com/dimensionlab/",
+  },
+  {
+    icon: "/assets/component-assets/footer/twitter-logo.svg",
+    href: "https://twitter.com/TheDimensionLab",
+  },
+]} />
         </div>
         <div className="px-10">
           <h4 className="text-lg text-muted py-1">Follow Siml.ai Platform</h4>
-          <SimlSocialsRow />
+          <SimlSocialsRow customSocialsData={[
+  {
+    icon: "/assets/facebook-logo.svg",
+    href: "https://www.facebook.com/dl.simlai",
+  },
+  {
+    icon: "/assets/twitter-logo.svg",
+    href: "https://twitter.com/siml_ai",
+  },
+  {
+    icon: "/assets/ig-logo.svg",
+    href: "https://www.instagram.com/siml.ai",
+  },
+  {
+    icon: "/assets/discord-logo.png",
+    href: "https://discord.gg/UxQyC9PEqt",
+  },
+  {
+    icon: "/assets/reddit-logo.png",
+    href: "https://www.reddit.com/r/simlai/"
+  }
+]} />
         </div>
       </section>
       <footer className="px-10 mb-6">
