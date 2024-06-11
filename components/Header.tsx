@@ -154,7 +154,12 @@ export default function Header() {
                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
                   </svg></button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="absolute z-10 mt-4 w-auto -translate-x-[50px] text-sm bg-white border border-gray-100 rounded-lg shadow-md dark:border-gray-700 dark:bg-gray-700">
+                <DropdownMenuContent className="hidden xl:block absolute z-10 mt-4 w-44 -translate-x-[50px] text-sm border rounded-lg shadow-md border-gray-700 bg-gray-700">
+                  <DropdownMenuItem className="px-4 py-2">
+                    <Link href="/" className="text-white hover:text-gray-300">
+                      Overview
+                    </Link>
+                  </DropdownMenuItem>
                   <DropdownMenuItem className="px-4 py-2">
                     <Link href="/#mission" className="text-white hover:text-gray-300">
                       Mission
@@ -190,9 +195,9 @@ export default function Header() {
                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
                   </svg></button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="absolute z-10 mt-4 w-[40rem] -translate-x-[300px] text-sm bg-white border border-gray-100 rounded-lg shadow-md dark:border-gray-700 dark:bg-gray-700">
-                  <div className="grid max-w-screen-xl px-4 py-5 mx-auto text-sm text-gray-500 dark:text-gray-400 md:grid-cols-3 md:px-6">
-                    <ul className="space-y-4 sm:mb-4 md:mb-0">
+                <DropdownMenuContent className="hidden xl:block absolute z-10 mt-4 w-[40rem] -translate-x-[300px] text-sm border rounded-lg shadow-md border-gray-700 bg-gray-700">
+                  <div className="grid max-w-screen-xl px-4 py-2 mx-auto text-sm text-gray-500 dark:text-gray-400 md:grid-cols-3 md:px-6">
+                    <ul className="space-y-1 mb-4 md:mb-0">
                       <DropdownMenuItem>
                         <Link href="/products/simlai/" className="text-white hover:text-gray-300">
                           Overview
@@ -214,7 +219,7 @@ export default function Header() {
                         </Link>
                       </DropdownMenuItem>
                     </ul>
-                    <ul className="hidden mb-4 space-y-4 md:mb-0 sm:block">
+                    <ul className="mb-4 space-y-1 md:mb-0">
                       <DropdownMenuItem>
                         <Link href="/products/simlai/pricing" className="text-white hover:text-gray-300">
                           Pricing
@@ -232,9 +237,9 @@ export default function Header() {
                       </DropdownMenuItem>
                     </ul>
                     <div className="mt-4 md:mt-0">
-                      <h2 className="mb-2 font-semibold text-gray-900 dark:text-white">Book a demo</h2>
+                      <h2 className="mb-2 font-semibold text-white">Book a demo</h2>
                       <p className="mb-2 text-gray-500 dark:text-gray-400">Explore how Siml.ai can speed up your simulation workflows.</p>
-                      <a href="https://meetings-eu1.hubspot.com/peter-macinsky" className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-600 dark:text-blue-500 dark:hover:text-blue-700">
+                      <a href="https://meetings-eu1.hubspot.com/peter-macinsky" className="inline-flex items-center text-sm font-medium text-blue-300 hover:text-blue-600 duration-300">
                         Book a demo
                         <span className="sr-only">Book a demo </span>
                         <svg className="w-3 h-3 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">

@@ -1,5 +1,5 @@
 import Footer from "./Footer";
-import Header from "./header";
+import Header from "./Header";
 
 export default function CoverLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (

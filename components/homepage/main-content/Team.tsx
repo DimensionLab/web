@@ -51,7 +51,7 @@ export default function Team() {
     {
       name: "Selva Prasad",
       bio: "Senior backend developer and software enineerwith 20+ years of experience in leading diverse teams across the globe. SAFe agilist, SDLC, DevOps.",
-      image: "/assets/team/selva-prasad.jpeg",
+      image: "/assets/team/selva-prasad.jpg",
     },
     {
       name: "Matúš Hančikovský",

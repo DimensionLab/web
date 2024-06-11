@@ -5,8 +5,8 @@ const Intro = () => {
     <div id="intro" className="py-16 xl:py-32 px-20 xl:px-0">
       <div className="grid grid-cols-4 gap-4 grid-flow-row max-w-[1280px] mx-auto">
         <div className="col-span-3 z-10">
-          <div className="text-5xl xl:text-7xl font-[800] mb-2 text-[#EBEDFA] z-10 mb-10">We build next-generation <br />engineering & scientific software.</div>
-          <div className="text-xl text-[#B4B6C3] z-10 py-10">Unlocking you to design the technology of the future. Better and faster.</div>
+          <div className="text-5xl xl:text-7xl font-[800] mb-2 text-[#EBEDFA] z-10 mb-10">We speed up your <br />engineering simulation with <span className="bg-gradient-to-r from-blue-500 via-blue-300 to-purple-600 inline-block text-transparent bg-clip-text drop-shadow-lg">the power of AI</span>.</div>
+          <div className="text-2xl text-[#EBEDFA] z-10 py-10">Unlocking you to design the technology of the future. Better and faster.</div>
         </div>
         <div className="hidden xl:inline-block">
           <svg width="260" height="260" viewBox="0 0 260 260" fill="white" xmlns="http://www.w3.org/2000/svg">

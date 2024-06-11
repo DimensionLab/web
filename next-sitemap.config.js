@@ -12,7 +12,7 @@ module.exports = {
       lastmod: new Date().toISOString()
     }, 
     {
-      loc: "https://meetings-eu1.hubspot.com/michal-bujnak",
+      loc: "https://meetings-eu1.hubspot.com/peter-macinsky",
       changefreq: 'daily',
       priority: 0.7,
       lastmod: new Date().toISOString()

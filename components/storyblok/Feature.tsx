@@ -1,6 +1,6 @@
 import { storyblokEditable } from "@storyblok/react/rsc";
  
-const Feature = ({ blok }) => (
+const Feature = ({ blok }: any) => (
   <div  {...storyblokEditable(blok)}>
     {blok.name}
   </div>
