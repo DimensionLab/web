@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.dimensionlab.org
+
+# Sitemaps
+Sitemap: https://www.dimensionlab.org/sitemap.xml
