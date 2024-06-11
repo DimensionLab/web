@@ -392,7 +392,7 @@ export default function Index () {
         <div className="row">
           <div className="col-sm-6 col-md-4">
             <div className="widget widget-text">
-              <div className="logo logo-footer"><Link href="/"> <img className="logo logo-display" src="/assets/images/DL_symbol_stroke_white.png" alt="DimensionLab logo" /></Link> </div>
+              <div className="logo logo-footer"><Link href="/"> <img className="py-4" src="/assets/branding/dl-title-intro.svg" alt="DimensionLab logo" width={200} /></Link> </div>
             </div>
           </div>
           <div className="col-sm-6 col-md-2">

@@ -5,14 +5,14 @@ import Link from "next/link";
 
 export default function Product() {
   return (
-    <div id="product" className="bg-[#0D101B] py-32 px-20 xl:px-0 max-w-[1280px] mx-auto">
+    <div id="product" className="py:8 sm:py-16 xl:py-32 px-8 sm:px-20 xl:px-0 max-w-[1280px] mx-auto">
       <div className="grid xl:gap-4 xl:grid-flow-col">
         <div className="w-0 z-10 -ml-36 invisible xl:visible">
           <div className="text-2xl -rotate-90 tracking-widest inline-flex text-gray-500">
             <span className="mr-[5.8rem] uppercase">Product</span>
           </div>
         </div>
-        <div className="block md:col-span-3 z-10">
+        <div className="block md:col-span-2 z-10">
           <div className="visible xl:hidden text-whitetext-xl sm:text-2xl inline-block tracking-widest text-gray-500 pb-4 xl:pb-10">
             <span className="uppercase">Product</span>
           </div>
@@ -28,11 +28,11 @@ export default function Product() {
             Virtual prototyping still takes months with available simulation
             tools.
           </div>
-          <div className="xl:hidden block md:col-span-3">
+          <div className="xl:hidden block md:col-span-4 max-xl:mb-8">
             <Image
-              src="/assets/simulations-of-future.png"
+              src="/assets/simlai-model-engineer-mar-2024.png"
               alt=""
-              className="xs:max-w-[200px] md:max-w-[500px] w-full mx-auto"
+              className="xs:max-w-[300px] md:max-w-[800px] w-full mx-auto"
               width={1280}
               height={550}
             />
@@ -61,23 +61,15 @@ export default function Product() {
         </div>
         <div className="xl:block hidden md:col-span-3">
           <Image
-            src="/assets/simulations-of-future.png"
+            src="/assets/simlai-model-engineer-mar-2024.png"
             alt=""
             width={1280}
             height={550}
           />
         </div>
       </div>
-      <div className="py-16">
-        <Image
-          src="/assets/simlai-model-engineer-mar-2024.png"
-          alt=""
-          width={1280}
-          height={550}
-        />
-      </div>
-      <div className="w-full">
-        <div className="mb-4 text-white text-2xl xl:text-3xl font-bold leading-8 text-center mx-auto w-[fit-content]">
+      <div className="w-full py-8 xl:py-32">
+        <div className="text-white text-2xl xl:text-3xl font-bold leading-8 text-center mx-auto w-[fit-content]">
           Read more about{" "}
           <div className="inline-flex flex-row items-baseline gap-x-2 inline">
             <Image
@@ -90,11 +82,10 @@ export default function Product() {
           </div>{" "}
           on the product&apos;s{" "}
           <Link
-            href="https://siml.ai"
+            href="/products/simlai"
             className="bg-gradient-to-r from-blue-500 via-blue-300 to-purple-600 bg-[length:100%_2px] hover:bg-[length:100%_10px] duration-300 bg-no-repeat bg-bottom"
-            target="_blank"
           >
-            website
+            page
           </Link>
           .
         </div>
