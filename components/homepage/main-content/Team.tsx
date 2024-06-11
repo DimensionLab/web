@@ -65,7 +65,7 @@ export default function Team() {
     },
   ];
   return (
-    <div id="team" className="py-16 xl:py-32 px-20 xl:px-0 grid xl:gap-4 xl:grid-flow-col max-w-[1280px] mx-auto">
+    <div id="team" className="pb-16 xl:pb-32 px-8 sm:px-20 xl:px-0 grid xl:gap-4 xl:grid-flow-col max-w-[1280px] mx-auto">
       <div className="w-0 z-10 -ml-24 invisible xl:visible">
         <div className="text-2xl -rotate-90 tracking-widest inline-flex text-gray-500">
           <span className="mr-[2.5rem] uppercase">Team</span>

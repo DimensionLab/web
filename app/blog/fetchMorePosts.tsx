@@ -3,7 +3,7 @@
 import { storyblokVersion } from "@/lib/environment";
 import { BlogPostCard, BlogStory } from "@/types/blog";
 import { ISbStoriesParams, apiPlugin, getStoryblokApi, storyblokInit } from "@storyblok/react/rsc";
-import { STORIES_PER_PAGE } from "./constants";
+import { STORIES_PER_PAGE } from "@/lib/constants";
 
 storyblokInit({
   accessToken: process.env.storyblokApiToken,

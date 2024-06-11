@@ -8,7 +8,7 @@ import UniversityPost from "@/components/blog/UniversityPost";
 import { useEffect, useState } from "react";
 import fetchMoreUniPosts from "./fetchMoreUniPosts";
 import SkeletonCard from "@/components/blog/skeletonCard";
-import { STORIES_PER_PAGE } from "../../blog/constants";
+import { STORIES_PER_PAGE } from "@/lib/constants";
 
 interface CachedArticles {
   articles: UniversityPostCard[];

@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import fetchMorePosts from "./fetchMorePosts";
 import Link from "next/link";
-import { STORIES_PER_PAGE } from "./constants";
+import { STORIES_PER_PAGE } from "@/lib/constants";
 import SkeletonCard from "@/components/blog/skeletonCard";
 
 interface CachedArticles {

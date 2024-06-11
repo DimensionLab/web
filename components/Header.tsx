@@ -95,8 +95,6 @@ export default function Header() {
   const originUrl = useClientOrigin();
   const [showBackground, setShowBackground] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false);
-  const [companyMenu, setCompanyMenu] = useState(false);
-  const [productMenu, setProductMenu] = useState(false);
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   }
@@ -125,18 +123,7 @@ export default function Header() {
     }
   }, [menuOpen])
 
-  function toggleCompanyMenu() {
-    setCompanyMenu(!companyMenu);
-    setProductMenu(false);
-    console.log('companyMenu', companyMenu)
-  }
-
-  function toggleProductMenu() {
-    setProductMenu(!productMenu);
-    setCompanyMenu(false);
-    console.log('productMenu', productMenu)
-  }
-
+  console.log(pathname)
 
   return (
     <div className={`w-full sticky top-0 left-0 z-30 xl:pr-0 duration-200 ${showBackground ? "bg-darkBg" : "bg-transparent"}`}>
@@ -154,7 +141,7 @@ export default function Header() {
                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
                   </svg></button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="hidden xl:block absolute z-10 mt-4 w-44 -translate-x-[50px] text-sm border rounded-lg shadow-md border-gray-700 bg-gray-700">
+                <DropdownMenuContent className="hidden xl:block absolute z-10 opacity-95 mt-4 w-44 -translate-x-[50px] text-sm border rounded-lg shadow-md border-gray-700 bg-gray-900">
                   <DropdownMenuItem className="px-4 py-2">
                     <Link href="/" className="text-white hover:text-gray-300">
                       Overview
@@ -175,28 +162,18 @@ export default function Header() {
                       Team
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem className="px-4 py-2">
-                    <Link href="/terms-and-conditions" className="text-white hover:text-gray-300">
-                      Terms & Conditions
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="px-4 py-2">
-                    <Link href="/privacy-policy" className="text-white hover:text-gray-300">
-                      Privacy Policy
-                    </Link>
-                  </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </li>
             <li>
               <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild>
-                  <button onClick={toggleProductMenu} className="flex items-center justify-between w-full py-2 px-3 text-white hover:text-gray-300 duration-300 md:w-auto md:p-0">Siml.ai Platform <svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                  <button className="flex items-center justify-between w-full py-2 px-3 text-white hover:text-gray-300 duration-300 md:w-auto md:p-0">Siml.ai Platform <svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
                   </svg></button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="hidden xl:block absolute z-10 mt-4 w-[40rem] -translate-x-[300px] text-sm border rounded-lg shadow-md border-gray-700 bg-gray-700">
-                  <div className="grid max-w-screen-xl px-4 py-2 mx-auto text-sm text-gray-500 dark:text-gray-400 md:grid-cols-3 md:px-6">
+                <DropdownMenuContent className="hidden xl:block absolute z-10 opacity-95 mt-4 w-[40rem] -translate-x-[300px] text-sm border rounded-lg shadow-md border-gray-700 bg-gray-900">
+                  <div className="grid max-w-screen-xl px-4 py-2 mx-auto text-sm text-gray-500 md:grid-cols-3 md:px-6">
                     <ul className="space-y-1 mb-4 md:mb-0">
                       <DropdownMenuItem>
                         <Link href="/products/simlai/" className="text-white hover:text-gray-300">
@@ -236,7 +213,7 @@ export default function Header() {
                         </Link>
                       </DropdownMenuItem>
                     </ul>
-                    <div className="mt-4 md:mt-0">
+                    <div className="mt-4 md:mt-0 px-2">
                       <h2 className="mb-2 font-semibold text-white">Book a demo</h2>
                       <p className="mb-2 text-gray-500 dark:text-gray-400">Explore how Siml.ai can speed up your simulation workflows.</p>
                       <a href="https://meetings-eu1.hubspot.com/peter-macinsky" className="inline-flex items-center text-sm font-medium text-blue-300 hover:text-blue-600 duration-300">
@@ -259,6 +236,11 @@ export default function Header() {
             <li>
               <Link href="/case-studies" replace target="">
                 <span className="text-white hover:text-gray-300 duration-300">Case studies</span>
+              </Link>
+            </li>
+            <li>
+              <Link href="https://platform.siml.ai" target="_blank">
+                <button className="bg-btnPurple px-4 py-2 -my-2 rounded font-bold text-white hover:text-gray-300 hover:brightness-125 duration-300">Log in to Siml.ai</button>
               </Link>
             </li>
           </ul>

@@ -21,6 +21,10 @@ const companyLinks = [
     href: "/#team"
   },
   {
+    name: "Blog",
+    href: "/blog"
+  },
+  {
     name: "Case Studies",
     href: "/case-studies"
   },
@@ -29,15 +33,19 @@ const companyLinks = [
 const productLinks = [
   {
     name: "Features",
-    href: "/simlai/#features",
+    href: "/products/simlai/#features",
   },
   {
     name: "Model Engineer",
-    href: "/simlai/#model-engineer",
+    href: "/products/simlai/#model-engineer",
   },
   {
     name: "Simulation Studio",
-    href: "/simlai/#simulation-studio",
+    href: "/products/simlai/#simulation-studio",
+  },
+  {
+    name: "Pricing",
+    href: "/products/simlai/pricing",
   },
   {
     name: "Docs",
