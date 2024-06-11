@@ -2,7 +2,7 @@
 
 import CTAbuttons from "@/components/CTAbuttons";
 import EngagementCardsParent from "@/components/EngagementCardParent";
-import Features from "@/components/Features";
+import Features from "@/components/Featuress";
 import IntroParent from "@/components/IntroParent";
 import MailchimpForm from "@/components/MailchimpForm";
 import MainLayoutWrapper from "@/components/MainLayoutWrapper";
