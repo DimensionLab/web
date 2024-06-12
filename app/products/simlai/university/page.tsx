@@ -77,7 +77,7 @@ export default function UniversityRootPage() {
           ? storiesObjects.map((uniPost) => {
               return (
                 <li key={uniPost.uuid} className={cn("max-w-6xl")}>
-                  <Link href={`/university/${uniPost.slug}`}>
+                  <Link href={`/products/simlai/university/${uniPost.slug}`}>
                     <UniversityPost uniPost={uniPost} />
                   </Link>
                 </li>
