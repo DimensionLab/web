@@ -216,7 +216,7 @@ export default function Header() {
                     <div className="mt-4 md:mt-0 px-2">
                       <h2 className="mb-2 font-semibold text-white">Book a demo</h2>
                       <p className="mb-2 text-gray-500 dark:text-gray-400">Explore how Siml.ai can speed up your simulation workflows.</p>
-                      <a href="https://meetings-eu1.hubspot.com/peter-macinsky" className="inline-flex items-center text-sm font-medium text-blue-300 hover:text-blue-600 duration-300">
+                      <a href="https://meetings-eu1.hubspot.com/takac" className="inline-flex items-center text-sm font-medium text-blue-300 hover:text-blue-600 duration-300">
                         Book a demo
                         <span className="sr-only">Book a demo </span>
                         <svg className="w-3 h-3 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">

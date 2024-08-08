@@ -53,7 +53,7 @@ export default function BlogRootPage() {
       setCurrPage(currPage + 1);
       setTotal(newStories.total);
     });
-  }, [])
+  }, [currPage])
 
   const mockArray = Array.from({ length: STORIES_PER_PAGE }, (_, i) => i);
 
