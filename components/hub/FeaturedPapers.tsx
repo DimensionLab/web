@@ -47,6 +47,10 @@ async function getFeaturedPapers() {
 
 export default async function FeaturedPapers() {
   const response = await getFeaturedPapers();
+
+  if (response.papers.length === 0) {
+    return null;
+  }
   
   return (
     <section className="mb-12">

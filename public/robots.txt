@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://www.dimensionlab.org
+Host: http://localhost:3000
 
 # Sitemaps
-Sitemap: https://www.dimensionlab.org/sitemap.xml
+Sitemap: http://localhost:3000/sitemap.xml
