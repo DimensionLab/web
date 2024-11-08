@@ -130,15 +130,15 @@ export default function HamburgerMenu({
               Learn
             </Link>
           </li>
-          <li className="font-bold text-xl text-muted hover:text-white duration-300">
+          {/* <li className="font-bold text-xl text-muted hover:text-white duration-300">
             <Link
-              href="https://meetings-eu1.hubspot.com/peter-macinsky"
+              href="https://meetings-eu1.hubspot.com/takac"
               target="_blank"
               onClick={() => toggleMenu()}
             >
               Book a demo
             </Link>
-          </li>
+          </li> */}
         </ul>
         <div className="px-10">
           <h4 className="text-lg text-muted py-1">Follow DimensionLab</h4>

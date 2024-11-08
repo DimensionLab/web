@@ -1,9 +1,9 @@
 export default function TalkToTeam() {
   const data = [
-    {
-      title: "BOOK A DEMO",
-      href: "https://meetings-eu1.hubspot.com/peter-macinsky",
-    },
+    // {
+    //   title: "BOOK A DEMO",
+    //   href: "https://meetings-eu1.hubspot.com/takac",
+    // },
     {
       title: "COMPLETE SURVEY TO GET FREE MONTH!",
       href: "https://dmloc3fzh7g.typeform.com/to/LjYAfoxp",
