@@ -1,13 +1,23 @@
+'use client';
+
 import Link from 'next/link';
 import type { ArxivPaper } from '@/lib/arxiv';
-import { Calendar, Users } from 'lucide-react';
+import { Calendar, Users, Eye } from 'lucide-react';
 import { format } from 'date-fns';
 import { renderMathInElement } from '@/lib/math';
 import 'katex/dist/katex.min.css';
+import { useEffect, useState } from 'react';
+import { getViewCounts } from '@/app/actions';
 
 interface PaperCardProps {
   paper: ArxivPaper;
   featured?: boolean;
+  viewCounts: {
+    total: number;
+    today: number;
+    thisWeek: number;
+    thisMonth: number;
+  };
 }
 
 function truncateText(text: string, maxLength: number = 150): string {
@@ -15,7 +25,19 @@ function truncateText(text: string, maxLength: number = 150): string {
   return text.slice(0, maxLength).trim() + '...';
 }
 
-export default function PaperCard({ paper, featured = false }: PaperCardProps) {
+export default function PaperCard({ paper, featured = false, viewCounts: initialCounts }: PaperCardProps) {
+  const [viewCounts, setViewCounts] = useState(initialCounts);
+
+  useEffect(() => {
+    // Fetch fresh view counts when component mounts
+    const fetchViewCounts = async () => {
+      const freshCounts = await getViewCounts(paper.id);
+      setViewCounts(freshCounts);
+    };
+
+    fetchViewCounts();
+  }, [paper.id]);
+
   return (
     <Link 
       href={`/papers/${paper.id}`}
@@ -43,6 +65,16 @@ export default function PaperCard({ paper, featured = false }: PaperCardProps) {
         <div className="flex items-center gap-1">
           <Users className="h-4 w-4" />
           {paper.authors.length} authors
+        </div>
+        <div className="flex items-center gap-1">
+          <Eye className="h-4 w-4" />
+          {featured ? (
+            <span title={`${viewCounts.thisWeek} this week`}>
+              {viewCounts.total} views
+            </span>
+          ) : (
+            <span>{viewCounts?.total || 0} views</span>
+          )}
         </div>
       </div>
       

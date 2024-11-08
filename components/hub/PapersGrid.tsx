@@ -2,8 +2,8 @@
 
 import { useStore } from '@/lib/store';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { searchArxiv, ArxivPaper } from '@/lib/arxiv';
-import PaperCard from './PaperCard';
+import { searchArxiv } from '@/lib/arxiv';
+import PaperList from './PaperList';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
 
@@ -22,7 +22,7 @@ export default function PapersGrid() {
   } = useInfiniteQuery({
     queryKey: ['papers', query],
     queryFn: async ({ pageParam = 0 }) => {
-      const searchQuery = query || '';
+      const searchQuery = query || 'cat:cs.AI';
       return searchArxiv(searchQuery, pageParam, PAPERS_PER_PAGE);
     },
     getNextPageParam: (lastPage, allPages) => {
@@ -49,11 +49,7 @@ export default function PapersGrid() {
 
   return (
     <div className="space-y-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {papers.map((paper: ArxivPaper) => (
-          <PaperCard key={paper.id} paper={paper} />
-        ))}
-      </div>
+      <PaperList papers={papers} />
       
       <div ref={ref} className="flex justify-center py-4">
         {isFetchingNextPage && (
