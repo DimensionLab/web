@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import FeaturedPapers from '@/components/hub/FeaturedPapers';
 import PapersGrid from '@/components/hub/PapersGrid';
-import SearchBar from '@/components/hub/SearchBar';
+import PaperFilters from '@/components/hub/PaperFilters';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 export const metadata = {
@@ -12,7 +12,7 @@ export const metadata = {
 export default function HubPage() {
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <h1 className="text-4xl font-bold mb-8">Scientific Papers Hub</h1>
+      <h1 className="text-4xl font-bold mb-8">Scientific Machine Learning & PhysicsML Papers</h1>
       
       <ErrorBoundary>
         <Suspense fallback={
@@ -25,7 +25,7 @@ export default function HubPage() {
       </ErrorBoundary>
 
       <div className="my-8">
-        <SearchBar />
+        <PaperFilters />
       </div>
 
       <ErrorBoundary>

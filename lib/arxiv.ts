@@ -25,7 +25,6 @@ export const searchArxiv = cache(async (query: string, start = 0, maxResults = 5
       sortBy: 'submittedDate',
       sortOrder: 'descending',
     });
-
     const response = await fetch(`${ARXIV_API_URL}?${params}`, {
       next: { revalidate: 3600 } // Cache for 1 hour
     });
@@ -51,7 +50,6 @@ export const searchArxiv = cache(async (query: string, start = 0, maxResults = 5
 
 export const getArxivPaper = cache(async (id: string): Promise<ArxivPaper> => {
   try {
-    console.log('Fetching paper with ID:', id);
     const response = await fetch(`${ARXIV_API_URL}?id_list=${id}`, {
       next: { revalidate: 3600 } // Cache for 1 hour
     });
@@ -62,7 +60,6 @@ export const getArxivPaper = cache(async (id: string): Promise<ArxivPaper> => {
 
     const data = await response.text();
     const parsed = parser.parse(data);
-    console.log('Parsed response:', parsed);
 
     if (!parsed?.feed?.entry) {
       console.log('No entry found in feed');
@@ -70,7 +67,6 @@ export const getArxivPaper = cache(async (id: string): Promise<ArxivPaper> => {
     }
 
     const paper = transformArxivResponse([parsed.feed.entry])[0];
-    console.log('Transformed paper:', paper);
     
     if (!paper) {
       throw new Error('Failed to transform paper data');

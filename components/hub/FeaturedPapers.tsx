@@ -9,20 +9,15 @@ async function getFeaturedPapers() {
   const featuredIds = await getFeaturedPaperIds();
   const FEATURED_COUNT = 3;
   
-  console.log('Featured IDs:', featuredIds);
-  
   if (featuredIds.length < FEATURED_COUNT) {
     // Get all papers from our view counts table
     const allViewCounts = await getBatchViewCounts([]);
-    console.log('All view counts:', allViewCounts);
     
     // Sort paper IDs by view count and take top ones
     const topPaperIds = Object.entries(allViewCounts)
       .sort(([, a], [, b]) => (b.thisWeek || 0) - (a.thisWeek || 0))
       .slice(0, FEATURED_COUNT)
       .map(([id]) => id);
-    
-    console.log('Top paper IDs:', topPaperIds);
 
     // Fetch paper details for the top viewed papers
     const papers = await Promise.all(
