@@ -67,6 +67,11 @@ export default function HamburgerMenu({
             </Link>
           </li>
           <li className="font-bold text-xl text-muted hover:text-white duration-300">
+            <Link href="/papers" onClick={() => toggleMenu()}>
+              <span>Papers</span>
+            </Link>
+          </li>
+          <li className="font-bold text-xl text-muted hover:text-white duration-300">
             <Link href="/blog" onClick={() => toggleMenu()}>
               <span>Blog</span>
             </Link>
