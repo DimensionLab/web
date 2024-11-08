@@ -1,8 +1,8 @@
 export default function Stats() {
   const data = [
-    ["90%+ ", "costs saved"],
-    ['700+ ', "hours saved"],
-    ["1,900+ ", "users"]
+    ["85%+ ", "costs saved"],
+    ['10,000+ ', "hours saved"],
+    ["2,100+ ", "users"]
   ]
   return (
     <section className="flex flex-row w-full justify-center px-4 gap-x-2 sm:justify-between"> 
