@@ -83,10 +83,10 @@ export default function Footer() {
                 <img src="/assets/component-assets/footer/location-icon.svg" alt="" />
                 <div className="ml-2 text-xs flex flex-col">Lomnická 2, 040 01 Košice, Slovakia</div>
               </li>
-              <li className="inline-flex py-1">
+              {/* <li className="inline-flex py-1">
                 <img src="/assets/component-assets/footer/phone-icon.svg" alt="" />
                 <div className="ml-2 text-xs">+421 911 334 797</div>
-              </li>
+              </li> */}
               <li className="inline-flex py-1">
                 <img src="/assets/component-assets/footer/email-icon.svg" alt="" />
                 <a href="mailto:hello@dimensionlab.org">

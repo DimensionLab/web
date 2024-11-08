@@ -82,10 +82,6 @@ const simlMenuItems = [
     label: "BLOG",
     href: "/blog"
   },
-  {
-    label: "BOOK A DEMO",
-    href: "https://meetings-eu1.hubspot.com/peter-macinsky"
-  }
 ]
 
 
@@ -172,8 +168,8 @@ export default function Header() {
                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
                   </svg></button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="hidden xl:block absolute z-10 opacity-95 mt-4 w-[40rem] -translate-x-[300px] text-sm border rounded-lg shadow-md border-gray-700 bg-gray-900">
-                  <div className="grid max-w-screen-xl px-4 py-2 mx-auto text-sm text-gray-500 md:grid-cols-3 md:px-6">
+                <DropdownMenuContent className="hidden xl:block absolute z-10 opacity-95 mt-4 w-[25rem] -translate-x-[200px] text-sm border rounded-lg shadow-md border-gray-700 bg-gray-900">
+                  <div className="grid max-w-screen-xl px-4 py-2 mx-auto text-sm text-gray-500 md:grid-cols-2 md:px-6">
                     <ul className="space-y-1 mb-4 md:mb-0">
                       <DropdownMenuItem>
                         <Link href="/products/simlai/" className="text-white hover:text-gray-300">
@@ -213,17 +209,6 @@ export default function Header() {
                         </Link>
                       </DropdownMenuItem>
                     </ul>
-                    <div className="mt-4 md:mt-0 px-2">
-                      <h2 className="mb-2 font-semibold text-white">Book a demo</h2>
-                      <p className="mb-2 text-gray-500 dark:text-gray-400">Explore how Siml.ai can speed up your simulation workflows.</p>
-                      <a href="https://meetings-eu1.hubspot.com/takac" className="inline-flex items-center text-sm font-medium text-blue-300 hover:text-blue-600 duration-300">
-                        Book a demo
-                        <span className="sr-only">Book a demo </span>
-                        <svg className="w-3 h-3 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                          <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-                        </svg>
-                      </a>
-                    </div>
                   </div>
                 </DropdownMenuContent>
               </DropdownMenu>
