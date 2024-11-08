@@ -5,7 +5,7 @@ import PaperFilters from '@/components/hub/PaperFilters';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 export const metadata = {
-  title: 'Scientific Papers Hub',
+  title: 'DimensionLab - Scientific Machine Learning & PhysicsML Papers',
   description: 'Discover the latest research papers in machine learning, physics-informed neural networks, and AI-driven engineering.',
 };
 

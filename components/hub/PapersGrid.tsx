@@ -18,7 +18,6 @@ export default function PapersGrid() {
       queryKey: ["papers", query],
       queryFn: async ({ pageParam = 0 }) => {
         const searchQuery = query || "";
-        console.log('searchQuery', searchQuery);
         return searchArxiv(searchQuery, pageParam, PAPERS_PER_PAGE);
       },
       getNextPageParam: (lastPage, allPages) => {

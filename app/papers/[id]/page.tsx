@@ -11,27 +11,6 @@ import { WeeklyChart, MonthlyChart } from './components/Charts';
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
-// Add this mock data (replace with real data from your backend later)
-const dailyData = [
-  { date: 'Mon', views: 4 },
-  { date: 'Tue', views: 3 },
-  { date: 'Wed', views: 7 },
-  { date: 'Thu', views: 5 },
-  { date: 'Fri', views: 8 },
-  { date: 'Sat', views: 12 },
-  { date: 'Sun', views: 9 },
-];
-
-const monthlyData = [
-  { date: '1', views: 14 },
-  { date: '5', views: 23 },
-  { date: '10', views: 35 },
-  { date: '15', views: 48 },
-  { date: '20', views: 56 },
-  { date: '25', views: 70 },
-  { date: '30', views: 85 },
-];
-
 function processText(text: string): string {
   return text.replace(/(\d+\.?\d*)\\%/g, "$1%").replace(/--/g, "—");
 }

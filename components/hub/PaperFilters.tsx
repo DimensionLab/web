@@ -1,7 +1,6 @@
 'use client';
 
 import { useStore } from "@/lib/store";
-import { useEffect } from "react";
 import { Check, Plus } from 'lucide-react';
 
 const FILTER_OPTIONS = [
@@ -23,16 +22,6 @@ const FILTER_OPTIONS = [
 export default function PaperFilters() {
   const { query, setQuery } = useStore();
   const activeFilters = query ? query.split(' OR ').map(q => q.split(':')[1].replace(/['"]/g, '')) : [];
-
-  // Set all filters on by default when component mounts
-  useEffect(() => {
-    if (!query) {
-      const allFiltersQuery = FILTER_OPTIONS
-        .map(filter => `ti:"${filter.query}" OR abs:"${filter.query}"`)
-        .join(' OR ');
-      setQuery(allFiltersQuery);
-    }
-  }, []);
 
   const toggleFilter = (filterQuery: string) => {
     const currentFilters = new Set(activeFilters);
