@@ -79,6 +79,10 @@ const simlMenuItems = [
     href: "/case-studies"
   },
   {
+    label: "PAPERS",
+    href: "/papers"
+  },
+  {
     label: "BLOG",
     href: "/blog"
   },
@@ -212,6 +216,11 @@ export default function Header() {
                   </div>
                 </DropdownMenuContent>
               </DropdownMenu>
+            </li>
+            <li>
+              <Link href="/papers" replace target="">
+                <span className="text-white hover:text-gray-300 duration-300">Papers</span>
+              </Link>
             </li>
             <li>
               <Link href="/blog" replace target="">
