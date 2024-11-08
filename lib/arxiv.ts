@@ -1,7 +1,7 @@
 import { cache } from 'react';
 import { XMLParser } from 'fast-xml-parser';
 
-const ARXIV_API_URL = 'http://export.arxiv.org/api/query';
+const ARXIV_API_URL = 'https://export.arxiv.org/api/query';
 const parser = new XMLParser();
 
 export interface ArxivPaper {
