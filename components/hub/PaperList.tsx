@@ -21,10 +21,10 @@ export default function PaperList({ papers, featured = false }: PaperListProps) 
         return {};
       }
     },
-    refetchInterval: 5000,
+    refetchInterval: 1000 * 60 * 5,
     staleTime: 0,
     retry: false,
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: true,
   });
 
   const safeViewCounts = status === 'error' || !viewCounts ? {} : viewCounts;
