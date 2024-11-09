@@ -42,8 +42,8 @@ export default async function PaperPage({
     ]);
 
     return (
-      <div className="flex gap-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <article className="text-white flex-1">
+      <div className="flex flex-col lg:flex-row gap-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <article className="text-white w-full lg:flex-1">
           <h1 className="text-3xl font-bold mb-4">
             {renderMathInElement(processText(paper.title))}
           </h1>
@@ -90,7 +90,7 @@ export default async function PaperPage({
           </div>
         </article>
 
-        <aside className="w-96 shrink-0">
+        <aside className="w-full lg:w-96 lg:shrink-0">
           <div className="sticky top-8 bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 border border-gray-700">
             <h2 className="text-lg font-semibold mb-3 flex items-center gap-2 text-gray-200">
               <BarChart3 className="h-4 w-4" />
@@ -100,14 +100,14 @@ export default async function PaperPage({
             <div className="space-y-4">
               <div className="bg-gray-700/50 rounded-lg p-3">
                 <div className="text-xs text-gray-400 mb-2">Weekly Views</div>
-                <div className="h-32">
+                <div className="h-32 w-full">
                   <WeeklyChart data={viewHistory.daily} />
                 </div>
               </div>
 
               <div className="bg-gray-700/50 rounded-lg p-3">
                 <div className="text-xs text-gray-400 mb-2">Monthly Views</div>
-                <div className="h-32">
+                <div className="h-32 w-full">
                   <MonthlyChart data={viewHistory.monthly} />
                 </div>
               </div>
