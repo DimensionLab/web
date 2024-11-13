@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogClose, DialogFooter } from "../ui/Modal";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogClose, DialogFooter } from "../ui/dialog";
 import Link from "next/link";
 import Icon from "@mdi/react";
 import { mdiCursorDefaultClick, mdiEmail, mdiAccountMultiple } from "@mdi/js";

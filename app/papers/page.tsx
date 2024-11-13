@@ -9,7 +9,7 @@ export const metadata = {
   description: 'Discover the latest research papers in machine learning, physics-informed neural networks, and AI-driven engineering.',
 };
 
-export default function HubPage() {
+export default function PapersPage() {
   return (
     <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <h1 className="text-4xl font-bold mb-8">Scientific Machine Learning & PhysicsML Papers</h1>

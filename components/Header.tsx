@@ -17,10 +17,12 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@/components/ui/DropdownMenu"
+} from "@/components/ui/dropdown-menu"
 import { usePathname } from "next/navigation";
 import useClientOrigin from "@/lib/useClientOrigin";
 import TrackingWrapper from "./tracking/TrackingWrapper";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import ProfileDropdown from "./organisms/ProfileDropdown";
 
 const mainMenuItems = [
   {
@@ -90,6 +92,7 @@ const simlMenuItems = [
 
 
 export default function Header() {
+  const { user } = useUser();
   const TOP_OFFSET = 50;
   const pathname = usePathname();
   const originUrl = useClientOrigin();
@@ -232,11 +235,20 @@ export default function Header() {
                 <span className="text-white hover:text-gray-300 duration-300">Case studies</span>
               </Link>
             </li>
-            <li>
-              <Link href="https://platform.siml.ai" target="_blank">
-                <button className="bg-btnPurple px-4 py-2 -my-2 rounded font-bold text-white hover:text-gray-300 hover:brightness-125 duration-300">Log in to Siml.ai</button>
-              </Link>
-            </li>
+            {user ? <ProfileDropdown /> : (
+              <>
+              <li>
+                <a href="/api/auth/signup">
+                  <span className="px-4 py-2 -my-2 font-bold text-white hover:text-gray-300 hover:brightness-125 duration-300">Sign up</span>
+                </a>
+              </li>
+              <li>
+                <a href="/api/auth/login">
+                  <button className="bg-btnPurple px-4 py-2 -my-2 rounded font-bold text-white hover:text-gray-300 hover:brightness-125 duration-300">Log in</button>
+                </a>
+              </li>
+              </>
+            )}
           </ul>
           <button onClick={() => toggleMenu()} className="xl:hidden">
             <Image src="/assets/hamburger-menu.svg" alt="Menu" width={30} height={30} />

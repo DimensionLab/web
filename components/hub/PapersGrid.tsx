@@ -18,7 +18,10 @@ export default function PapersGrid() {
       queryKey: ["papers", query],
       queryFn: async ({ pageParam = 0 }) => {
         const searchQuery = query || "";
-        return searchArxiv(searchQuery, pageParam, PAPERS_PER_PAGE);
+        const response = await fetch(
+          `/api/papers/search?query=${encodeURIComponent(searchQuery)}&start=${pageParam}&limit=${PAPERS_PER_PAGE}`
+        );
+        return response.json();
       },
       getNextPageParam: (lastPage, allPages) => {
         return lastPage.length === PAPERS_PER_PAGE

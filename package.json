@@ -11,10 +11,12 @@
     "postbuild": "next-sitemap"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^3.5.0",
     "@mdi/font": "^7.4.47",
     "@mdi/js": "^7.4.47",
     "@mdi/react": "^1.6.1",
     "@neondatabase/serverless": "^0.10.3",
+    "@radix-ui/react-avatar": "^1.1.1",
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-dropdown-menu": "^2.0.6",
     "@sentry/nextjs": "^8.8.0",
@@ -30,6 +32,7 @@
     "clone-deep": "^4.0.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
+    "drizzle-orm": "^0.36.1",
     "fast-xml-parser": "^4.5.0",
     "katex": "^0.16.11",
     "lucide-react": "^0.358.0",

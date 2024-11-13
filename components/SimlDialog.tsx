@@ -6,7 +6,7 @@ import {
   DialogHeader,
   DialogTrigger,
   DialogContent,
-} from "@/components/ui/Dialog";
+} from "@/components/ui/dialog";
 import Icon from "@mdi/react";
 import { mdiClose } from "@mdi/js";
 

@@ -1,6 +1,8 @@
 "use server";
 
-import { neon } from "@neondatabase/serverless";
+import { and, count, desc, eq, gte, sql, gt, inArray } from 'drizzle-orm';
+import { Papers, PaperViewCounts } from '@/db/schema';
+import { db } from '@/db';
 import type { ArxivPaper } from '@/lib/arxiv';
 
 interface ViewCounts {
@@ -10,60 +12,121 @@ interface ViewCounts {
   thisMonth: number;
 }
 
-const sql = neon(process.env.NEON_DATABASE_URL!);
-
 export async function recordView(paperId: string) {
-    await sql`
-      INSERT INTO PaperViewCounts (paper_id, viewed_at)
-      VALUES (${paperId}, CURRENT_TIMESTAMP)
-    `;
+  try {
+    await db.insert(PaperViewCounts).values({
+      paper_id: paperId,
+      viewed_at: new Date(),
+    });
+  } catch (error) {
+    console.error('Error recording view:', error);
+    throw error;
   }
+}
 
 export async function getBatchViewCounts(paperIds: string[]) {
-  const query = paperIds.length === 0 
-    ? sql`
-      SELECT 
-        paper_id,
-        COUNT(*) as total,
-        COUNT(*) FILTER (WHERE viewed_at >= CURRENT_DATE) as today,
-        COUNT(*) FILTER (WHERE viewed_at >= date_trunc('week', CURRENT_TIMESTAMP)) as this_week,
-        COUNT(*) FILTER (WHERE viewed_at >= date_trunc('month', CURRENT_TIMESTAMP)) as this_month
-      FROM PaperViewCounts
-      GROUP BY paper_id
-    `
-    : sql`
-      WITH TotalViews AS (
-        SELECT 
-          paper_id,
-          COUNT(*) as total,
-          COUNT(*) FILTER (WHERE viewed_at >= CURRENT_DATE) as today,
-          COUNT(*) FILTER (WHERE viewed_at >= date_trunc('week', CURRENT_TIMESTAMP)) as this_week,
-          COUNT(*) FILTER (WHERE viewed_at >= date_trunc('month', CURRENT_TIMESTAMP)) as this_month
-        FROM PaperViewCounts
-        WHERE paper_id = ANY(${paperIds})
-        GROUP BY paper_id
-      )
-      SELECT 
-        paper_id,
-        total,
-        today,
-        this_week as "thisWeek",
-        this_month as "thisMonth"
-      FROM TotalViews
-    `;
+  const currentDate = new Date();
+  const startOfWeek = new Date();
+  startOfWeek.setDate(currentDate.getDate() - currentDate.getDay());
+  const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
 
-  const results = await query;
+  const results = await db
+    .select({
+      paper_id: PaperViewCounts.paper_id,
+      total: count(),
+      today: count(
+        and(gte(PaperViewCounts.viewed_at, sql`CURRENT_DATE`))
+      ),
+      thisWeek: count(
+        and(gte(PaperViewCounts.viewed_at, sql`date_trunc('week', CURRENT_TIMESTAMP)`))
+      ),
+      thisMonth: count(
+        and(gte(PaperViewCounts.viewed_at, sql`date_trunc('month', CURRENT_TIMESTAMP)`))
+      ),
+    })
+    .from(PaperViewCounts)
+    .where(
+      paperIds.length > 0 
+        ? inArray(PaperViewCounts.paper_id, paperIds)
+        : undefined
+    )
+    .groupBy(PaperViewCounts.paper_id);
 
-  // Convert to a map for easy lookup
   return results.reduce((acc, row) => {
     acc[row.paper_id] = {
-      total: parseInt(row.total),
-      today: parseInt(row.today),
-      thisWeek: parseInt(row.thisWeek || row.this_week),
-      thisMonth: parseInt(row.thisMonth || row.this_month)
+      total: Number(row.total),
+      today: Number(row.today),
+      thisWeek: Number(row.thisWeek),
+      thisMonth: Number(row.thisMonth),
     };
     return acc;
   }, {} as Record<string, ViewCounts>);
+}
+
+export async function getFeaturedPaperIds() {
+  const results = await db
+    .select({
+      paper_id: PaperViewCounts.paper_id,
+      total: count(),
+      thisWeek: count(
+        and(gte(PaperViewCounts.viewed_at, sql`date_trunc('week', CURRENT_TIMESTAMP)`))
+      ),
+    })
+    .from(PaperViewCounts)
+    .groupBy(PaperViewCounts.paper_id)
+    .having(
+      gt(
+        count(and(gte(PaperViewCounts.viewed_at, sql`date_trunc('week', CURRENT_TIMESTAMP)`))),
+        0
+      )
+    )
+    .orderBy(desc(sql`this_week`), desc(sql`total`))
+    .limit(3);
+
+  return results.map(row => row.paper_id);
+}
+
+export async function upsertPaper(paper: ArxivPaper) {
+  const existingPaper = await db
+    .select({
+      categories: Papers.categories,
+      summary: Papers.summary,
+    })
+    .from(Papers)
+    .where(eq(Papers.id, paper.id))
+    .limit(1);
+
+  const categories = paper.categories.length > 0
+    ? paper.categories
+    : (existingPaper[0]?.categories ?? []);
+
+  const summary = paper.summary.trim()
+    ? paper.summary
+    : (existingPaper[0]?.summary ?? '');
+
+  await db
+    .insert(Papers)
+    .values({
+      id: paper.id,
+      title: paper.title,
+      summary,
+      authors: paper.authors,
+      categories: categories,
+      published_date: new Date(paper.publishedDate),
+      pdf_url: paper.pdfUrl,
+    })
+    .onConflictDoUpdate({
+      target: Papers.id,
+      set: {
+        title: paper.title,
+        summary: sql`CASE WHEN ${paper.summary} = '' THEN papers.summary ELSE ${paper.summary} END`,
+        authors: paper.authors,
+        categories: categories,
+        published_date: new Date(paper.publishedDate),
+        pdf_url: paper.pdfUrl,
+        updated_at: new Date(),
+      },
+    });
 }
 
 export async function getViewCounts(paperId: string) {
@@ -71,91 +134,38 @@ export async function getViewCounts(paperId: string) {
   return counts[paperId] || { total: 0, today: 0, thisWeek: 0, thisMonth: 0 };
 }
 
-export async function getFeaturedPaperIds() {
-  const result = await sql`
-    SELECT 
-      paper_id,
-      COUNT(*) as total,
-      COUNT(*) FILTER (WHERE viewed_at >= date_trunc('week', CURRENT_TIMESTAMP)) as this_week
-    FROM PaperViewCounts
-    GROUP BY paper_id
-    HAVING COUNT(*) FILTER (WHERE viewed_at >= date_trunc('week', CURRENT_TIMESTAMP)) > 0
-    ORDER BY this_week DESC, total DESC
-    LIMIT 3
-  `;
-  
-  return result.map(row => row.paper_id);
-}
-
-export async function upsertPaper(paper: ArxivPaper) {
-  // First, get existing paper data
-  const existingPaper = await sql`
-    SELECT categories, summary FROM Papers WHERE id = ${paper.id}
-  `;
-
-  // Keep existing categories and summary if new ones are empty
-  const categories = paper.categories.length > 0 
-    ? paper.categories 
-    : (existingPaper[0]?.categories ?? []);
-    
-  const summary = paper.summary.trim() 
-    ? paper.summary 
-    : (existingPaper[0]?.summary ?? '');
-
-  await sql`
-    INSERT INTO Papers (
-      id, title, summary, authors, categories, published_date, pdf_url
-    ) VALUES (
-      ${paper.id},
-      ${paper.title},
-      ${summary},
-      ${paper.authors}::TEXT[],
-      ${categories}::TEXT[],
-      ${paper.publishedDate},
-      ${paper.pdfUrl}
-    )
-    ON CONFLICT (id) DO UPDATE
-    SET
-      title = EXCLUDED.title,
-      summary = CASE 
-        WHEN EXCLUDED.summary = '' THEN Papers.summary 
-        ELSE EXCLUDED.summary 
-      END,
-      authors = EXCLUDED.authors,
-      categories = CASE 
-        WHEN array_length(EXCLUDED.categories, 1) = 0 THEN Papers.categories 
-        ELSE EXCLUDED.categories 
-      END,
-      published_date = EXCLUDED.published_date,
-      pdf_url = EXCLUDED.pdf_url,
-      updated_at = CURRENT_TIMESTAMP
-  `;
-}
-
 export async function getViewHistory(paperId: string) {
   // Get daily views for the last 7 days
-  const dailyViews = await sql`
-    SELECT 
-      DATE_TRUNC('day', viewed_at) as date,
-      COUNT(*) as views
-    FROM PaperViewCounts
-    WHERE paper_id = ${paperId}
-      AND viewed_at >= NOW() - INTERVAL '7 days'
-    GROUP BY DATE_TRUNC('day', viewed_at)
-    ORDER BY date ASC
-  `;
+  const dailyViews = await db
+    .select({
+      date: sql<string>`DATE_TRUNC('day', ${PaperViewCounts.viewed_at})`,
+      views: count(),
+    })
+    .from(PaperViewCounts)
+    .where(
+      and(
+        eq(PaperViewCounts.paper_id, paperId),
+        gte(PaperViewCounts.viewed_at, sql`NOW() - INTERVAL '7 days'`)
+      )
+    )
+    .groupBy(sql`DATE_TRUNC('day', ${PaperViewCounts.viewed_at})`)
+    .orderBy(sql`DATE_TRUNC('day', ${PaperViewCounts.viewed_at}) ASC`);
 
   // Get daily views for the current month
-  const monthlyViews = await sql`
-    SELECT 
-      EXTRACT(DAY FROM viewed_at)::text as date,
-      COUNT(*) as views
-    FROM PaperViewCounts
-    WHERE paper_id = ${paperId}
-      AND viewed_at >= DATE_TRUNC('month', NOW())
-    GROUP BY EXTRACT(DAY FROM viewed_at)
-    ORDER BY date ASC
-  `;
+  const monthlyViews = await db
+    .select({
+      date: sql<string>`EXTRACT(DAY FROM ${PaperViewCounts.viewed_at})::text`,
+      views: count(),
+    })
+    .from(PaperViewCounts)
+    .where(
+      and(
+        eq(PaperViewCounts.paper_id, paperId),
+        gte(PaperViewCounts.viewed_at, sql`DATE_TRUNC('month', NOW())`)
+      )
+    )
+    .groupBy(sql`EXTRACT(DAY FROM ${PaperViewCounts.viewed_at})`)
+    .orderBy(sql`EXTRACT(DAY FROM ${PaperViewCounts.viewed_at}) ASC`);
 
   return {
     daily: dailyViews.map(row => ({

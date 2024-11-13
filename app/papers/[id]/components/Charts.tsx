@@ -72,6 +72,14 @@ export function MonthlyChart({ data }: { data: ViewData[] }) {
           stroke="#9ca3af"
           fontSize={12}
           tickLine={false}
+          tickFormatter={(day) => {
+            const date = new Date();
+            date.setDate(day);
+            return date.toLocaleDateString('en-US', {
+              day: '2-digit',
+              month: 'short'
+            });
+          }}
         />
         <YAxis 
           stroke="#9ca3af"

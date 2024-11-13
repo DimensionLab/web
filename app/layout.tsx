@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { UserProvider } from "@auth0/nextjs-auth0/client"
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Providers } from "@/components/providers";
 import CookieConsent from "@/components/CookieConsent";
-import MainLayout from "@/components/MainLayout";
 import CoverLayout from "@/components/CoverLayout";
+import Providers from "./providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -46,13 +46,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={inter.className}>
-        <Providers>
-          <CoverLayout>{children}</CoverLayout>
-          <CookieConsent />
-          <Analytics />
-          <SpeedInsights />
-        </Providers>
+      <body className={inter.className} suppressHydrationWarning={true}>
+        <UserProvider>
+          <Providers>
+            <CoverLayout>{children}</CoverLayout>
+            <CookieConsent />
+            <Analytics />
+            <SpeedInsights />
+          </Providers>
+        </UserProvider>
       </body>
     </html>
   );
