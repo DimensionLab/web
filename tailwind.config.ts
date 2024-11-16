@@ -2,6 +2,7 @@ import type { Config } from "tailwindcss";
 const colors = require("tailwindcss/colors");
 
 const config: Config = {
+  darkMode: ["class"],
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -21,6 +22,7 @@ const config: Config = {
       muted: "rgb(152, 155, 167)",
       white: "white",
       lightBg: "#222530",
+      lightGrey: "#f5f5f5",
       shadcnMuted: "hsl(210, 40%, 96.1%)",
     },
     linearBorderGradients: {

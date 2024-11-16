@@ -43,19 +43,19 @@ export default async function PaperPage({
 
     return (
       <div className="flex flex-col lg:flex-row gap-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <article className="text-white w-full lg:flex-1">
+        <article className="text-gray-900 dark:text-white w-full lg:flex-1">
           <h1 className="text-3xl font-bold mb-4">
             {renderMathInElement(processText(paper.title))}
           </h1>
 
           <div className="mb-6">
             <h2 className="text-xl font-semibold mb-2">Authors</h2>
-            <p>{paper.authors.join(", ")}</p>
+            <p className="text-gray-700 dark:text-gray-300">{paper.authors.join(", ")}</p>
           </div>
 
           <div className="mb-6">
             <h2 className="text-xl font-semibold mb-2">Abstract</h2>
-            <p className="text-white">
+            <p className="text-gray-700 dark:text-gray-300">
               {renderMathInElement(processText(paper.summary))}
             </p>
           </div>
@@ -67,7 +67,7 @@ export default async function PaperPage({
                 {paper.categories.map((category) => (
                   <span
                     key={category}
-                    className="px-3 py-1 bg-gray-100 rounded-full text-sm"
+                    className="px-3 py-1 bg-gray-100 dark:bg-gray-600/50 text-gray-600 dark:text-gray-300 rounded-full text-sm"
                   >
                     {category}
                   </span>
@@ -78,12 +78,12 @@ export default async function PaperPage({
 
           <div className="flex gap-4 mt-6">
             <Link href={paper.arxivUrl} target="_blank" rel="noopener noreferrer">
-              <button className="bg-btnPurple px-4 py-2 rounded font-bold text-white hover:text-gray-300 hover:brightness-125 duration-300">
+              <button className="bg-purple-600 hover:bg-purple-700 dark:bg-purple-500/80 dark:hover:bg-purple-500 px-4 py-2 rounded font-bold text-white transition-all duration-200">
                 View on arXiv
               </button>
             </Link>
             <Link href={paper.pdfUrl} target="_blank" rel="noopener noreferrer">
-              <button className="bg-btnPurple px-4 py-2 rounded font-bold text-white hover:text-gray-300 hover:brightness-125 duration-300">
+              <button className="bg-purple-600 hover:bg-purple-700 dark:bg-purple-500/80 dark:hover:bg-purple-500 px-4 py-2 rounded font-bold text-white transition-all duration-200">
                 View PDF
               </button>
             </Link>
@@ -91,22 +91,22 @@ export default async function PaperPage({
         </article>
 
         <aside className="w-full lg:w-96 lg:shrink-0">
-          <div className="sticky top-8 bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 border border-gray-700">
-            <h2 className="text-lg font-semibold mb-3 flex items-center gap-2 text-gray-200">
+          <div className="sticky top-8 bg-white dark:bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-gray-200/50 dark:border-white/10 shadow-sm">
+            <h2 className="text-lg font-semibold mb-3 flex items-center gap-2 text-gray-900 dark:text-gray-200">
               <BarChart3 className="h-4 w-4" />
               Paper Analytics
             </h2>
             
             <div className="space-y-4">
-              <div className="bg-gray-700/50 rounded-lg p-3">
-                <div className="text-xs text-gray-400 mb-2">Weekly Views</div>
+              <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3">
+                <div className="text-xs text-gray-500 dark:text-gray-400 mb-2">Weekly Views</div>
                 <div className="h-32 w-full">
                   <WeeklyChart data={viewHistory.daily} />
                 </div>
               </div>
 
-              <div className="bg-gray-700/50 rounded-lg p-3">
-                <div className="text-xs text-gray-400 mb-2">Monthly Views</div>
+              <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3">
+                <div className="text-xs text-gray-500 dark:text-gray-400 mb-2">Monthly Views</div>
                 <div className="h-32 w-full">
                   <MonthlyChart data={viewHistory.monthly} />
                 </div>

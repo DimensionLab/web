@@ -41,23 +41,24 @@ export default function PaperCard({ paper, featured = false, viewCounts: initial
   return (
     <Link 
       href={`/papers/${paper.id}`}
-      className={`block p-6 bg-white/10 rounded-lg transition-all ${
-        featured 
-          ? 'shadow-md hover:shadow-xl' 
-          : 'shadow-sm hover:shadow-md'
-      }`}
+      className={`block p-6 bg-white dark:bg-white/10 rounded-lg transition-all 
+        border border-gray-200/50 dark:border-white/10 
+        ${featured 
+          ? 'shadow-md hover:shadow-xl dark:shadow-none dark:hover:shadow-[0_0_15px_rgba(255,255,255,0.3)]' 
+          : 'shadow-sm hover:shadow-md dark:shadow-none dark:hover:shadow-[0_0_10px_rgba(255,255,255,0.2)]'
+        }`}
     >
       <h3 className={`${
         featured ? 'text-xl' : 'text-lg'
-      } text-gray-100 font-semibold mb-2 line-clamp-2`}>
+      } text-gray-900 dark:text-gray-100 font-semibold mb-2 line-clamp-2`}>
         {renderMathInElement(paper.title)}
       </h3>
       
-      <p className="text-sm text-gray-300 mb-4 line-clamp-3">
+      <p className="text-sm text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
         {renderMathInElement(truncateText(paper.summary))}
       </p>
       
-      <div className="flex items-center gap-4 text-sm text-gray-400 mb-4">
+      <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400 mb-4">
         <div className="flex items-center gap-1">
           <Calendar className="h-4 w-4" />
           {format(new Date(paper.publishedDate), 'MMM d, yyyy')}
@@ -82,13 +83,13 @@ export default function PaperCard({ paper, featured = false, viewCounts: initial
         {paper.categories.slice(0, 3).map((category) => (
           <span 
             key={category}
-            className="px-2 py-1 text-gray-300 bg-gray-600/50 rounded-full text-xs"
+            className="px-2 py-1 text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-600/50 rounded-full text-xs"
           >
             {category}
           </span>
         ))}
         {paper.categories.length > 3 && (
-          <span className="px-2 py-1 text-gray-300 bg-gray-600/50 rounded-full text-xs">
+          <span className="px-2 py-1 text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-600/50 rounded-full text-xs">
             +{paper.categories.length - 3} more
           </span>
         )}

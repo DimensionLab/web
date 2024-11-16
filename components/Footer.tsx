@@ -10,15 +10,15 @@ const mainPoints = ["COMPANY", "PRODUCT", "LINKS"];
 const companyLinks = [
   {
     name: "Mission",
-    href: "/#mission",
+    href: "/company/#mission",
   },
   {
     name: "Product",
-    href: "/#product",
+    href: "/company/#product",
   },
   {
     name: "Team",
-    href: "/#team"
+    href: "/company/#team"
   },
   {
     name: "Blog",

@@ -20,31 +20,19 @@ const FILTER_OPTIONS = [
 ];
 
 export default function PaperFilters() {
-  const { query, setQuery } = useStore();
-  const activeFilters = query ? query.split(' OR ').map(q => q.split(':')[1].replace(/['"]/g, '')) : [];
+  const { activeFilters, setActiveFilters } = useStore();
 
   const toggleFilter = (filterQuery: string) => {
-    const currentFilters = new Set(activeFilters);
-    
-    if (currentFilters.has(filterQuery)) {
-      currentFilters.delete(filterQuery);
+    if (activeFilters.includes(filterQuery)) {
+      setActiveFilters(activeFilters.filter(filter => filter !== filterQuery));
     } else {
-      currentFilters.add(filterQuery);
-    }
-
-    if (currentFilters.size === 0) {
-      setQuery('');
-    } else {
-      const newQuery = Array.from(currentFilters)
-        .map(q => `ti:"${q}" OR abs:"${q}"`)
-        .join(' OR ');
-      setQuery(newQuery);
+      setActiveFilters([...activeFilters, filterQuery]);
     }
   };
 
   return (
     <div className="space-y-4">
-      <h2 className="text-lg font-semibold text-white">Filter Papers</h2>
+      <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Filter Papers</h2>
       <div className="flex flex-wrap gap-1.5">
         {FILTER_OPTIONS.map((filter) => (
           <button
@@ -53,8 +41,8 @@ export default function PaperFilters() {
             className={`px-2.5 py-1 rounded-lg text-sm font-medium transition-all duration-200
               flex items-center gap-1.5
               ${activeFilters.includes(filter.query)
-                ? 'bg-purple-500/20 text-purple-200 border border-purple-500/30 backdrop-blur-sm hover:bg-purple-500/30 hover:border-purple-500/40'
-                : 'bg-white/5 text-gray-400 border border-white/10 hover:bg-white/15 hover:border-white/30 hover:text-gray-200 opacity-75 hover:opacity-100'
+                ? 'bg-purple-100 dark:bg-purple-500/20 text-purple-700 dark:text-purple-200 border border-purple-200 dark:border-purple-500/30 backdrop-blur-sm hover:bg-purple-200 dark:hover:bg-purple-500/30 hover:border-purple-300 dark:hover:border-purple-500/40'
+                : 'bg-gray-200 dark:bg-white/5 text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-white/10 hover:bg-gray-200 dark:hover:bg-white/15 hover:border-gray-300 dark:hover:border-white/30 hover:text-gray-800 dark:hover:text-gray-200 opacity-75 hover:opacity-100'
               }`}
           >
             {activeFilters.includes(filter.query) ? (

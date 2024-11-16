@@ -19,7 +19,7 @@ export default async function FeaturedPapers() {
 
   return (
     <section className="mb-12">
-      <h2 className="text-2xl font-bold mb-6">Featured Papers</h2>
+      <h2 className="text-2xl font-bold mb-6">Weekly Featured Papers</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {response.papers.map((paper: ArxivPaper) => (
           <PaperCard

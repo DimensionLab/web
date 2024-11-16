@@ -1,262 +1,387 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import HamburgerMenu from "@/components/mobile/HamburgerMenu";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuPortal,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
 import { usePathname } from "next/navigation";
 import useClientOrigin from "@/lib/useClientOrigin";
 import TrackingWrapper from "./tracking/TrackingWrapper";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import ProfileDropdown from "./organisms/ProfileDropdown";
+import { useQueryStripeCustomerCredits } from "@/queries/client/stripe";
+import { Moon, Sun } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useTheme } from "next-themes";
+import Image from "next/image";
+import DimensionLabLogo from "./DimensionLabLogo";
 
 const mainMenuItems = [
   {
     label: "Mission",
-    href: "/#mission"
+    href: "/#mission",
   },
   {
     label: "Product",
-    href: "/#product"
+    href: "/#product",
   },
   {
     label: "Team",
-    href: "/#team"
+    href: "/#team",
   },
   {
     label: "Blog",
-    href: "/blog"
+    href: "/blog",
   },
   {
     label: "Case studies",
-    href: "/case-studies"
+    href: "/case-studies",
   },
   {
     label: "Siml.ai",
-    href: "/products/simlai"
+    href: "/products/simlai",
   },
-]
+];
 
 const simlMenuItems = [
   {
     label: "FEATURES",
-    href: "/#features"
+    href: "/#features",
   },
   {
     label: "MODEL ENGINEER",
-    href: "/#model-engineer"
+    href: "/#model-engineer",
   },
   {
     label: "SIMULATION STUDIO",
-    href: "/#simulation-studio"
+    href: "/#simulation-studio",
   },
   {
     label: "DOCS",
-    href: "https://docs.siml.ai"
+    href: "https://docs.siml.ai",
   },
   {
     label: "PRICING",
-    href: "/products/simlai/pricing"
+    href: "/products/simlai/pricing",
   },
   {
     label: "LEARN",
-    href: "/products/simlai/university"
+    href: "/products/simlai/university",
   },
   {
     label: "CASE STUDIES",
-    href: "/case-studies"
+    href: "/case-studies",
   },
   {
     label: "PAPERS",
-    href: "/papers"
+    href: "/papers",
   },
   {
     label: "BLOG",
-    href: "/blog"
+    href: "/blog",
   },
-]
-
+];
 
 export default function Header() {
   const { user } = useUser();
   const TOP_OFFSET = 50;
   const pathname = usePathname();
   const originUrl = useClientOrigin();
-  const [showBackground, setShowBackground] = useState(false)
+  const [showBackground, setShowBackground] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { data } = useQueryStripeCustomerCredits();
+  const { theme, setTheme } = useTheme();
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
-  }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY >= TOP_OFFSET) {
-        setShowBackground(true)
+        setShowBackground(true);
       } else {
-        setShowBackground(false)
+        setShowBackground(false);
       }
-    }
+    };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-    }
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   useEffect(() => {
     if (menuOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = "auto";
     }
-  }, [menuOpen])
-
-  console.log(pathname)
+  }, [menuOpen]);
 
   return (
-    <div className={`w-full sticky top-0 left-0 z-30 xl:pr-0 duration-200 ${showBackground ? "bg-darkBg" : "bg-transparent"}`}>
+    <div
+      className={`w-full sticky top-0 left-0 z-30 xl:pr-0 duration-200 ${
+        showBackground
+          ? "bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800"
+          : "bg-transparent"
+      }`}
+    >
       <TrackingWrapper />
       <nav className="flex max-w-[1280px] mx-auto w-full justify-between px-6 xl:px-0 py-4 xl:py-6 mx-auto">
-        <Link href={originUrl + "/#"} className="flex opacity-100 hover:opacity-90 duration-300">
-          <Image src={"/assets/branding/dl-title-intro.svg"} alt="DimensionLab" width={200} height={50} />
+        <Link
+          href={originUrl + "/#"}
+          className="flex opacity-100 hover:opacity-90 duration-300 cursor-pointer text-gray-900 dark:text-white"
+        >
+          <DimensionLabLogo
+            color={theme === "dark" ? "#EBEDFA" : "#000"}
+            width={200}
+            height={50}
+          />
         </Link>
         <div className="flex">
-          <ul className="max-xl:hidden flex flex-row gap-x-8 items-center font-bold text-sm">
-            <li>
-              <DropdownMenu modal={false}>
-                <DropdownMenuTrigger asChild>
-                  <button className="flex items-center justify-between w-full py-2 px-3 text-white hover:text-gray-300 duration-300 border-b border-gray-100 md:w-auto md:hover:bg-transparent md:border-0 md:p-0">Company <svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
-                  </svg></button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="hidden xl:block absolute z-10 opacity-95 mt-4 w-44 -translate-x-[50px] text-sm border rounded-lg shadow-md border-gray-700 bg-gray-900">
-                  <DropdownMenuItem className="px-4 py-2">
-                    <Link href="/" className="text-white hover:text-gray-300">
-                      Overview
+          <div className="max-xl:hidden flex flex-row gap-x-8 items-center font-bold text-sm text-gray-900 dark:text-gray-50">
+            {user ? (
+              <NavigationMenu className="flex items-center">
+                <NavigationMenuList className="flex gap-x-8">
+                  <NavigationMenuItem className="flex items-center">
+                    <Link href="/blog">
+                      <span className="text-gray-900 dark:text-gray-50 hover:text-gray-700 dark:hover:text-gray-300 duration-300 font-bold text-sm">
+                        Blog
+                      </span>
                     </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="px-4 py-2">
-                    <Link href="/#mission" className="text-white hover:text-gray-300">
-                      Mission
+                  </NavigationMenuItem>
+                  <NavigationMenuItem className="flex items-center">
+                    <Link href="/papers">
+                      <span className="text-gray-900 dark:text-gray-50 hover:text-gray-700 dark:hover:text-gray-300 duration-300 font-bold text-sm">
+                        Papers
+                      </span>
                     </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="px-4 py-2">
-                    <Link href="/#product" className="text-white hover:text-gray-300">
-                      Product
+                  </NavigationMenuItem>
+                  <NavigationMenuItem className="flex items-center">
+                    <Link
+                      href="https://platform.siml.ai"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <span className="text-gray-900 dark:text-gray-50 hover:text-gray-700 dark:hover:text-gray-300 duration-300 font-bold text-sm">
+                        Siml.ai
+                      </span>
                     </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="px-4 py-2">
-                    <Link href="/#team" className="text-white hover:text-gray-300">
-                      Team
-                    </Link>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </li>
-            <li>
-              <DropdownMenu modal={false}>
-                <DropdownMenuTrigger asChild>
-                  <button className="flex items-center justify-between w-full py-2 px-3 text-white hover:text-gray-300 duration-300 md:w-auto md:p-0">Siml.ai Platform <svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4" />
-                  </svg></button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="hidden xl:block absolute z-10 opacity-95 mt-4 w-[25rem] -translate-x-[200px] text-sm border rounded-lg shadow-md border-gray-700 bg-gray-900">
-                  <div className="grid max-w-screen-xl px-4 py-2 mx-auto text-sm text-gray-500 md:grid-cols-2 md:px-6">
-                    <ul className="space-y-1 mb-4 md:mb-0">
-                      <DropdownMenuItem>
-                        <Link href="/products/simlai/" className="text-white hover:text-gray-300">
+                  </NavigationMenuItem>
+                  <NavigationMenuItem>
+                    <span className="text-gray-900 dark:text-gray-50">
+                      Credits: {data?.credits}
+                    </span>
+                  </NavigationMenuItem>
+                  <NavigationMenuItem>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" size="icon">
+                          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                          <span className="sr-only">Toggle theme</span>
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent
+                        align="end"
+                        className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-50"
+                      >
+                        <DropdownMenuItem onClick={() => setTheme("light")}>
+                          Light
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setTheme("dark")}>
+                          Dark
+                        </DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setTheme("system")}>
+                          System
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </NavigationMenuItem>
+                  <NavigationMenuItem>
+                    <ProfileDropdown />
+                  </NavigationMenuItem>
+                </NavigationMenuList>
+              </NavigationMenu>
+            ) : (
+              <NavigationMenu className="flex items-center">
+                <NavigationMenuList className="flex gap-x-8">
+                  <NavigationMenuItem className="flex items-center">
+                    <NavigationMenuTrigger className="text-gray-900 dark:text-gray-50 hover:text-gray-700 dark:hover:text-gray-300 bg-transparent p-0 h-auto font-bold text-sm">
+                      Company
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent className="bg-white dark:bg-gray-900 min-w-[200px] p-2">
+                      <div className="grid gap-2">
+                        <Link
+                          href="/"
+                          className="text-gray-900 dark:text-gray-50 hover:text-gray-700 dark:hover:text-gray-300 p-2"
+                        >
                           Overview
                         </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href="/products/simlai/#features" className="text-white hover:text-gray-300">
-                          Features
+                        <Link
+                          href="/#mission"
+                          className="text-gray-900 dark:text-gray-50 hover:text-gray-700 dark:hover:text-gray-300 p-2"
+                        >
+                          Mission
                         </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href="/products/simlai/#model-engineer" className="text-white hover:text-gray-300">
-                          Model Engineer
+                        <Link
+                          href="/#product"
+                          className="text-gray-900 dark:text-gray-50 hover:text-gray-700 dark:hover:text-gray-300 p-2"
+                        >
+                          Product
                         </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href="/products/simlai/#simulation-studio" className="text-white hover:text-gray-300">
-                          Simulation Studio
+                        <Link
+                          href="/#team"
+                          className="text-gray-900 dark:text-gray-50 hover:text-gray-700 dark:hover:text-gray-300 p-2"
+                        >
+                          Team
                         </Link>
-                      </DropdownMenuItem>
-                    </ul>
-                    <ul className="mb-4 space-y-1 md:mb-0">
-                      <DropdownMenuItem>
-                        <Link href="/products/simlai/pricing" className="text-white hover:text-gray-300">
-                          Pricing
-                        </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <a href="https://docs.siml.ai" className="text-white hover:text-gray-300" target="_blank">
-                          Documentation
-                        </a>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link href="/products/simlai/university" className="text-white hover:text-gray-300">
-                          Learn
-                        </Link>
-                      </DropdownMenuItem>
-                    </ul>
-                  </div>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </li>
-            <li>
-              <Link href="/papers" replace target="">
-                <span className="text-white hover:text-gray-300 duration-300">Papers</span>
-              </Link>
-            </li>
-            <li>
-              <Link href="/blog" replace target="">
-                <span className="text-white hover:text-gray-300 duration-300">Blog</span>
-              </Link>
-            </li>
-            <li>
-              <Link href="/case-studies" replace target="">
-                <span className="text-white hover:text-gray-300 duration-300">Case studies</span>
-              </Link>
-            </li>
-            {user ? <ProfileDropdown /> : (
-              <>
-              <li>
-                <a href="/api/auth/signup">
-                  <span className="px-4 py-2 -my-2 font-bold text-white hover:text-gray-300 hover:brightness-125 duration-300">Sign up</span>
-                </a>
-              </li>
-              <li>
-                <a href="/api/auth/login">
-                  <button className="bg-btnPurple px-4 py-2 -my-2 rounded font-bold text-white hover:text-gray-300 hover:brightness-125 duration-300">Log in</button>
-                </a>
-              </li>
-              </>
+                      </div>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className="text-gray-900 dark:text-gray-50 hover:text-gray-700 dark:hover:text-gray-300 bg-transparent p-0 h-auto font-bold text-sm">
+                      Products
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent className="bg-white dark:bg-gray-900 min-w-[500px]">
+                      <div className="grid grid-cols-2 gap-4 p-4">
+                        <div>
+                          <h4 className="text-lg font-bold text-gray-900 dark:text-gray-50 mb-2">
+                            Siml.ai Platform
+                          </h4>
+                          <div className="grid gap-2">
+                            <Link
+                              href="/products/simlai/"
+                              className="text-gray-900 dark:text-gray-50 hover:text-gray-700 dark:hover:text-gray-300"
+                            >
+                              Overview
+                            </Link>
+                            <Link
+                              href="/products/simlai/#features"
+                              className="text-gray-900 dark:text-gray-50 hover:text-gray-700 dark:hover:text-gray-300"
+                            >
+                              Features
+                            </Link>
+                            <Link
+                              href="/products/simlai/#model-engineer"
+                              className="text-gray-900 dark:text-gray-50 hover:text-gray-700 dark:hover:text-gray-300"
+                            >
+                              Model Engineer
+                            </Link>
+                            <Link
+                              href="/products/simlai/#simulation-studio"
+                              className="text-gray-900 dark:text-gray-50 hover:text-gray-700 dark:hover:text-gray-300"
+                            >
+                              Simulation Studio
+                            </Link>
+                          </div>
+                        </div>
+                        <div className="border-l border-gray-700 pl-4">
+                          <div className="grid gap-2">
+                            <Link
+                              href="/products/simlai/pricing"
+                              className="text-gray-900 dark:text-gray-50 hover:text-gray-700 dark:hover:text-gray-300"
+                            >
+                              Pricing
+                            </Link>
+                            <a
+                              href="https://docs.siml.ai"
+                              className="text-gray-900 dark:text-gray-50 hover:text-gray-700 dark:hover:text-gray-300"
+                              target="_blank"
+                            >
+                              Documentation
+                            </a>
+                            <Link
+                              href="/products/simlai/university"
+                              className="text-gray-900 dark:text-gray-50 hover:text-gray-700 dark:hover:text-gray-300"
+                            >
+                              Learn
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                  <NavigationMenuItem className="flex items-center">
+                    <Link href="/blog" replace target="">
+                      <span className="text-gray-900 dark:text-gray-50 hover:text-gray-700 dark:hover:text-gray-300 duration-300 font-bold text-sm">
+                        Blog
+                      </span>
+                    </Link>
+                  </NavigationMenuItem>
+                  <NavigationMenuItem className="flex items-center">
+                    <Link href="/papers" replace target="">
+                      <span className="text-gray-900 dark:text-gray-50 hover:text-gray-700 dark:hover:text-gray-300 duration-300 font-bold text-sm">
+                        Papers
+                      </span>
+                    </Link>
+                  </NavigationMenuItem>
+                  <NavigationMenuItem className="flex items-center">
+                    <Link href="/case-studies" replace target="">
+                      <span className="text-gray-900 dark:text-gray-50 hover:text-gray-700 dark:hover:text-gray-300 duration-300 font-bold text-sm">
+                        Case studies
+                      </span>
+                    </Link>
+                  </NavigationMenuItem>
+                  <NavigationMenuItem className="flex items-center">
+                    <a href="/api/auth/signup">
+                      <span className="px-4 py-2 font-bold text-sm text-white hover:text-gray-300 hover:brightness-125 duration-300">
+                        Sign up
+                      </span>
+                    </a>
+                  </NavigationMenuItem>
+                  <NavigationMenuItem className="flex items-center">
+                    <a href="/api/auth/login">
+                      <button className="bg-btnPurple px-4 py-2 rounded font-bold text-sm text-white hover:text-gray-300 hover:brightness-125 duration-300">
+                        Log in
+                      </button>
+                    </a>
+                  </NavigationMenuItem>
+                </NavigationMenuList>
+              </NavigationMenu>
             )}
-          </ul>
-          <button onClick={() => toggleMenu()} className="xl:hidden">
-            <Image src="/assets/hamburger-menu.svg" alt="Menu" width={30} height={30} />
+          </div>
+          <button
+            onClick={() => toggleMenu()}
+            className="xl:hidden text-gray-900 dark:text-gray-50"
+          >
+            <svg
+              width="30"
+              height="30"
+              viewBox="0 0 30 30"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M5 7.5H25M5 15H25M5 22.5H25"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
           </button>
         </div>
       </nav>
 
-      <HamburgerMenu className={menuOpen ? 'flex' : 'hidden'} toggleMenu={toggleMenu} />
+      <HamburgerMenu
+        className={menuOpen ? "flex" : "hidden"}
+        toggleMenu={toggleMenu}
+      />
     </div>
-  )
+  );
 }

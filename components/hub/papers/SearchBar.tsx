@@ -7,36 +7,37 @@ import { useEffect, useState } from "react";
 import { Search } from "lucide-react";
 
 const selector = (state: AppState) => ({
-  query: state.query,
-  setQuery: state.setQuery,
+  searchText: state.searchText,
+  activeFilters: state.activeFilters,
+  setSearchText: state.setSearchText,
 });
 
 export default function SearchBar() {
-  const { query, setQuery } = useStore(useShallow(selector));
-  const [localQuery, setLocalQuery] = useState(query);
+  const { searchText, activeFilters, setSearchText } = useStore(useShallow(selector));
+  const [localQuery, setLocalQuery] = useState(searchText);
   const [debouncedQuery] = useDebounce(localQuery, 300);
 
   useEffect(() => {
-    setQuery(debouncedQuery);
-  }, [debouncedQuery, setQuery]);
+    setSearchText(debouncedQuery);
+  }, [debouncedQuery, setSearchText]);
 
   return (
     <div className="relative max-w-4xl mx-auto my-8">
       <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
-        <Search className="h-5 w-5 text-white/60" aria-hidden="true" />
+        <Search className="h-5 w-5 text-gray-400 dark:text-white/60" aria-hidden="true" />
       </div>
       <input
         type="text"
         className="block w-full pl-11 pr-4 py-3 
-                 bg-white/10 backdrop-blur-sm 
-                 border border-white/20 
-                 rounded-lg text-gray-100 
-                 placeholder-gray-400
+                 bg-white dark:bg-white/10 backdrop-blur-sm 
+                 border border-gray-200 dark:border-white/20 
+                 rounded-lg text-gray-900 dark:text-gray-100 
+                 placeholder-gray-500 dark:placeholder-gray-400
                  focus:outline-none focus:ring-2 
                  focus:ring-purple-500/50 
                  focus:border-purple-500/50 
                  transition-all text-base"
-        placeholder="Search papers by title, author, or keywords..."
+        placeholder="Search for a specific text within paper title or abstract..."
         value={localQuery}
         onChange={(e) => setLocalQuery(e.target.value)}
       />

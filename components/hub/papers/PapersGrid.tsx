@@ -6,11 +6,13 @@ import { searchArxiv } from "@/lib/arxiv";
 import PaperList from "./PaperList";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
+import { buildPapersSearchQuery } from "@/lib/utils";
 
 const PAPERS_PER_PAGE = 20;
 
 export default function PapersGrid() {
-  const { query } = useStore();
+  const { searchText, activeFilters } = useStore();
+  const query = buildPapersSearchQuery(searchText, activeFilters);
   const { ref, inView } = useInView();
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =

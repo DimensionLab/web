@@ -1,8 +1,9 @@
 import { Suspense } from 'react';
-import FeaturedPapers from '@/components/hub/FeaturedPapers';
-import PapersGrid from '@/components/hub/PapersGrid';
-import PaperFilters from '@/components/hub/PaperFilters';
+import FeaturedPapers from '@/components/hub/papers/FeaturedPapers';
+import PapersGrid from '@/components/hub/papers/PapersGrid';
+import PaperFilters from '@/components/hub/papers/PaperFilters';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import SearchBar from '@/components/hub/papers/SearchBar';
 
 export const metadata = {
   title: 'DimensionLab - Scientific Machine Learning & PhysicsML Papers',
@@ -26,6 +27,7 @@ export default function PapersPage() {
 
       <div className="my-8">
         <PaperFilters />
+        <SearchBar />
       </div>
 
       <ErrorBoundary>

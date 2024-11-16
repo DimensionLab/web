@@ -5,16 +5,16 @@ console.log('the AUTH0_SECRET env var is set: ', !!process.env.AUTH0_SECRET);
 export const GET = handleAuth(
   {
     login: handleLogin({
-      returnTo: "/hub",
+      returnTo: "/",
     }),
     signup: handleLogin({
       authorizationParams: {
         screen_hint: "signup",
       },
-      returnTo: "/hub",
+      returnTo: "/",
     }),
     logout: handleLogout({
-      returnTo: "/logout",
+      returnTo: "/",
     })
   }
 );

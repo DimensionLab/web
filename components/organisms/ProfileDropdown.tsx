@@ -31,16 +31,14 @@ export default function ProfileDropdown() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="flex text-[--light] body-compact-01 focus:border-transparent focus:outline-none select-none">
+      <DropdownMenuTrigger className="flex text-[--light] body-compact-01 focus:border-transparent focus:outline-none select-none cursor-pointer">
         <Avatar>
           <AvatarImage src={user?.picture ?? ""} />
           <AvatarFallback>{user?.name?.charAt(0)}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        className={cn(
-          "bg-[--carbon-gray-100] border-0 text-[--light] body-compact-01 text-center"
-        )}
+        className="hidden xl:block absolute z-10 opacity-95 mt-4 w-44 -translate-x-[50px] text-sm border rounded-lg shadow-md border-gray-700 bg-gray-900"
       >
         {user?.name && (
           <>
