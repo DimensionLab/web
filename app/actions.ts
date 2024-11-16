@@ -1,9 +1,10 @@
 "use server";
 
 import { and, count, desc, eq, gte, sql, gt, inArray } from 'drizzle-orm';
-import { Papers, PaperViewCounts } from '@/db/schema';
+import { Papers, PaperViewCounts, PaperUpvotes, UserProfiles } from '@/db/schema';
 import { db } from '@/db';
 import type { ArxivPaper } from '@/lib/arxiv';
+import { getSession } from '@auth0/nextjs-auth0';
 
 interface ViewCounts {
   total: number;
@@ -177,4 +178,55 @@ export async function getViewHistory(paperId: string) {
       views: Number(row.views)
     }))
   };
+}
+
+export async function upvotePaper(paperId: string) {
+  const session = await getSession();
+  if (!session?.user) throw new Error('Unauthorized');
+
+  await db.insert(PaperUpvotes).values({
+    paper_id: paperId,
+    user_id: session.user.sub,
+  });
+}
+
+export async function unupvotePaper(paperId: string) {
+  const session = await getSession();
+  if (!session?.user) throw new Error('Unauthorized');
+
+  await db.delete(PaperUpvotes)
+    .where(and(
+      eq(PaperUpvotes.paper_id, paperId),
+      eq(PaperUpvotes.user_id, session.user.sub)
+    ));
+}
+
+export async function getPaperUpvotes(paperId: string) {
+  const upvotes = await db
+    .select({
+      id: UserProfiles.id,
+      full_name: UserProfiles.full_name,
+      avatar_url: UserProfiles.avatar_url
+    })
+    .from(PaperUpvotes)
+    .innerJoin(UserProfiles, eq(UserProfiles.id, PaperUpvotes.user_id))
+    .where(eq(PaperUpvotes.paper_id, paperId));
+  
+  return upvotes;
+}
+
+export async function isUpvotedByUser(paperId: string) {
+  const session = await getSession();
+  if (!session?.user) return false;
+
+  const upvote = await db
+    .select()
+    .from(PaperUpvotes)
+    .where(and(
+      eq(PaperUpvotes.paper_id, paperId),
+      eq(PaperUpvotes.user_id, session.user.sub)
+    ))
+    .limit(1);
+
+  return upvote.length > 0;
 }

@@ -18,7 +18,7 @@ export function ProfileSidebar({
             {profile?.avatar_url && (
               <img
                 src={profile.avatar_url}
-                alt={profile.full_name}
+                alt={profile.full_name || ""}
                 className="h-full w-full rounded-full object-cover"
               />
             )}

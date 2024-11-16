@@ -6,6 +6,9 @@ import Link from "next/link";
 import { Eye, BarChart3 } from 'lucide-react';
 import { getViewCounts, getViewHistory, upsertPaper, recordView } from "@/app/actions";
 import { WeeklyChart, MonthlyChart } from './components/Charts';
+import { StarButton } from './components/StarButton';
+import { UserAvatars } from './components/UserAvatars';
+import { upvotePaper, unupvotePaper, getPaperUpvotes, isUpvotedByUser } from '@/app/actions';
 
 // Add these to ensure fresh data on each page load
 export const dynamic = 'force-dynamic';
@@ -35,10 +38,12 @@ export default async function PaperPage({
       console.error('Error upserting paper:', error);
     }
 
-    // Fetch both view counts and history
-    const [viewCounts, viewHistory] = await Promise.all([
+    // Fetch all data in parallel
+    const [viewCounts, viewHistory, upvotes, isUpvoted] = await Promise.all([
       getViewCounts(paper.id),
-      getViewHistory(paper.id)
+      getViewHistory(paper.id),
+      getPaperUpvotes(paper.id),
+      isUpvotedByUser(paper.id)
     ]);
 
     return (
@@ -77,6 +82,12 @@ export default async function PaperPage({
           )}
 
           <div className="flex gap-4 mt-6">
+            <StarButton
+              paperId={paper.id}
+              initialIsStarred={isUpvoted}
+              onStar={upvotePaper}
+              onUnstar={unupvotePaper}
+            />
             <Link href={paper.arxivUrl} target="_blank" rel="noopener noreferrer">
               <button className="bg-purple-600 hover:bg-purple-700 dark:bg-purple-500/80 dark:hover:bg-purple-500 px-4 py-2 rounded font-bold text-white transition-all duration-200">
                 View on arXiv
@@ -88,6 +99,12 @@ export default async function PaperPage({
               </button>
             </Link>
           </div>
+
+          {upvotes.length > 0 && (
+            <div className="mt-4">
+              <UserAvatars users={upvotes} />
+            </div>
+          )}
         </article>
 
         <aside className="w-full lg:w-96 lg:shrink-0">
