@@ -97,6 +97,7 @@ const simlMenuItems = [
 
 export default function Header() {
   const { user } = useUser();
+  console.log(user)
   const TOP_OFFSET = 50;
   const pathname = usePathname();
   const originUrl = useClientOrigin();

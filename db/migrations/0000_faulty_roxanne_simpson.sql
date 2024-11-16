@@ -1,4 +1,9 @@
-CREATE TYPE "public"."organization_role" AS ENUM('owner', 'admin', 'member', 'viewer');--> statement-breakpoint
+DO $$ BEGIN
+  CREATE TYPE "public"."organization_role" AS ENUM('owner', 'admin', 'member', 'viewer');
+EXCEPTION
+  WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "collection_items" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"collection_id" integer NOT NULL,
@@ -64,14 +69,16 @@ CREATE TABLE IF NOT EXISTS "papers" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "user_profiles" (
 	"id" text PRIMARY KEY NOT NULL,
+	"username" text NOT NULL,
 	"email" text NOT NULL,
-	"full_name" text,
-	"bio" text,
-	"avatar_url" text,
-	"website" text,
-	"social_links" text[],
+	"full_name" text DEFAULT '',
+	"bio" text DEFAULT '',
+	"avatar_url" text DEFAULT '',
+	"website" text DEFAULT '',
+	"social_links" json DEFAULT '[]' NOT NULL,
 	"created_at" timestamp DEFAULT now(),
-	"updated_at" timestamp DEFAULT now()
+	"updated_at" timestamp DEFAULT now(),
+	CONSTRAINT "user_profiles_username_unique" UNIQUE("username")
 );
 --> statement-breakpoint
 DO $$ BEGIN

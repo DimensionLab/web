@@ -15,6 +15,7 @@ import {
 import { Icon } from "@mdi/react";
 import { mdiLogout } from "@mdi/js";
 import { cn } from "@/lib/utils";
+import { useProfile } from "@/lib/hooks/use-profile";
 
 const items = [
   { label: "My Account", href: "/profile", icon: mdiAccount },
@@ -27,23 +28,29 @@ const items = [
 ];
 
 export default function ProfileDropdown() {
-  const { user } = useUser();
+  const { user: auth0User } = useUser();
+  const { data: profile, isLoading } = useProfile(auth0User?.sub as string);
+
+  const userData = {
+    name: profile?.full_name || auth0User?.name,
+    picture: profile?.avatar_url || auth0User?.picture,
+  };
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="flex text-[--light] body-compact-01 focus:border-transparent focus:outline-none select-none cursor-pointer">
         <Avatar>
-          <AvatarImage src={user?.picture ?? ""} />
-          <AvatarFallback>{user?.name?.charAt(0)}</AvatarFallback>
+          <AvatarImage src={userData.picture ?? ""} />
+          <AvatarFallback>{userData.name?.charAt(0)}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         className="hidden xl:block absolute z-10 opacity-95 mt-4 w-44 -translate-x-[50px] text-sm border rounded-lg shadow-md border-gray-700 bg-gray-900"
       >
-        {user?.name && (
+        {userData.name && (
           <>
             <DropdownMenuLabel className="font-normal text-[--secondary] text-xs">
-              {user?.name}
+              {userData.name}
             </DropdownMenuLabel>
             <DropdownMenuSeparator className="bg-[--secondary]" />
           </>

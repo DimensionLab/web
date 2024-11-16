@@ -9,6 +9,7 @@ import CookieConsent from "@/components/CookieConsent";
 import CoverLayout from "@/components/CoverLayout";
 import HubLayout from "@/components/hub/layout/HubLayout";
 import Providers from "./providers";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -57,6 +58,7 @@ export default async function RootLayout({
             <CookieConsent />
             <Analytics />
             <SpeedInsights />
+            <Toaster />
           </Providers>
         </UserProvider>
       </body>

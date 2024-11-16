@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, serial, pgEnum, integer, boolean, uniqueIndex } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, serial, pgEnum, integer, boolean, uniqueIndex, json } from 'drizzle-orm/pg-core';
 
 export const organizationRoleEnum = pgEnum('organization_role', ['owner', 'admin', 'member', 'viewer']);
 
@@ -22,12 +22,13 @@ export const PaperViewCounts = pgTable('paperviewcounts', {
 
 export const UserProfiles = pgTable('user_profiles', {
   id: text('id').primaryKey().notNull(),
+  username: text('username').notNull().unique(),
   email: text('email').notNull(),
-  full_name: text('full_name'),
-  bio: text('bio'),
-  avatar_url: text('avatar_url'),
-  website: text('website'),
-  social_links: text('social_links').array(),
+  full_name: text('full_name').default(''),
+  bio: text('bio').default(''),
+  avatar_url: text('avatar_url').default(''),
+  website: text('website').default(''),
+  social_links: json('social_links').default('[]').notNull(),
   created_at: timestamp('created_at').defaultNow(),
   updated_at: timestamp('updated_at').defaultNow(),
 });
@@ -70,16 +71,18 @@ export const CollectionItems = pgTable('collection_items', {
   added_at: timestamp('added_at').defaultNow(),
 });
 
-export const PaperUpvotes = pgTable('paper_upvotes', {
-  id: serial('id').primaryKey(),
-  paper_id: text('paper_id').references(() => Papers.id).notNull(),
-  user_id: text('user_id').references(() => UserProfiles.id).notNull(),
-  created_at: timestamp('created_at').defaultNow(),
-}, (table) => {
-  return {
+export const PaperUpvotes = pgTable(
+  'paper_upvotes',
+  {
+    id: serial('id').primaryKey(),
+    paper_id: text('paper_id').references(() => Papers.id).notNull(),
+    user_id: text('user_id').references(() => UserProfiles.id).notNull(),
+    created_at: timestamp('created_at').defaultNow(),
+  },
+  (table) => ({
     unique_upvote: uniqueIndex('unique_upvote_idx').on(table.paper_id, table.user_id),
-  }
-});
+  })
+);
 
 export type Paper = typeof Papers.$inferSelect;
 export type NewPaper = typeof Papers.$inferInsert;
