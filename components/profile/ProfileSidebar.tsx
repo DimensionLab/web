@@ -26,7 +26,7 @@ export function ProfileSidebar({
           <div className="text-center">
             <h2 className="text-2xl font-bold">{profile?.full_name}</h2>
             <p className="text-sm text-muted-foreground">
-              @{profile?.username}
+              {profile?.username ? `@${profile?.username}` : "Add username in profile settings"}
             </p>
           </div>
 

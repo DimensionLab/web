@@ -19,14 +19,6 @@ export async function GET(
         return new NextResponse('Unauthorized', { status: 401 })
       }
 
-      // Debug log to track Auth0 data
-      console.log(`Profile fetch attempt ${attempt}:`, {
-        sub: session.user.sub,
-        email: session.user.email,
-        name: session.user.name,
-        username: session.user.nickname,
-      })
-
       if (!session.user.sub || !session.user.email) {
         // Wait a bit before retrying if Auth0 data isn't ready
         await new Promise(resolve => setTimeout(resolve, 1000 * attempt));

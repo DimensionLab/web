@@ -1,17 +1,17 @@
 'use client';
 
 import { Star } from 'lucide-react';
-import { useState } from 'react';
-import { useTransition } from 'react';
+import { useState, useTransition } from 'react';
 
 interface StarButtonProps {
   paperId: string;
   initialIsStarred: boolean;
+  starCount: number;
   onStar: (paperId: string) => Promise<void>;
   onUnstar: (paperId: string) => Promise<void>;
 }
 
-export function StarButton({ paperId, initialIsStarred, onStar, onUnstar }: StarButtonProps) {
+export function StarButton({ paperId, initialIsStarred, starCount, onStar, onUnstar }: StarButtonProps) {
   const [isStarred, setIsStarred] = useState(initialIsStarred);
   const [isPending, startTransition] = useTransition();
 
@@ -42,6 +42,7 @@ export function StarButton({ paperId, initialIsStarred, onStar, onUnstar }: Star
     >
       <Star className={`h-4 w-4 ${isStarred ? 'fill-current' : ''}`} />
       <span>{isStarred ? 'Starred' : 'Star'}</span>
+      <span className="text-sm">({starCount})</span>
     </button>
   );
 } 

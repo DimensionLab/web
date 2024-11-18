@@ -22,7 +22,7 @@ export const PaperViewCounts = pgTable('paperviewcounts', {
 
 export const UserProfiles = pgTable('user_profiles', {
   id: text('id').primaryKey().notNull(),
-  username: text('username').notNull().unique(),
+  username: text('username').unique(),
   email: text('email').notNull(),
   full_name: text('full_name').default(''),
   bio: text('bio').default(''),

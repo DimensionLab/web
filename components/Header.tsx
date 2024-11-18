@@ -185,7 +185,7 @@ export default function Header() {
                   </NavigationMenuItem>
                   <NavigationMenuItem>
                     <span className="text-gray-900 dark:text-gray-50">
-                      Credits: {data?.credits}
+                      Credits: {data?.credits || 0}
                     </span>
                   </NavigationMenuItem>
                   <NavigationMenuItem>

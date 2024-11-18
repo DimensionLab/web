@@ -16,7 +16,7 @@ function DatasetDetailPage({ params }: { params: { id: string } }) {
   if (!dataset) return notFound()
 
   return (
-    <div className="min-h-screen bg-[#F7F7F7] dark:bg-[#121212] p-8">
+    <main className="w-full min-h-screen mx-auto px-2 sm:px-8 lg:px-32 py-8">
       <BackButton />
       <DatasetHeader dataset={dataset} />
 
@@ -39,7 +39,7 @@ function DatasetDetailPage({ params }: { params: { id: string } }) {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   )
 }
 

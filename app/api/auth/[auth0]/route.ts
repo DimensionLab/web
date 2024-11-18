@@ -20,7 +20,7 @@ export const GET = handleAuth(
       returnTo: "/",
     }),
     callback: handleCallback({
-      async afterCallback(req: any, res: any, session: any) {
+      async afterCallback(req: any, session: any) {
         // Create profile after successful authentication
         if (session?.user) {
           await ensureUserProfile(session.user)

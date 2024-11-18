@@ -19,7 +19,7 @@ export default function PublicProfileContainer({ profile }: { profile: UserProfi
       <div className="flex-1 p-8">
         <div className="space-y-8">
           <CollectionsSection />
-          <PapersSection />
+          <PapersSection userId={profile.id} />
         </div>
       </div>
     </>

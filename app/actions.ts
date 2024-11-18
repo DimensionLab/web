@@ -230,3 +230,44 @@ export async function isUpvotedByUser(paperId: string) {
 
   return upvote.length > 0;
 }
+
+export async function getUpvotedPapers(userId: string, page = 1, pageSize = 6) {
+  if (!userId) {
+    return { items: [], total: 0 };
+  }
+
+  try {
+    const offset = (page - 1) * pageSize;
+
+    // Get total count
+    const totalCount = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(Papers)
+      .innerJoin(PaperUpvotes, eq(Papers.id, PaperUpvotes.paper_id))
+      .where(eq(PaperUpvotes.user_id, userId));
+
+    // Get paginated papers
+    const papers = await db
+      .select({
+        id: Papers.id,
+        title: Papers.title,
+        summary: Papers.summary,
+        published_date: Papers.published_date,
+        authors: Papers.authors,
+      })
+      .from(Papers)
+      .innerJoin(PaperUpvotes, eq(Papers.id, PaperUpvotes.paper_id))
+      .where(eq(PaperUpvotes.user_id, userId))
+      .orderBy(desc(Papers.published_date))
+      .limit(pageSize)
+      .offset(offset);
+
+    return {
+      items: papers,
+      total: Number(totalCount[0].count),
+    };
+  } catch (error) {
+    console.error('Error fetching upvoted papers:', error);
+    throw new Error('Failed to fetch upvoted papers');
+  }
+}

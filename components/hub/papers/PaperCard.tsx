@@ -41,34 +41,35 @@ export default function PaperCard({ paper, featured = false, viewCounts: initial
   return (
     <Link 
       href={`/papers/${paper.id}`}
-      className={`block p-6 bg-white dark:bg-white/10 rounded-lg transition-all 
-        border border-gray-200/50 dark:border-white/10 
+      className={`block p-8 rounded-2xl transition-all
+        bg-white dark:bg-[#1C1C1E] 
+        border border-gray-100 dark:border-white/[0.08]
         ${featured 
-          ? 'shadow-md hover:shadow-xl dark:shadow-none dark:hover:shadow-[0_0_15px_rgba(255,255,255,0.3)]' 
-          : 'shadow-sm hover:shadow-md dark:shadow-none dark:hover:shadow-[0_0_10px_rgba(255,255,255,0.2)]'
+          ? 'shadow-lg hover:shadow-xl dark:shadow-none dark:hover:bg-white/[0.02]' 
+          : 'shadow-md hover:shadow-lg dark:shadow-none dark:hover:bg-white/[0.02]'
         }`}
     >
       <h3 className={`${
-        featured ? 'text-xl' : 'text-lg'
-      } text-gray-900 dark:text-gray-100 font-semibold mb-2 line-clamp-2`}>
+        featured ? 'text-2xl' : 'text-xl'
+      } text-gray-900 dark:text-white font-medium mb-3 line-clamp-2`}>
         {renderMathInElement(paper.title)}
       </h3>
       
-      <p className="text-sm text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
-        {renderMathInElement(truncateText(paper.summary))}
+      <p className="text-[15px] leading-relaxed text-gray-600 dark:text-gray-400 mb-6 line-clamp-3">
+        {renderMathInElement(truncateText(paper.summary, 180))}
       </p>
       
-      <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400 mb-4">
-        <div className="flex items-center gap-1">
-          <Calendar className="h-4 w-4" />
+      <div className="flex items-center gap-5 text-sm text-gray-500 dark:text-gray-400 mb-6">
+        <div className="flex items-center gap-2">
+          <Calendar className="h-[15px] w-[15px]" />
           {format(new Date(paper.publishedDate), 'MMM d, yyyy')}
         </div>
-        <div className="flex items-center gap-1">
-          <Users className="h-4 w-4" />
+        <div className="flex items-center gap-2">
+          <Users className="h-[15px] w-[15px]" />
           {paper.authors.length} authors
         </div>
-        <div className="flex items-center gap-1">
-          <Eye className="h-4 w-4" />
+        <div className="flex items-center gap-2">
+          <Eye className="h-[15px] w-[15px]" />
           {featured ? (
             <span title={`${viewCounts.thisWeek} this week`}>
               {viewCounts.total} views
@@ -83,13 +84,13 @@ export default function PaperCard({ paper, featured = false, viewCounts: initial
         {paper.categories.slice(0, 3).map((category) => (
           <span 
             key={category}
-            className="px-2 py-1 text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-600/50 rounded-full text-xs"
+            className="px-3 py-1.5 text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-white/[0.06] rounded-full text-xs font-medium"
           >
             {category}
           </span>
         ))}
         {paper.categories.length > 3 && (
-          <span className="px-2 py-1 text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-600/50 rounded-full text-xs">
+          <span className="px-3 py-1.5 text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-white/[0.06] rounded-full text-xs font-medium">
             +{paper.categories.length - 3} more
           </span>
         )}
