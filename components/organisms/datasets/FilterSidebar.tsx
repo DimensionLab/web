@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import * as Slider from '@radix-ui/react-slider';
+import { Check, Plus } from 'lucide-react';
 
 interface FilterSidebarProps {
     onFiltersChange: (filters: {
@@ -86,12 +87,18 @@ export function FilterSidebar({
                     {industries.map((industry) => (
                         <button
                             key={industry}
-                            className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors
+                            className={`px-2.5 py-1 rounded-md text-xs font-medium transition-all duration-200
+                                flex items-center gap-1.5
                                 ${selectedIndustries.includes(industry)
-                                    ? 'bg-blue-500 text-white' 
-                                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-white/10 dark:text-white/70 dark:hover:bg-white/15'}`}
+                                    ? 'bg-purple-100 dark:bg-purple-500/20 text-purple-700 dark:text-purple-200 border border-purple-200 dark:border-purple-500/30 backdrop-blur-sm hover:bg-purple-200 dark:hover:bg-purple-500/30 hover:border-purple-300 dark:hover:border-purple-500/40'
+                                    : 'bg-gray-200 dark:bg-white/5 text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-white/10 hover:bg-gray-200 dark:hover:bg-white/15 hover:border-gray-300 dark:hover:border-white/30 hover:text-gray-800 dark:hover:text-gray-200 opacity-75 hover:opacity-100'}`}
                             onClick={() => toggleIndustry(industry)}
                         >
+                            {selectedIndustries.includes(industry) ? (
+                                <Check className="h-3.5 w-3.5" />
+                            ) : (
+                                <Plus className="h-3.5 w-3.5" />
+                            )}
                             {industry}
                         </button>
                     ))}
@@ -138,12 +145,18 @@ export function FilterSidebar({
                     {formats.map((format) => (
                         <button
                             key={format}
-                            className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors
+                            className={`px-2.5 py-1 rounded-md text-xs font-medium transition-all duration-200
+                                flex items-center gap-1.5
                                 ${selectedFormats.includes(format)
-                                    ? 'bg-blue-500 text-white' 
-                                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-white/10 dark:text-white/70 dark:hover:bg-white/15'}`}
+                                    ? 'bg-purple-100 dark:bg-purple-500/20 text-purple-700 dark:text-purple-200 border border-purple-200 dark:border-purple-500/30 backdrop-blur-sm hover:bg-purple-200 dark:hover:bg-purple-500/30 hover:border-purple-300 dark:hover:border-purple-500/40'
+                                    : 'bg-gray-200 dark:bg-white/5 text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-white/10 hover:bg-gray-200 dark:hover:bg-white/15 hover:border-gray-300 dark:hover:border-white/30 hover:text-gray-800 dark:hover:text-gray-200 opacity-75 hover:opacity-100'}`}
                             onClick={() => toggleFormat(format)}
                         >
+                            {selectedFormats.includes(format) ? (
+                                <Check className="h-3.5 w-3.5" />
+                            ) : (
+                                <Plus className="h-3.5 w-3.5" />
+                            )}
                             {format}
                         </button>
                     ))}

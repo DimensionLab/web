@@ -57,8 +57,8 @@ export function DatasetsList({ datasets }: DatasetsListProps) {
 
     // Load saved preferences after mount
     useEffect(() => {
-        const savedField = localStorage.getItem('sortField') as SortField;
-        const savedDirection = localStorage.getItem('sortDirection') as SortDirection;
+        const savedField = localStorage.getItem('dlSortField') as SortField;
+        const savedDirection = localStorage.getItem('dlSortDirection') as SortDirection;
         
         if (savedField) {
             setSortField(savedField);
@@ -176,14 +176,14 @@ export function DatasetsList({ datasets }: DatasetsListProps) {
             const newDirection = sortDirection === 'desc' ? 'asc' : 'desc';
             setSortDirection(newDirection);
             if (typeof window !== 'undefined') {
-                localStorage.setItem('sortDirection', newDirection);
+                localStorage.setItem('dlSortDirection', newDirection);
             }
         } else {
             setSortField(field);
             setSortDirection('desc');
             if (typeof window !== 'undefined') {
-                localStorage.setItem('sortField', field);
-                localStorage.setItem('sortDirection', 'desc');
+                localStorage.setItem('dlSortField', field);
+                localStorage.setItem('dlSortDirection', 'desc');
             }
         }
     }, [sortField, sortDirection]);
@@ -222,7 +222,7 @@ export function DatasetsList({ datasets }: DatasetsListProps) {
                                 e.stopPropagation();
                                 const newDirection = sortDirection === 'desc' ? 'asc' : 'desc';
                                 setSortDirection(newDirection);
-                                localStorage.setItem('sortDirection', newDirection);
+                                localStorage.setItem('dlSortDirection', newDirection);
                             }}
                             className="ml-1.5 text-gray-500 hover:text-gray-700 dark:text-white/50 dark:hover:text-white/70"
                         >
@@ -237,8 +237,8 @@ export function DatasetsList({ datasets }: DatasetsListProps) {
                                 <DropdownMenuItem
                                     key={option.field}
                                     onClick={() => handleSortChange(option.field)}
-                                    className={`cursor-pointer ${
-                                        sortField === option.field ? 'text-blue-500' : ''
+                                    className={`cursor-pointer bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 ${
+                                        sortField === option.field ? 'text-blue-500 dark:text-blue-300' : ''
                                     }`}
                                 >
                                     {option.label}
@@ -278,9 +278,9 @@ export function DatasetsList({ datasets }: DatasetsListProps) {
                                     left: 0,
                                     width: '100%',
                                     height: `${virtualRow.size - 8}px`, // Subtract the smaller gap
-                                    transform: `translateY(${virtualRow.start + (virtualRow.index * 8)}px)`, // Add smaller gap for each row
+                                    transform: `translateY(${virtualRow.start + (virtualRow.index * 8)}px)`,
                                 }}
-                                className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-2" // Reduced gap from 4 to 2
+                                className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-2"
                             >
                                 {rowDatasets.map((dataset) => (
                                     <MemoizedDatasetCard 

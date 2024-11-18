@@ -28,7 +28,7 @@ export default function DatasetsPage() {
     }, []); // Empty dependency array since mockDatasets is static
 
     return (
-        <main className="w-full min-h-screen mx-auto px-2 sm:px-8 lg:px-32 py-8 flex gap-8">
+        <main className="w-full min-h-screen mx-auto px-4 sm:px-8 lg:px-16 2xl:px-32 py-8 flex gap-8">
             <FilterSidebar onFiltersChange={handleFiltersChange} />
             <DatasetsList datasets={filteredDatasets} />
         </main>

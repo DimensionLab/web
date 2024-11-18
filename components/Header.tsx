@@ -142,7 +142,7 @@ export default function Header() {
       }`}
     >
       <TrackingWrapper />
-      <nav className="flex max-w-[1280px] mx-auto w-full justify-between px-6 xl:px-0 py-4 xl:py-6 mx-auto">
+      <nav className="flex w-full mx-auto px-4 sm:px-8 lg:px-16 2xl:px-32 justify-between py-4 xl:py-6">
         <Link
           href={originUrl + "/#"}
           className="flex opacity-100 hover:opacity-90 duration-300 cursor-pointer text-gray-900 dark:text-white"
@@ -159,9 +159,9 @@ export default function Header() {
               <NavigationMenu className="flex items-center">
                 <NavigationMenuList className="flex gap-x-8">
                   <NavigationMenuItem className="flex items-center">
-                    <Link href="/blog">
+                    <Link href="/datasets">
                       <span className="text-gray-900 dark:text-gray-50 hover:text-gray-700 dark:hover:text-gray-300 duration-300 font-bold text-sm">
-                        Blog
+                        Datasets
                       </span>
                     </Link>
                   </NavigationMenuItem>
