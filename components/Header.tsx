@@ -159,6 +159,13 @@ export default function Header() {
               <NavigationMenu className="flex items-center">
                 <NavigationMenuList className="flex gap-x-8">
                   <NavigationMenuItem className="flex items-center">
+                    <Link href="/environments">
+                      <span className="text-gray-900 dark:text-gray-50 hover:text-gray-700 dark:hover:text-gray-300 duration-300 font-bold text-sm">
+                        Environments
+                      </span>
+                    </Link>
+                  </NavigationMenuItem>
+                  <NavigationMenuItem className="flex items-center">
                     <Link href="/datasets">
                       <span className="text-gray-900 dark:text-gray-50 hover:text-gray-700 dark:hover:text-gray-300 duration-300 font-bold text-sm">
                         Datasets

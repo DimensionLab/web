@@ -19,6 +19,8 @@ import {
   getPaperUpvotes,
   isUpvotedByUser,
 } from "@/app/actions";
+import { createClient } from "@/utils/supabase/server";
+import { getUser } from "@/utils/supabase/queries";
 
 // Add these to ensure fresh data on each page load
 export const dynamic = "force-dynamic";
@@ -32,7 +34,9 @@ export default async function PaperPage({
   params,
 }: {
   params: { id: string };
-}) {
+}) {  
+  const supabase = createClient();
+  const user = await getUser(supabase);
   try {
     const paper = await getArxivPaper(params.id);
 
@@ -112,8 +116,9 @@ export default async function PaperPage({
         </article>
 
         <aside className="w-full lg:w-96 lg:shrink-0">
-          <div className="flex items-center mb-4">
-            <StarButton
+          {user && (
+            <div className="flex items-center mb-4">
+              <StarButton
               starCount={upvotes.length || 0}
               paperId={paper.id}
               initialIsStarred={isUpvoted}
@@ -125,7 +130,8 @@ export default async function PaperPage({
                 <UserAvatars users={upvotes} />
               </div>
             )}
-          </div>
+            </div>
+          )}
 
           <div className="sticky top-8 bg-white dark:bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-gray-200/50 dark:border-white/10 shadow-sm">
             <h2 className="text-lg font-semibold mb-3 flex items-center gap-2 text-gray-900 dark:text-gray-200">

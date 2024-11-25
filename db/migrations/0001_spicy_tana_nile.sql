@@ -1,1 +1,0 @@
-ALTER TABLE "user_profiles" ALTER COLUMN "username" DROP NOT NULL;
