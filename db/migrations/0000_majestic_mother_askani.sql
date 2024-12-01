@@ -13,21 +13,21 @@ CREATE TABLE IF NOT EXISTS "collections" (
 	"id" uuid PRIMARY KEY NOT NULL,
 	"name" text NOT NULL,
 	"description" text,
-	"owner_id" uuid NOT NULL,
+	"owner_id" text NOT NULL,
 	"is_public" boolean DEFAULT true,
 	"created_at" timestamp DEFAULT now(),
 	"updated_at" timestamp DEFAULT now()
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "customers" (
-	"id" uuid PRIMARY KEY NOT NULL,
+	"id" text PRIMARY KEY NOT NULL,
 	"stripe_customer_id" text
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "organization_members" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"organization_id" uuid NOT NULL,
-	"user_id" uuid NOT NULL,
+	"user_id" text NOT NULL,
 	"role" "organization_role" DEFAULT 'member' NOT NULL,
 	"is_public" boolean DEFAULT true,
 	"joined_at" timestamp DEFAULT now()
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS "organizations" (
 	"website" text,
 	"industry" text,
 	"size" text,
-	"owner_id" uuid NOT NULL,
+	"owner_id" text NOT NULL,
 	"created_at" timestamp with time zone DEFAULT now(),
 	"updated_at" timestamp with time zone DEFAULT now()
 );
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS "organizations" (
 CREATE TABLE IF NOT EXISTS "paper_upvotes" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"paper_id" text NOT NULL,
-	"user_id" uuid NOT NULL,
+	"user_id" text NOT NULL,
 	"created_at" timestamp DEFAULT now()
 );
 --> statement-breakpoint
@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS "products" (
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "subscriptions" (
 	"id" text PRIMARY KEY NOT NULL,
-	"user_id" uuid NOT NULL,
+	"user_id" text NOT NULL,
 	"status" "subscription_status",
 	"metadata" jsonb,
 	"price_id" text,
@@ -112,7 +112,8 @@ CREATE TABLE IF NOT EXISTS "subscriptions" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "user_profiles" (
-	"id" uuid PRIMARY KEY NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"user_id" text NOT NULL,
 	"user_name" text,
 	"email" text NOT NULL,
 	"full_name" text,
@@ -132,6 +133,7 @@ CREATE TABLE IF NOT EXISTS "user_profiles" (
 	"payment_method" jsonb,
 	"created_at" timestamp with time zone DEFAULT now(),
 	"updated_at" timestamp with time zone DEFAULT now(),
+	CONSTRAINT "user_profiles_user_id_unique" UNIQUE("user_id"),
 	CONSTRAINT "user_profiles_user_name_unique" UNIQUE("user_name"),
 	CONSTRAINT "user_profiles_email_unique" UNIQUE("email")
 );
@@ -149,13 +151,13 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "collections" ADD CONSTRAINT "collections_owner_id_users_id_fk" FOREIGN KEY ("owner_id") REFERENCES "auth"."users"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "collections" ADD CONSTRAINT "collections_owner_id_user_profiles_user_id_fk" FOREIGN KEY ("owner_id") REFERENCES "public"."user_profiles"("user_id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "customers" ADD CONSTRAINT "customers_id_users_id_fk" FOREIGN KEY ("id") REFERENCES "auth"."users"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "customers" ADD CONSTRAINT "customers_id_user_profiles_user_id_fk" FOREIGN KEY ("id") REFERENCES "public"."user_profiles"("user_id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -167,13 +169,13 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "organization_members" ADD CONSTRAINT "organization_members_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "auth"."users"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "organization_members" ADD CONSTRAINT "organization_members_user_id_user_profiles_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."user_profiles"("user_id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "organizations" ADD CONSTRAINT "organizations_owner_id_users_id_fk" FOREIGN KEY ("owner_id") REFERENCES "auth"."users"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "organizations" ADD CONSTRAINT "organizations_owner_id_user_profiles_user_id_fk" FOREIGN KEY ("owner_id") REFERENCES "public"."user_profiles"("user_id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -185,7 +187,7 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "paper_upvotes" ADD CONSTRAINT "paper_upvotes_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "auth"."users"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "paper_upvotes" ADD CONSTRAINT "paper_upvotes_user_id_user_profiles_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."user_profiles"("user_id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -203,19 +205,7 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "subscriptions" ADD CONSTRAINT "subscriptions_user_id_users_id_fk" FOREIGN KEY ("user_id") REFERENCES "auth"."users"("id") ON DELETE no action ON UPDATE no action;
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
---> statement-breakpoint
-DO $$ BEGIN
  ALTER TABLE "subscriptions" ADD CONSTRAINT "subscriptions_price_id_prices_id_fk" FOREIGN KEY ("price_id") REFERENCES "public"."prices"("id") ON DELETE no action ON UPDATE no action;
-EXCEPTION
- WHEN duplicate_object THEN null;
-END $$;
---> statement-breakpoint
-DO $$ BEGIN
- ALTER TABLE "user_profiles" ADD CONSTRAINT "user_profiles_id_users_id_fk" FOREIGN KEY ("id") REFERENCES "auth"."users"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

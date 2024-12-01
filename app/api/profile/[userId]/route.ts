@@ -1,5 +1,5 @@
 import { db } from '@/db'
-import { UserProfiles } from '@/db/schema'
+import { userProfiles } from '@/db/schema'
 import { eq } from 'drizzle-orm'
 import { getSession } from '@auth0/nextjs-auth0'
 import { NextResponse } from 'next/server'
@@ -62,18 +62,20 @@ export async function PATCH(
     }
 
     const body = await request.json()
+    console.log('body', body)
     
     const updatedProfile = await db
-      .update(UserProfiles)
+      .update(userProfiles)
       .set({
         ...body,
-        updated_at: new Date(),
+        updatedAt: new Date(),
       })
-      .where(eq(UserProfiles.id, params.userId))
+      .where(eq(userProfiles.userId, params.userId))
       .returning()
 
     return NextResponse.json(updatedProfile[0])
   } catch (error) {
+    console.error(error)
     return new NextResponse('Internal Error', { status: 500 })
   }
 } 

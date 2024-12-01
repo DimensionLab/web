@@ -1,5 +1,5 @@
 import { db } from '@/db'
-import { UserProfiles } from '@/db/schema'
+import { userProfiles } from '@/db/schema'
 import { eq } from 'drizzle-orm'
 
 export async function ensureUserProfile(auth0User: {
@@ -16,20 +16,20 @@ export async function ensureUserProfile(auth0User: {
     }
 
     // Check if profile exists
-    const existingProfile = await db.query.UserProfiles.findFirst({
-      where: eq(UserProfiles.id, auth0User.sub),
+    const existingProfile = await db.query.userProfiles.findFirst({
+      where: eq(userProfiles.userId, auth0User.sub),
     })
 
     if (!existingProfile) {
       // Create new profile
       const newProfile = await db
-        .insert(UserProfiles)
+        .insert(userProfiles)
         .values({
-          id: auth0User.sub,
+          userId: auth0User.sub,
           email: auth0User.email,
-          full_name: auth0User.name || '',
-          avatar_url: auth0User.picture || '',
-          username: auth0User.username,
+          fullName: auth0User.name || '',
+          avatarUrl: auth0User.picture || '',
+          userName: auth0User.username,
         })
         .returning()
 

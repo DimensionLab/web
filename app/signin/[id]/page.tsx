@@ -43,11 +43,11 @@ export default async function SignIn({ params }: { params: { id: string } }) {
   }
 
   // Check if the user is already logged in and redirect to the account page if so
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const {
     data: { user },
-  } = await supabase.auth.getUser();
+  } = await supabase.auth.getUser()
 
   if (user && viewProp !== "update-password") {
     return redirect("/");
@@ -56,36 +56,31 @@ export default async function SignIn({ params }: { params: { id: string } }) {
   }
 
   return (
-    <section className="bg-gray-50 dark:bg-gray-900">
-      <div className="items-center justify-center px-6 py-8 mx-auto md:h-screen">
-        <div className="flex flex-col items-center justify-center">
-          <Link
-            href="/"
-            className="flex mx-auto items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
-          >
+    <section className="bg-gray-50 dark:bg-gray-900 min-h-screen flex items-center justify-center">
+      <div className="w-full max-w-md p-8 space-y-8 bg-white dark:bg-gray-800 shadow-lg rounded-lg">
+        <div className="flex flex-col items-center">
+          <Link href="/" className="flex items-center mb-6 text-3xl font-bold text-gray-900 dark:text-white">
             <img
               src="/icon-rounded.png"
               alt={`${config.appName} logo`}
-              className="w-8 mr-2"
-              width={32}
-              height={32}
+              className="w-10 h-10 mr-2"
             />
             Heatbot.io
           </Link>
         </div>
-        <Card className="mx-auto max-w-sm">
+        <Card>
           <CardHeader>
-            <CardTitle className="text-2xl">
+            <CardTitle className="text-2xl text-center text-gray-800 dark:text-gray-200">
               {viewProp === "forgot-password"
                 ? "Reset Password"
                 : viewProp === "update-password"
-                  ? "Update Password"
-                  : viewProp === "signup"
-                    ? "Sign Up"
-                    : "Sign In"}
+                ? "Update Password"
+                : viewProp === "signup"
+                ? "Sign Up"
+                : "Sign In"}
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="space-y-4">
             {viewProp === "password-signin" && (
               <PasswordSignIn
                 allowEmail={allowEmail}
@@ -115,7 +110,9 @@ export default async function SignIn({ params }: { params: { id: string } }) {
               allowOauth && (
                 <>
                   <Separator className="my-4" />
-                  <div className="text-sm font-light my-4">Third-party sign-in</div>
+                  <div className="text-sm font-light text-center text-gray-600 dark:text-gray-400">
+                    Third-party sign-in
+                  </div>
                   <OauthSignIn />
                 </>
               )}

@@ -4,6 +4,7 @@ import { getSession } from '@auth0/nextjs-auth0';
 
 export default async function Index () {
   const session = await getSession();
+  console.log(session)
   if (session) {
     return <HubMainPage />
   }

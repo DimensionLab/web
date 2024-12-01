@@ -1,5 +1,5 @@
 {
-  "id": "71b08c06-4537-4640-9108-55e736bb5918",
+  "id": "e40d1f79-7f4a-4b99-9149-d7770ce6972f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -93,7 +93,7 @@
         },
         "owner_id": {
           "name": "owner_id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         },
@@ -121,16 +121,15 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "collections_owner_id_users_id_fk": {
-          "name": "collections_owner_id_users_id_fk",
+        "collections_owner_id_user_profiles_user_id_fk": {
+          "name": "collections_owner_id_user_profiles_user_id_fk",
           "tableFrom": "collections",
-          "tableTo": "users",
-          "schemaTo": "auth",
+          "tableTo": "user_profiles",
           "columnsFrom": [
             "owner_id"
           ],
           "columnsTo": [
-            "id"
+            "user_id"
           ],
           "onDelete": "no action",
           "onUpdate": "no action"
@@ -148,7 +147,7 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": true,
           "notNull": true
         },
@@ -161,16 +160,15 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "customers_id_users_id_fk": {
-          "name": "customers_id_users_id_fk",
+        "customers_id_user_profiles_user_id_fk": {
+          "name": "customers_id_user_profiles_user_id_fk",
           "tableFrom": "customers",
-          "tableTo": "users",
-          "schemaTo": "auth",
+          "tableTo": "user_profiles",
           "columnsFrom": [
             "id"
           ],
           "columnsTo": [
-            "id"
+            "user_id"
           ],
           "onDelete": "no action",
           "onUpdate": "no action"
@@ -200,7 +198,7 @@
         },
         "user_id": {
           "name": "user_id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         },
@@ -264,16 +262,15 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "organization_members_user_id_users_id_fk": {
-          "name": "organization_members_user_id_users_id_fk",
+        "organization_members_user_id_user_profiles_user_id_fk": {
+          "name": "organization_members_user_id_user_profiles_user_id_fk",
           "tableFrom": "organization_members",
-          "tableTo": "users",
-          "schemaTo": "auth",
+          "tableTo": "user_profiles",
           "columnsFrom": [
             "user_id"
           ],
           "columnsTo": [
-            "id"
+            "user_id"
           ],
           "onDelete": "no action",
           "onUpdate": "no action"
@@ -328,7 +325,7 @@
         },
         "owner_id": {
           "name": "owner_id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         },
@@ -349,16 +346,15 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "organizations_owner_id_users_id_fk": {
-          "name": "organizations_owner_id_users_id_fk",
+        "organizations_owner_id_user_profiles_user_id_fk": {
+          "name": "organizations_owner_id_user_profiles_user_id_fk",
           "tableFrom": "organizations",
-          "tableTo": "users",
-          "schemaTo": "auth",
+          "tableTo": "user_profiles",
           "columnsFrom": [
             "owner_id"
           ],
           "columnsTo": [
-            "id"
+            "user_id"
           ],
           "onDelete": "no action",
           "onUpdate": "no action"
@@ -388,7 +384,7 @@
         },
         "user_id": {
           "name": "user_id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         },
@@ -437,16 +433,15 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "paper_upvotes_user_id_users_id_fk": {
-          "name": "paper_upvotes_user_id_users_id_fk",
+        "paper_upvotes_user_id_user_profiles_user_id_fk": {
+          "name": "paper_upvotes_user_id_user_profiles_user_id_fk",
           "tableFrom": "paper_upvotes",
-          "tableTo": "users",
-          "schemaTo": "auth",
+          "tableTo": "user_profiles",
           "columnsFrom": [
             "user_id"
           ],
           "columnsTo": [
-            "id"
+            "user_id"
           ],
           "onDelete": "no action",
           "onUpdate": "no action"
@@ -729,7 +724,7 @@
         },
         "user_id": {
           "name": "user_id",
-          "type": "uuid",
+          "type": "text",
           "primaryKey": false,
           "notNull": true
         },
@@ -823,20 +818,6 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "subscriptions_user_id_users_id_fk": {
-          "name": "subscriptions_user_id_users_id_fk",
-          "tableFrom": "subscriptions",
-          "tableTo": "users",
-          "schemaTo": "auth",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
         "subscriptions_price_id_prices_id_fk": {
           "name": "subscriptions_price_id_prices_id_fk",
           "tableFrom": "subscriptions",
@@ -865,6 +846,13 @@
           "name": "id",
           "type": "uuid",
           "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
           "notNull": true
         },
         "user_name": {
@@ -986,24 +974,16 @@
         }
       },
       "indexes": {},
-      "foreignKeys": {
-        "user_profiles_id_users_id_fk": {
-          "name": "user_profiles_id_users_id_fk",
-          "tableFrom": "user_profiles",
-          "tableTo": "users",
-          "schemaTo": "auth",
-          "columnsFrom": [
-            "id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
+      "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
+        "user_profiles_user_id_unique": {
+          "name": "user_profiles_user_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "user_id"
+          ]
+        },
         "user_profiles_user_name_unique": {
           "name": "user_profiles_user_name_unique",
           "nullsNotDistinct": false,

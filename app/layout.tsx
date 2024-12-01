@@ -12,6 +12,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { getUser } from "@/utils/supabase/queries";
 import { createClient } from "@/utils/supabase/server";
 import { getSEOTags } from "@/lib/seo";
+import { getSession } from "@auth0/nextjs-auth0";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,9 +23,8 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const supabase = createClient();
-  const user = await getUser(supabase);
-  const Layout = user ? HubLayout : CoverLayout;
+  const session = await getSession();
+  const Layout = session?.user ? HubLayout : CoverLayout;
   return (
     <html lang="en" className="scroll-smooth">
       <body className={inter.className} suppressHydrationWarning={true}>

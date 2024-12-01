@@ -19,8 +19,7 @@ import {
   getPaperUpvotes,
   isUpvotedByUser,
 } from "@/app/actions";
-import { createClient } from "@/utils/supabase/server";
-import { getUser } from "@/utils/supabase/queries";
+import { getSession } from "@auth0/nextjs-auth0";
 
 // Add these to ensure fresh data on each page load
 export const dynamic = "force-dynamic";
@@ -35,8 +34,8 @@ export default async function PaperPage({
 }: {
   params: { id: string };
 }) {  
-  const supabase = createClient();
-  const user = await getUser(supabase);
+  const session = await getSession();
+  const user = session?.user;
   try {
     const paper = await getArxivPaper(params.id);
 

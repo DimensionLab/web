@@ -1,7 +1,7 @@
 "use server";
 
 import { and, count, desc, eq, gte, sql, gt, inArray } from 'drizzle-orm';
-import { Papers, PaperViewCounts, PaperUpvotes, UserProfiles } from '@/db/schema';
+import { papers, paperViewCounts, paperUpvotes, userProfiles } from '@/db/schema';
 import { db } from '@/db';
 import type { ArxivPaper } from '@/lib/arxiv';
 import { getSession } from '@auth0/nextjs-auth0';
@@ -15,9 +15,9 @@ interface ViewCounts {
 
 export async function recordView(paperId: string) {
   try {
-    await db.insert(PaperViewCounts).values({
-      paper_id: paperId,
-      viewed_at: new Date(),
+    await db.insert(paperViewCounts).values({
+      paperId,
+      viewedAt: new Date(),
     });
   } catch (error) {
     console.error('Error recording view:', error);
@@ -33,28 +33,28 @@ export async function getBatchViewCounts(paperIds: string[]) {
 
   const results = await db
     .select({
-      paper_id: PaperViewCounts.paper_id,
+      paperId: paperViewCounts.paperId,
       total: count(),
       today: count(
-        and(gte(PaperViewCounts.viewed_at, sql`CURRENT_DATE`))
+        and(gte(paperViewCounts.viewedAt, sql`CURRENT_DATE`))
       ),
       thisWeek: count(
-        and(gte(PaperViewCounts.viewed_at, sql`date_trunc('week', CURRENT_TIMESTAMP)`))
+        and(gte(paperViewCounts.viewedAt, sql`date_trunc('week', CURRENT_TIMESTAMP)`))
       ),
       thisMonth: count(
-        and(gte(PaperViewCounts.viewed_at, sql`date_trunc('month', CURRENT_TIMESTAMP)`))
+        and(gte(paperViewCounts.viewedAt, sql`date_trunc('month', CURRENT_TIMESTAMP)`))
       ),
     })
-    .from(PaperViewCounts)
+    .from(paperViewCounts)
     .where(
       paperIds.length > 0 
-        ? inArray(PaperViewCounts.paper_id, paperIds)
+        ? inArray(paperViewCounts.paperId, paperIds)
         : undefined
     )
-    .groupBy(PaperViewCounts.paper_id);
+    .groupBy(paperViewCounts.paperId);
 
   return results.reduce((acc, row) => {
-    acc[row.paper_id] = {
+    acc[row.paperId] = {
       total: Number(row.total),
       today: Number(row.today),
       thisWeek: Number(row.thisWeek),
@@ -67,34 +67,34 @@ export async function getBatchViewCounts(paperIds: string[]) {
 export async function getFeaturedPaperIds() {
   const results = await db
     .select({
-      paper_id: PaperViewCounts.paper_id,
+      paperId: paperViewCounts.paperId,
       total: count(),
       thisWeek: count(
-        and(gte(PaperViewCounts.viewed_at, sql`date_trunc('week', CURRENT_TIMESTAMP)`))
+        and(gte(paperViewCounts.viewedAt, sql`date_trunc('week', CURRENT_TIMESTAMP)`))
       ),
     })
-    .from(PaperViewCounts)
-    .groupBy(PaperViewCounts.paper_id)
+    .from(paperViewCounts)
+    .groupBy(paperViewCounts.paperId)
     .having(
       gt(
-        count(and(gte(PaperViewCounts.viewed_at, sql`date_trunc('week', CURRENT_TIMESTAMP)`))),
+        count(and(gte(paperViewCounts.viewedAt, sql`date_trunc('week', CURRENT_TIMESTAMP)`))),
         0
       )
     )
     .orderBy(desc(sql`this_week`), desc(sql`total`))
     .limit(3);
 
-  return results.map(row => row.paper_id);
+  return results.map(row => row.paperId);
 }
 
 export async function upsertPaper(paper: ArxivPaper) {
   const existingPaper = await db
     .select({
-      categories: Papers.categories,
-      summary: Papers.summary,
+      categories: papers.categories,
+      summary: papers.summary,
     })
-    .from(Papers)
-    .where(eq(Papers.id, paper.id))
+    .from(papers)
+    .where(eq(papers.id, paper.id))
     .limit(1);
 
   const categories = paper.categories.length > 0
@@ -106,26 +106,26 @@ export async function upsertPaper(paper: ArxivPaper) {
     : (existingPaper[0]?.summary ?? '');
 
   await db
-    .insert(Papers)
+    .insert(papers)
     .values({
       id: paper.id,
       title: paper.title,
       summary,
       authors: paper.authors,
       categories: categories,
-      published_date: new Date(paper.publishedDate),
-      pdf_url: paper.pdfUrl,
+      publishedDate: new Date(paper.publishedDate),
+      pdfUrl: paper.pdfUrl,
     })
     .onConflictDoUpdate({
-      target: Papers.id,
+      target: papers.id,
       set: {
         title: paper.title,
         summary: sql`CASE WHEN ${paper.summary} = '' THEN papers.summary ELSE ${paper.summary} END`,
         authors: paper.authors,
         categories: categories,
-        published_date: new Date(paper.publishedDate),
-        pdf_url: paper.pdfUrl,
-        updated_at: new Date(),
+        publishedDate: new Date(paper.publishedDate),
+        pdfUrl: paper.pdfUrl,
+        updatedAt: new Date(),
       },
     });
 }
@@ -139,34 +139,34 @@ export async function getViewHistory(paperId: string) {
   // Get daily views for the last 7 days
   const dailyViews = await db
     .select({
-      date: sql<string>`DATE_TRUNC('day', ${PaperViewCounts.viewed_at})`,
+      date: sql<string>`DATE_TRUNC('day', ${paperViewCounts.viewedAt})`,
       views: count(),
     })
-    .from(PaperViewCounts)
+    .from(paperViewCounts)
     .where(
       and(
-        eq(PaperViewCounts.paper_id, paperId),
-        gte(PaperViewCounts.viewed_at, sql`NOW() - INTERVAL '7 days'`)
+        eq(paperViewCounts.paperId, paperId),
+        gte(paperViewCounts.viewedAt, sql`NOW() - INTERVAL '7 days'`)
       )
     )
-    .groupBy(sql`DATE_TRUNC('day', ${PaperViewCounts.viewed_at})`)
-    .orderBy(sql`DATE_TRUNC('day', ${PaperViewCounts.viewed_at}) ASC`);
+    .groupBy(sql`DATE_TRUNC('day', ${paperViewCounts.viewedAt})`)
+    .orderBy(sql`DATE_TRUNC('day', ${paperViewCounts.viewedAt}) ASC`);
 
   // Get daily views for the current month
   const monthlyViews = await db
     .select({
-      date: sql<string>`EXTRACT(DAY FROM ${PaperViewCounts.viewed_at})::text`,
+      date: sql<string>`EXTRACT(DAY FROM ${paperViewCounts.viewedAt})::text`,
       views: count(),
     })
-    .from(PaperViewCounts)
+    .from(paperViewCounts)
     .where(
       and(
-        eq(PaperViewCounts.paper_id, paperId),
-        gte(PaperViewCounts.viewed_at, sql`DATE_TRUNC('month', NOW())`)
+        eq(paperViewCounts.paperId, paperId),
+        gte(paperViewCounts.viewedAt, sql`DATE_TRUNC('month', NOW())`)
       )
     )
-    .groupBy(sql`EXTRACT(DAY FROM ${PaperViewCounts.viewed_at})`)
-    .orderBy(sql`EXTRACT(DAY FROM ${PaperViewCounts.viewed_at}) ASC`);
+    .groupBy(sql`EXTRACT(DAY FROM ${paperViewCounts.viewedAt})`)
+    .orderBy(sql`EXTRACT(DAY FROM ${paperViewCounts.viewedAt}) ASC`);
 
   return {
     daily: dailyViews.map(row => ({
@@ -184,9 +184,9 @@ export async function upvotePaper(paperId: string) {
   const session = await getSession();
   if (!session?.user) throw new Error('Unauthorized');
 
-  await db.insert(PaperUpvotes).values({
-    paper_id: paperId,
-    user_id: session.user.sub,
+  await db.insert(paperUpvotes).values({
+    paperId,
+    userId: session.user.sub,
   });
 }
 
@@ -194,23 +194,23 @@ export async function unupvotePaper(paperId: string) {
   const session = await getSession();
   if (!session?.user) throw new Error('Unauthorized');
 
-  await db.delete(PaperUpvotes)
+  await db.delete(paperUpvotes)
     .where(and(
-      eq(PaperUpvotes.paper_id, paperId),
-      eq(PaperUpvotes.user_id, session.user.sub)
+      eq(paperUpvotes.paperId, paperId),
+      eq(paperUpvotes.userId, session.user.sub)
     ));
 }
 
 export async function getPaperUpvotes(paperId: string) {
   const upvotes = await db
     .select({
-      id: UserProfiles.id,
-      full_name: UserProfiles.full_name,
-      avatar_url: UserProfiles.avatar_url
+      userId: userProfiles.userId,
+      fullName: userProfiles.fullName,
+      avatarUrl: userProfiles.avatarUrl
     })
-    .from(PaperUpvotes)
-    .innerJoin(UserProfiles, eq(UserProfiles.id, PaperUpvotes.user_id))
-    .where(eq(PaperUpvotes.paper_id, paperId));
+    .from(paperUpvotes)
+    .innerJoin(userProfiles, eq(userProfiles.userId, paperUpvotes.userId))
+    .where(eq(paperUpvotes.paperId, paperId));
   
   return upvotes;
 }
@@ -221,10 +221,10 @@ export async function isUpvotedByUser(paperId: string) {
 
   const upvote = await db
     .select()
-    .from(PaperUpvotes)
+    .from(paperUpvotes)
     .where(and(
-      eq(PaperUpvotes.paper_id, paperId),
-      eq(PaperUpvotes.user_id, session.user.sub)
+      eq(paperUpvotes.paperId, paperId),
+      eq(paperUpvotes.userId, session.user.sub)
     ))
     .limit(1);
 
@@ -242,28 +242,28 @@ export async function getUpvotedPapers(userId: string, page = 1, pageSize = 6) {
     // Get total count
     const totalCount = await db
       .select({ count: sql<number>`count(*)` })
-      .from(Papers)
-      .innerJoin(PaperUpvotes, eq(Papers.id, PaperUpvotes.paper_id))
-      .where(eq(PaperUpvotes.user_id, userId));
+      .from(papers)
+      .innerJoin(paperUpvotes, eq(papers.id, paperUpvotes.paperId))
+      .where(eq(paperUpvotes.userId, userId));
 
     // Get paginated papers
-    const papers = await db
+    const loadedPapers = await db
       .select({
-        id: Papers.id,
-        title: Papers.title,
-        summary: Papers.summary,
-        published_date: Papers.published_date,
-        authors: Papers.authors,
+        id: papers.id,
+        title: papers.title,
+        summary: papers.summary,
+        publishedDate: papers.publishedDate,
+        authors: papers.authors,
       })
-      .from(Papers)
-      .innerJoin(PaperUpvotes, eq(Papers.id, PaperUpvotes.paper_id))
-      .where(eq(PaperUpvotes.user_id, userId))
-      .orderBy(desc(Papers.published_date))
+      .from(papers)
+      .innerJoin(paperUpvotes, eq(papers.id, paperUpvotes.paperId))
+      .where(eq(paperUpvotes.userId, userId))
+      .orderBy(desc(papers.publishedDate))
       .limit(pageSize)
       .offset(offset);
 
     return {
-      items: papers,
+      items: loadedPapers,
       total: Number(totalCount[0].count),
     };
   } catch (error) {

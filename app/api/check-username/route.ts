@@ -10,8 +10,8 @@ export async function GET(request: Request) {
   }
 
   try {
-    const existingUser = await db.query.UserProfiles.findFirst({
-      where: (profiles, { eq }) => eq(profiles.username, username)
+    const existingUser = await db.query.userProfiles.findFirst({
+      where: (profiles, { eq }) => eq(profiles.userName, username)
     })
 
     return NextResponse.json({ available: !existingUser })

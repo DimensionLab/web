@@ -35,17 +35,18 @@ export function ProfileForm() {
   const { data: profile, isLoading } = useProfile(user?.sub as string)
   const updateProfile = useUpdateProfile()
   const { toast } = useToast()
+  console.log(profile)
 
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues: {
-      username: '',
-      full_name: '',
+      userName: '',
+      fullName: '',
       email: '',
       bio: '',
-      avatar_url: '',
-      website: '',
-      social_links: [],
+      avatarUrl: '',
+      personalWebsite: '',
+      socialLinks: [],
     },
   })
 
@@ -65,13 +66,16 @@ export function ProfileForm() {
   useEffect(() => {
     if (profile) {
       form.reset({
-        username: profile.username || '',
-        full_name: profile.full_name || '',
+        userName: profile.userName || '',
+        fullName: profile.fullName || '',
         email: profile.email || '',
         bio: profile.bio || '',
-        avatar_url: profile.avatar_url || '',
-        website: profile.website || '',
-        social_links: profile.social_links || [],
+        avatarUrl: profile.avatarUrl || '',
+        personalWebsite: profile.personalWebsite || '',
+        socialLinks: (profile.socialLinks as any[] || []).map(link => ({
+          platform: link.platform,
+          url: link.url
+        })),
       })
     }
   }, [profile, form])
@@ -79,7 +83,7 @@ export function ProfileForm() {
   async function onSubmit(data: ProfileFormValues) {
     try {
       // Validate all social links before submission
-      const validatedSocialLinks = data.social_links?.map(link => {
+      const validatedSocialLinks = data.socialLinks?.map(link => {
         const platform = SOCIAL_PLATFORMS.find(p => p.id === link.platform);
         const handle = link.url.replace(platform?.baseUrl || '', '');
         const sanitizedHandle = sanitizeHandle(handle);
@@ -90,14 +94,27 @@ export function ProfileForm() {
       });
 
       await updateProfile.mutateAsync({
-        id: user?.sub as string,
-        created_at: null,
-        updated_at: null,
+        id: profile?.id as string,
+        userId: user?.sub as string,
+        userName: data.userName,
+        email: data.email,
+        fullName: data.fullName,
+        avatarUrl: data.avatarUrl || null,
         bio: data.bio || null,
-        avatar_url: data.avatar_url || null,
-        website: data.website || null,
-        social_links: validatedSocialLinks || null,
-        ...data,
+        personalWebsite: data.personalWebsite || null,
+        socialLinks: validatedSocialLinks || null,
+        jobTitle: null,
+        company: null,
+        yearsOfExperience: null,
+        specializations: null,
+        skills: null,
+        interests: null,
+        academicBackground: null,
+        projectHighlights: null,
+        billingAddress: null,
+        paymentMethod: null,
+        createdAt: null,
+        updatedAt: null,
       })
       toast({
         variant: 'default',
@@ -121,20 +138,20 @@ export function ProfileForm() {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <div className="flex items-center gap-6 mb-6">
-              {form.watch('avatar_url') && (
+              {form.watch('avatarUrl') && (
                 <Avatar className="w-24 h-24">
                   <AvatarImage
-                    src={form.watch('avatar_url')}
+                    src={form.watch('avatarUrl')}
                     alt="Profile picture"
                   />
                   <AvatarFallback>
-                    {profile?.full_name?.charAt(0)}
+                    {profile?.fullName?.charAt(0)}
                   </AvatarFallback>
                 </Avatar>
               )}
               <FormField
                 control={form.control}
-                name="avatar_url"
+                name="avatarUrl"
                 render={({ field }) => (
                   <FormItem className="flex-1">
                     <FormLabel>Avatar URL</FormLabel>
@@ -149,7 +166,7 @@ export function ProfileForm() {
 
             <FormField
               control={form.control}
-              name="username"
+              name="userName"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Username</FormLabel>
@@ -161,9 +178,9 @@ export function ProfileForm() {
                         field.onChange(e)
                         const result = await checkUsername(e.target.value)
                         if (typeof result === 'string') {
-                          form.setError('username', { message: result })
+                          form.setError('userName', { message: result })
                         } else {
-                          form.clearErrors('username')
+                          form.clearErrors('userName')
                         }
                       }}
                     />
@@ -175,7 +192,7 @@ export function ProfileForm() {
 
             <FormField
               control={form.control}
-              name="full_name"
+              name="fullName"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Full Name</FormLabel>
@@ -189,7 +206,7 @@ export function ProfileForm() {
 
             <FormField
               control={form.control}
-              name="email"
+                name="email"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Email</FormLabel>
@@ -227,7 +244,7 @@ export function ProfileForm() {
 
             <FormField
               control={form.control}
-              name="website"
+              name="personalWebsite"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Website</FormLabel>
@@ -247,29 +264,29 @@ export function ProfileForm() {
                   variant="outline"
                   size="sm"
                   onClick={() => {
-                    const currentLinks = form.getValues("social_links") || [];
+                    const currentLinks = form.getValues("socialLinks") || [];
                     const unusedPlatforms = SOCIAL_PLATFORMS.filter(
                       platform => !currentLinks.some(link => link.platform === platform.id)
                     );
                     
                     if (unusedPlatforms.length > 0) {
-                      form.setValue("social_links", [
+                      form.setValue("socialLinks", [
                         ...currentLinks,
                         { platform: unusedPlatforms[0].id, url: "" }
                       ]);
                     }
                   }}
-                  disabled={form.watch("social_links")?.length === SOCIAL_PLATFORMS.length}
+                  disabled={form.watch("socialLinks")?.length === SOCIAL_PLATFORMS.length}
                 >
                   Add Link
                 </Button>
               </div>
               
-              {form.watch("social_links")?.map((_, index) => (
+              {form.watch("socialLinks")?.map((_, index) => (
                 <div key={index} className="flex gap-4">
                   <FormField
                     control={form.control}
-                    name={`social_links.${index}.platform`}
+                    name={`socialLinks.${index}.platform`}
                     render={({ field }) => (
                       <FormItem className="flex-1">
                         <FormControl>
@@ -279,12 +296,12 @@ export function ProfileForm() {
                               className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                               onChange={(e) => {
                                 field.onChange(e);
-                                form.setValue(`social_links.${index}.url`, '');
+                                form.setValue(`socialLinks.${index}.url`, '');
                               }}
                             >
                               {SOCIAL_PLATFORMS.map((platform) => {
                                 const isUsed = form
-                                  .watch("social_links")
+                                  .watch("socialLinks")
                                   ?.some((link, i) => 
                                     i !== index && link.platform === platform.id
                                   );
@@ -313,10 +330,10 @@ export function ProfileForm() {
                   />
                   <FormField
                     control={form.control}
-                    name={`social_links.${index}.url`}
+                    name={`socialLinks.${index}.url`}
                     render={({ field }) => {
                       const platform = SOCIAL_PLATFORMS.find(
-                        p => p.id === form.watch(`social_links.${index}.platform`)
+                        p => p.id === form.watch(`socialLinks.${index}.platform`)
                       );
                       
                       return (
@@ -347,10 +364,10 @@ export function ProfileForm() {
                     variant="destructive"
                     size="icon"
                     onClick={() => {
-                      const currentLinks = form.getValues("social_links");
+                      const currentLinks = form.getValues("socialLinks");
                       form.setValue(
-                        "social_links",
-                        currentLinks.filter((_, i) => i !== index)
+                        "socialLinks",
+                        currentLinks?.filter((_, i) => i !== index)
                       );
                     }}
                   >

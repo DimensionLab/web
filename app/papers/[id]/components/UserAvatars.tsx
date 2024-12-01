@@ -2,7 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { type UserProfile } from "@/db/schema";
 
 interface UserAvatarsProps {
-  users: Pick<UserProfile, "id" | "full_name" | "avatar_url">[];
+  users: Pick<UserProfile, "userId" | "fullName" | "avatarUrl">[];
   totalCount?: number;
 }
 
@@ -16,12 +16,12 @@ export function UserAvatars({ users, totalCount }: UserAvatarsProps) {
     <div className="flex -space-x-2 items-center">
       {displayUsers.map((user) => (
         <Avatar
-          key={user.id}
+          key={user.userId}
           className="h-8 w-8 border-2 border-white dark:border-gray-800"
         >
-          <AvatarImage src={user.avatar_url ?? ""} />
+          <AvatarImage src={user.avatarUrl ?? ""} />
           <AvatarFallback>
-            {user.full_name?.charAt(0).toUpperCase()}
+            {user.fullName?.charAt(0).toUpperCase()}
           </AvatarFallback>
         </Avatar>
       ))}

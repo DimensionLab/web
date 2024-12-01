@@ -18,7 +18,7 @@ export async function redirectToPath(path: string) {
 export async function SignOut(formData: FormData) {
   const pathName = String(formData.get("pathName")).trim();
 
-  const supabase = createClient();
+  const supabase = await createClient();
   const { error } = await supabase.auth.signOut();
 
   if (error) {
@@ -39,7 +39,7 @@ export async function signInWithEmail(formData: FormData) {
     redirectPath = "/signin/email-signin";
   }
 
-  const supabase = createClient();
+  const supabase = await createClient();
   let options = {
     emailRedirectTo: callbackURL,
     shouldCreateUser: true,
@@ -76,7 +76,7 @@ export async function requestPasswordUpdate(formData: FormData) {
     redirectPath = "/signin/forgot-password";
   }
 
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: callbackURL,
@@ -99,7 +99,7 @@ export async function signInWithPassword(formData: FormData) {
   const password = String(formData.get("password")).trim();
   let redirectPath;
 
-  const supabase = createClient();
+  const supabase = await createClient();
   const { error, data } = await supabase.auth.signInWithPassword({
     email,
     password,
@@ -128,7 +128,7 @@ export async function signUp(formData: FormData) {
     redirectPath = "/signin/signup";
   }
 
-  const supabase = createClient();
+  const supabase = await createClient();
   const { error, data } = await supabase.auth.signUp({
     email,
     password,
@@ -166,7 +166,7 @@ export async function updatePassword(formData: FormData) {
     redirectPath = "/signin/update-password";
   }
 
-  const supabase = createClient();
+  const supabase = await createClient();
   const { error, data } = await supabase.auth.updateUser({
     password,
   });
@@ -191,7 +191,7 @@ export async function updateEmail(formData: FormData) {
     return "/account";
   }
 
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const callbackUrl = getURL("/account");
 
@@ -214,7 +214,7 @@ export async function updateName(formData: FormData) {
   const fullName = String(formData.get("fullName")).trim();
   const userId = String(formData.get("userId"));
 
-  const supabase = createClient();
+  const supabase = await createClient();
   const { error, data } = await supabase
     .from("users")
     .update({ full_name: fullName })
