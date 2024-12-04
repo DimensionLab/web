@@ -62,7 +62,6 @@ export async function PATCH(
     }
 
     const body = await request.json()
-    console.log('body', body)
     
     const updatedProfile = await db
       .update(userProfiles)

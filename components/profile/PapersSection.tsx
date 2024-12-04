@@ -59,7 +59,7 @@ export default function PapersSection({ userId }: PapersSectionProps) {
               {paper.summary}
             </p>
             <div className="mt-3.5 flex items-center gap-2 text-xs text-gray-400 dark:text-gray-500">
-              <span>Published: {format(new Date(paper.published_date), "MMM d, yyyy")}</span>
+              <span>Published: {format(new Date(paper.publishedDate), "MMM d, yyyy")}</span>
               <span>•</span>
               <span>{paper.authors.length} authors</span>
             </div>

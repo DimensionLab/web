@@ -27,7 +27,7 @@ export default function PrivateProfileContainer() {
       <div className="flex-1 p-8">
         <div className="space-y-8">
           <CollectionsSection />
-          <PapersSection userId={profile.id} />
+          <PapersSection userId={profile.userId} />
         </div>
       </div>
     </>

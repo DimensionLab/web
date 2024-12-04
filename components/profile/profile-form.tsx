@@ -21,6 +21,8 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { useEffect, useCallback } from 'react'
 import { SOCIAL_PLATFORMS } from './social-platforms'
+import CreatableSelect from 'react-select/creatable';
+import { useTheme } from 'next-themes';
 
 const sanitizeHandle = (handle: string): string => {
   return handle
@@ -30,11 +32,69 @@ const sanitizeHandle = (handle: string): string => {
     .replace(/^-+|-+$/g, '');
 };
 
+const createOption = (label: string) => ({
+  label,
+  value: label.toLowerCase(),
+});
+
+const getSelectStyles = (theme: 'light' | 'dark') => ({
+  control: (base: any, state: any) => ({
+    ...base,
+    backgroundColor: theme === 'dark' ? 'black' : 'white',
+    borderColor: state.isFocused 
+      ? '#c7c7c7' 
+      : '#c7c7c7',
+    borderRadius: 'var(--radius)',
+    '&:hover': {
+      borderColor: '#c7c7c7'
+    },
+    boxShadow: state.isFocused ? '0 0 0 1px #c7c7c7' : 'none',
+  }),
+  menu: (base: any) => ({
+    ...base,
+    backgroundColor: theme === 'dark' ? 'black' : 'white',
+    border: '1px solid #c7c7c7',
+  }),
+  option: (base: any, state: any) => ({
+    ...base,
+    backgroundColor: state.isFocused 
+      ? theme === 'dark' ? 'gray' : 'white'
+      : 'transparent',
+    color: state.isFocused
+      ? theme === 'dark' ? 'white' : 'black'
+      : theme === 'dark' ? 'white' : 'black',
+  }),
+  input: (base: any) => ({
+    ...base,
+    color: theme === 'dark' ? 'hsl(var(--foreground))' : 'hsl(var(--foreground))',
+  }),
+  singleValue: (base: any) => ({
+    ...base,
+    color: theme === 'dark' ? 'hsl(var(--foreground))' : 'hsl(var(--foreground))',
+  }),
+  multiValue: (base: any) => ({
+    ...base,
+    backgroundColor: theme === 'dark' ? '#2e2e2e' : '#ededed',
+  }),
+  multiValueLabel: (base: any) => ({
+    ...base,
+    color: theme === 'dark' ? 'hsl(var(--accent-foreground))' : 'hsl(var(--accent-foreground))',
+  }),
+  multiValueRemove: (base: any) => ({
+    ...base,
+    color: theme === 'dark' ? 'white' : 'black',
+    ':hover': {
+      backgroundColor: '#ff6161',
+      color: 'white',
+    },
+  }),
+});
 export function ProfileForm() {
   const { user } = useUser()
   const { data: profile, isLoading } = useProfile(user?.sub as string)
   const updateProfile = useUpdateProfile()
   const { toast } = useToast()
+  const { theme } = useTheme();
   console.log(profile)
 
   const form = useForm<ProfileFormValues>({
@@ -47,6 +107,14 @@ export function ProfileForm() {
       avatarUrl: '',
       personalWebsite: '',
       socialLinks: [],
+      jobTitle: '',
+      company: '',
+      yearsOfExperience: undefined,
+      specializations: [],
+      skills: [],
+      interests: [],
+      academicBackground: undefined,
+      projectHighlights: [],
     },
   })
 
@@ -72,10 +140,28 @@ export function ProfileForm() {
         bio: profile.bio || '',
         avatarUrl: profile.avatarUrl || '',
         personalWebsite: profile.personalWebsite || '',
-        socialLinks: (profile.socialLinks as any[] || []).map(link => ({
-          platform: link.platform,
-          url: link.url
-        })),
+        socialLinks: Array.isArray(profile.socialLinks) ? profile.socialLinks : [],
+        jobTitle: profile.jobTitle || '',
+        company: profile.company || '',
+        yearsOfExperience: profile.yearsOfExperience || undefined,
+        specializations: Array.isArray(profile.specializations) 
+          ? profile.specializations.map(item => ({ value: item, label: item }))
+          : [],
+        skills: Array.isArray(profile.skills)
+          ? profile.skills.map(createOption)
+          : [],
+        interests: Array.isArray(profile.interests)
+          ? profile.interests.map(createOption)
+          : [],
+        academicBackground: profile.academicBackground || undefined,
+        projectHighlights: Array.isArray(profile.projectHighlights) 
+          ? (profile.projectHighlights as Array<{
+              title: string;
+              description: string;
+              url?: string;
+              technologies?: string[];
+            }>) 
+          : [],
       })
     }
   }, [profile, form])
@@ -101,16 +187,16 @@ export function ProfileForm() {
         fullName: data.fullName,
         avatarUrl: data.avatarUrl || null,
         bio: data.bio || null,
-        personalWebsite: data.personalWebsite || null,
+        personalWebsite: data.personalWebsite ? new URL(data.personalWebsite).toString() : null,
         socialLinks: validatedSocialLinks || null,
-        jobTitle: null,
-        company: null,
-        yearsOfExperience: null,
-        specializations: null,
-        skills: null,
-        interests: null,
-        academicBackground: null,
-        projectHighlights: null,
+        jobTitle: data.jobTitle || null,
+        company: data.company || null,
+        yearsOfExperience: data.yearsOfExperience || null,
+        specializations: data.specializations?.map(item => item.value) || null,
+        skills: data.skills?.map(item => item.value) || null,
+        interests: data.interests?.map(item => item.value) || null,
+        academicBackground: data.academicBackground || null,
+        projectHighlights: data.projectHighlights || null,
         billingAddress: null,
         paymentMethod: null,
         createdAt: null,
@@ -120,10 +206,11 @@ export function ProfileForm() {
         variant: 'default',
         title: 'Profile updated successfully',
       })
-    } catch (error) {
+    } catch (error: any) {
       toast({
         variant: 'destructive',
         title: 'Failed to update profile',
+        description: error?.message as string,
       })
     }
   }
@@ -250,6 +337,132 @@ export function ProfileForm() {
                   <FormLabel>Website</FormLabel>
                   <FormControl>
                     <Input placeholder="https://..." {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="jobTitle"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Job Title</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Software Engineer" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="company"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Company</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Company Name" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="yearsOfExperience"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Years of Experience</FormLabel>
+                  <FormControl>
+                    <Input 
+                      type="number" 
+                      min={0}
+                      placeholder="5" 
+                      {...field}
+                      onChange={e => field.onChange(parseInt(e.target.value))}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="specializations"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Specializations</FormLabel>
+                  <FormControl>
+                    <CreatableSelect
+                      isMulti
+                      value={field.value || []}
+                      onChange={(newValue) => {
+                        field.onChange(newValue || []);
+                      }}
+                      styles={getSelectStyles(theme as 'light' | 'dark')}
+                      placeholder="Select or type to add specializations"
+                      formatCreateLabel={(inputValue) => `Add "${inputValue}"`}
+                      components={{
+                        DropdownIndicator: null,
+                      }}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="skills"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Skills</FormLabel>
+                  <FormControl>
+                    <CreatableSelect
+                      isMulti
+                      value={field.value || []}
+                      onChange={(newValue) => {
+                        field.onChange(newValue || []);
+                      }}
+                      styles={getSelectStyles(theme as 'light' | 'dark')}
+                      placeholder="Select or type to add skills"
+                      formatCreateLabel={(inputValue) => `Add "${inputValue}"`}
+                      components={{
+                        DropdownIndicator: null,
+                      }}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="interests"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Interests</FormLabel>
+                  <FormControl>
+                    <CreatableSelect
+                      isMulti
+                      value={field.value || []}
+                      onChange={(newValue) => {
+                        field.onChange(newValue || []);
+                      }}
+                      styles={getSelectStyles(theme as 'light' | 'dark')}
+                      placeholder="Select or type to add interests"
+                      formatCreateLabel={(inputValue) => `Add "${inputValue}"`}
+                      components={{
+                        DropdownIndicator: null,
+                      }}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

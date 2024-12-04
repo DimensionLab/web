@@ -18,12 +18,13 @@ export function useUpdateProfile() {
   
   return useMutation({
     mutationFn: async (data: UserProfile) => {
-      const res = await fetch(`/api/profile/${data.id}`, {
+      console.log('data', JSON.stringify(data))
+      const res = await fetch(`/api/profile/${data.userId}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       })
-      if (!res.ok) throw new Error('Failed to update profile')
+      if (!res.ok) throw new Error(res.statusText || 'Failed to update profile')
       return res.json()
     },
     onSuccess: (data) => {

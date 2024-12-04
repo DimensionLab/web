@@ -10,29 +10,29 @@ export function ProfileSidebar({
   isPublic: boolean;
 }) {
   return (
-    <div className="w-80 border-r border-border p-6">
+    <div className="w-80 border-r border-border dark:border-gray-800 p-6">
       <div className="space-y-6">
         <div className="flex flex-col items-center space-y-4">
           {/* Profile avatar */}
-          <div className="h-36 w-36 rounded-full bg-muted">
-            {profile?.avatar_url && (
+          <div className="h-36 w-36 rounded-full bg-transparent border border-border dark:border-gray-800">
+            {profile?.avatarUrl && (
               <img
-                src={profile.avatar_url}
-                alt={profile.full_name || ""}
+                src={profile.avatarUrl}
+                alt={profile.fullName || ""}
                 className="h-full w-full rounded-full object-cover"
               />
             )}
           </div>
           <div className="text-center">
-            <h2 className="text-2xl font-bold">{profile?.full_name}</h2>
+            <h2 className="text-2xl font-bold">{profile?.fullName}</h2>
             <p className="text-sm text-muted-foreground">
-              {profile?.username ? `@${profile?.username}` : "Add username in profile settings"}
+              {profile?.userName ? `@${profile?.userName}` : "Add username in profile settings"}
             </p>
           </div>
 
           {/* Add social icons row */}
           <div className="flex items-center justify-center space-x-3">
-            {(profile?.social_links as any[])?.map((link, index) => {
+            {(profile?.socialLinks as any[])?.map((link, index) => {
               const platform = SOCIAL_PLATFORMS.find(
                 (p) => p.id === link.platform
               );
@@ -52,32 +52,40 @@ export function ProfileSidebar({
             })}
           </div>
 
-          {/* Stats pills */}
-          <div className="flex space-x-4 text-sm">
-            <div className="text-center">
-              <div className="font-bold">{profile?.papers_count}</div>
-              <div className="text-muted-foreground">Papers</div>
-            </div>
-            <div className="text-center">
-              <div className="font-bold">{profile?.models_count}</div>
-              <div className="text-muted-foreground">Models</div>
-            </div>
-            <div className="text-center">
-              <div className="font-bold">{profile?.datasets_count}</div>
-              <div className="text-muted-foreground">Datasets</div>
-            </div>
+          {/* Job and specialization details */}
+          <div className="space-y-2 text-sm text-center">
+            {(profile?.jobTitle || profile?.company) && (
+              <div className="text-muted-foreground">
+                {profile.jobTitle}
+                {profile.jobTitle && profile.company && " @ "}
+                {profile.company}
+              </div>
+            )}
+            
+            {profile?.specializations && profile?.specializations?.length > 0 && (
+              <div className="flex flex-wrap gap-1 justify-center">
+                {profile.specializations.map((spec, index) => (
+                  <span
+                    key={index}
+                    className="inline-flex items-center rounded-full bg-muted/30 px-2.5 py-0.5 text-xs font-medium text-muted-foreground/75"
+                  >
+                    {spec}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
         {/* Links section */}
         <div className="space-y-2 text-sm">
-          {profile?.website && (
+          {profile?.personalWebsite && (
             <Link
-              href={profile.website}
+              href={profile.personalWebsite}
               className="flex items-center space-x-2 text-muted-foreground"
             >
               <span>🔗</span>
-              <span>{profile?.website}</span>
+              <span>{profile?.personalWebsite}</span>
             </Link>
           )}
         </div>
@@ -87,7 +95,7 @@ export function ProfileSidebar({
           {!isPublic && (
             <Link
               href="/profile/settings"
-              className="flex items-center space-x-2 rounded-lg px-3 py-2 hover:bg-muted"
+              className="flex items-center space-x-2 rounded-lg px-3 py-2 duration-150 hover:bg-muted/20"
             >
               <span>Profile Settings</span>
             </Link>

@@ -1,5 +1,11 @@
 import { z } from 'zod'
 
+// Add this type for react-select options
+type SelectOption = {
+  value: string;
+  label: string;
+};
+
 export const profileFormSchema = z.object({
   userName: z.string()
     .min(3, 'Username must be at least 3 characters')
@@ -16,6 +22,47 @@ export const profileFormSchema = z.object({
       url: z.string().url(),
     })
   ).optional(),
+  jobTitle: z.string().optional(),
+  company: z.string().optional(),
+  yearsOfExperience: z.number().min(0).max(100).optional(),
+  
+  specializations: z.array(
+    z.object({
+      value: z.string(),
+      label: z.string(),
+    })
+  ).optional(),
+  
+  skills: z.array(
+    z.object({
+      value: z.string(),
+      label: z.string(),
+    })
+  ).optional(),
+  
+  interests: z.array(
+    z.object({
+      value: z.string(),
+      label: z.string(),
+    })
+  ).optional(),
+  
+  academicBackground: z.object({
+    degree: z.string(),
+    institution: z.string(),
+    year: z.number(),
+    field: z.string(),
+  }).optional(),
+  
+  projectHighlights: z.array(z.object({
+    title: z.string(),
+    description: z.string(),
+    url: z.string().url().optional(),
+    technologies: z.array(z.string()).optional(),
+  })).optional(),
 })
 
-export type ProfileFormValues = z.infer<typeof profileFormSchema> 
+export type ProfileFormValues = z.infer<typeof profileFormSchema>
+
+// Optional: Export the SelectOption type if you need it elsewhere
+export type { SelectOption } 
